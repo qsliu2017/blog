@@ -1,4 +1,4 @@
-baseURL = "https://qsliu.dev/"
+baseURL = "https://blog.qsliu.dev/"
 theme = "hugo-coder"
 languageCode = "en-us"
 title = "qsliu"
