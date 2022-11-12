@@ -1,0 +1,37 @@
+name: Create Weekly
+
+on:
+  schedule:
+    - cron: "0 0 * * 6"
+  workflow_dispatch:
+
+jobs:
+  create-weekly:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: setup git
+        run: |
+          git config --local user.email ""
+          git config --local user.name "weekly-bot"
+          git checkout -b "weekly-$(date +"%Y-%U")"
+
+      - name: create md
+        run: |
+          MD_PATH="content/posts/weekly-$(date +"%Y-%U").md"
+          echo "---
+          title: Weekly $(date +"%Y-%U")
+          date: $(date +"%Y-%m-%d")
+          description: Weekly $(date +"%Y-%U")
+          ---
+          " > $MD_PATH
+          git add $MD_PATH
+
+      - name: open pr
+        run: |
+          git commit -m "[weekly] $(date +"%Y-%U")"
+          git push --set-upstream origin "weekly-$(date +"%Y-%U")"
+          gh pr create --title "[weekly] $(date +"%Y-%U")" --body "" --assignee "qsliu2017"
