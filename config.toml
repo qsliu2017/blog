@@ -37,3 +37,7 @@ url = "mailto:hi@qsliu.dev"
 name = "Blog"
 weight = 1
 url = "posts/"
+
+[markup.goldmark.renderer]
+# for directly use <iframe>
+unsafe = true
