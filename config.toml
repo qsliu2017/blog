@@ -1,0 +1,39 @@
+baseURL = "https://qsliu.dev/"
+theme = "hugo-coder"
+languageCode = "en-us"
+title = "qsliu"
+
+[params]
+author = "qsliu"
+description = "qsliu's blog"
+keywords = "blog,developer"
+info = ["Developer", "Students"]
+avatarurl = "https://avatars.githubusercontent.com/u/57934883"
+
+since = "2022"
+dateFormat = "2006-01-02"
+
+colorScheme = "auto"
+
+[taxonomies]
+category = "categories"
+series = "series"
+tag = "tags"
+author = "authors"
+
+[[params.social]]
+name = "Github"
+icon = "fa fa-github fa-2x"
+weight = 1
+url = "https://github.com/qsliu2017"
+
+[[params.social]]
+name = "Mail"
+icon = "fa fa-envelope fa-2x"
+weight = 2
+url = "mailto:hi@qsliu.dev"
+
+[[menu.main]]
+name = "Blog"
+weight = 1
+url = "posts/"
