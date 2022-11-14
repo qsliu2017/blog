@@ -1,31 +1,28 @@
 ---
 title: A Processes Synchronize Problem and Barrier Pattern
 date: 2022-11-14
+tags: [OS, Concurreny, Data Structure]
 math: true
 ---
 
 > *A processes synchronize problem from my OS lecture...*
 
-There are processes. Their execution order must follow the DAG:
+(Using `Semaphore` primitive to write pseudo code, make it right and concurrency.) There are processes and their execution order must satisfy the following DAG. For example, `P3` must be executed after `P1` and `P2`, while `P6` must wait for `P3`.
 
-![](../../static/images/proc_sync_dag.png)
+![](./proc_sync_dag.png)
 
-For example, `P3` must be executed after `P1` and `P2`, while `P6` must wait for `P3`.
-
-Using `Semaphore` primitive to write pseudo code, make it right and concurrency.
-
-# Simple Solution
+# My Simple Solution
 
 For each process,
 
-```
+```txt
 M := the mutex indicate that process is ready to execute
 NODE := the node that this process point to
 ```
 
 For each node,
 
-```
+```txt
 MUTEX := mutex access this node
 CNT := the number of processes that have reach this node, initial 0.
 N := in-degree of the node
@@ -34,7 +31,7 @@ OUT := the set of all out edges
 
 And the pseudo code of each process is:
 
-```pseudocode
+```txt
 Process(P) {
   Wait(P.M) // wait for this process is ready to execute
 
@@ -51,7 +48,7 @@ Process(P) {
 
 The complete solution of the problem (simplify the processes that do not wait for others and the node where both in-degree and out-degree is 1):
 
-```pseudocode
+```txt
 S3 = Semaphore(0)
 S4 = Semaphore(0)
 S5 = Semaphore(0)
@@ -160,7 +157,7 @@ void go_through_barrier(barrier_t *b) {
 }
 ```
 
-We can tell the common pattern of barrier and the DAG at the beginning: wait for a semaphore to reach a given number (`n` in the barrier pattern and in-degree of the node in the DAG). Therefore we can create a new type of synchronization primitive for this pattern:
+We can find the common pattern of barrier and the DAG in the beginning: wait for a semaphore to reach a given number (`n` in the barrier pattern and in-degree of the node in the DAG). Therefore we can create a new type of synchronization primitive for this pattern:
 
 ```C
 struct {
