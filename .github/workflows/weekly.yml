@@ -26,6 +26,7 @@ jobs:
           title: Weekly $(date +"%Y-%U")
           date: $(date +"%Y-%m-%d")
           description: Weekly $(date +"%Y-%U")
+          tags: [weekly]
           ---
           " > $MD_PATH
           git add $MD_PATH
