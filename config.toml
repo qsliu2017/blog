@@ -36,7 +36,7 @@ url = "mailto:hi@qsliu.dev"
 [[menu.main]]
 name = "Blog"
 weight = 1
-url = "blog/"
+url = "posts/"
 
 [[menu.main]]
 name = "Weekly"
