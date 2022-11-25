@@ -21,7 +21,7 @@ jobs:
 
       - name: create md
         run: |
-          MD_PATH="content/posts/weekly-$(date +"%Y-%U").md"
+          MD_PATH="content/weekly/$(date +"%Y-%U").md"
           echo "---
           title: Weekly $(date +"%Y-%U")
           date: $(date +"%Y-%m-%d")
