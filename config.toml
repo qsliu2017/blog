@@ -36,7 +36,12 @@ url = "mailto:hi@qsliu.dev"
 [[menu.main]]
 name = "Blog"
 weight = 1
-url = "posts/"
+url = "blog/"
+
+[[menu.main]]
+name = "Weekly"
+weight = 2
+url = "weekly/"
 
 [markup.goldmark.renderer]
 # for directly use <iframe>
