@@ -43,6 +43,11 @@ name = "Weekly"
 weight = 2
 url = "weekly/"
 
+[[menu.main]]
+name = "Links"
+weight = 3
+url = "links/"
+
 [markup.goldmark.renderer]
 # for directly use <iframe>
 unsafe = true
