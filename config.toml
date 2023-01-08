@@ -34,18 +34,13 @@ weight = 2
 url = "mailto:hi@qsliu.dev"
 
 [[menu.main]]
-name = "Blog"
+name = "Post"
 weight = 1
 url = "posts/"
 
 [[menu.main]]
-name = "Weekly"
-weight = 2
-url = "weekly/"
-
-[[menu.main]]
-name = "Links"
-weight = 3
+name = "Link"
+weight = 100
 url = "links/"
 
 [markup.goldmark.renderer]
