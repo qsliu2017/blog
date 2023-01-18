@@ -1,7 +1,14 @@
 baseURL = "https://blog.qsliu.dev/"
 theme = "hugo-coder"
-languageCode = "en-us"
 title = "qsliu"
+
+[languages.en]
+languageName = "English"
+weight = 1
+
+[languages.zh]
+languageName = "中文"
+weight = 10
 
 [params]
 author = "qsliu"
@@ -9,6 +16,9 @@ description = "qsliu's blog"
 keywords = "blog,developer"
 info = ["Developer", "Open Source Enthusiast", "Software Engineering Student", "Philosophy Dabbler"]
 avatarurl = "https://avatars.githubusercontent.com/qsliu2017"
+
+[languages.zh.params]
+info = ["开源爱好者", "软件工程在读生", "业余读哲学"]
 
 since = "2022"
 dateFormat = "2006-01-02"
@@ -33,15 +43,25 @@ icon = "fa fa-envelope fa-2x"
 weight = 2
 url = "mailto:hi@qsliu.dev"
 
-[[menu.main]]
+[[languages.en.menu.main]]
 name = "Post"
 weight = 1
 url = "posts/"
 
-[[menu.main]]
+[[languages.en.menu.main]]
 name = "Link"
 weight = 100
 url = "links/"
+
+[[languages.zh.menu.main]]
+name = "技术"
+weight = 1
+url = "posts/"
+
+[[languages.zh.menu.main]]
+name = "暴论"
+weight = 10
+url = "blogs/"
 
 [markup.goldmark.renderer]
 # for directly use <iframe>
