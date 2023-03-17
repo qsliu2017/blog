@@ -2,8 +2,6 @@ baseURL = "https://blog.qsliu.dev/"
 theme = "hugo-coder"
 title = "qsliu"
 
-googleAnalytics = "G-RF6KM3Z05E"
-
 [params]
 author = "qsliu"
 description = "qsliu's blog"
