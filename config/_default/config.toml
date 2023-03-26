@@ -38,6 +38,11 @@ weight = 1
 url = "posts/"
 
 [[menu.main]]
+name = "Starred Blogs"
+weight = 10
+url = "starred_blogs/"
+
+[[menu.main]]
 name = "Link"
 weight = 100
 url = "links/"

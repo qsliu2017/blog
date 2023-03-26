@@ -3,10 +3,6 @@ title: Links
 # slug: links
 ---
 
-- [The Writings of Leslie Lamport](http://lamport.azurewebsites.net/pubs/pubs.html)
-  
-  Leslie Lamport published his first publication at high school!
-
 - [中文文案排版](https://github.com/sparanoid/chinese-copywriting-guidelines)
 - [A Good GDB Cheatsheet](https://www.cse.unsw.edu.au/~learn/debugging/modules/all_gdb/)
 - [Learnings from 5 years of tech startup code audits](https://kenkantzer.com/learnings-from-5-years-of-tech-startup-code-audits/)
