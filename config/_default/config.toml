@@ -47,6 +47,11 @@ name = "Link"
 weight = 100
 url = "links/"
 
+[[menu.main]]
+name = "About"
+weight = 1000
+url = "about/"
+
 [markup.goldmark.renderer]
 # for directly use <iframe>
 unsafe = true
