@@ -1,0 +1,13 @@
+{{$id := substr (md5 "listen-now") 0 16 }}
+<div id="{{$id}}">
+  {{ $songList := index .Site.Data.listen_now }}
+  {{ range $songList.songs }}
+  {{ . | safeHTML }}
+  {{ end }}
+</div>
+<script>
+  (() => {
+    let songList = document.getElementById("{{$id}}");
+    songList.replaceChildren(songList.children[Math.floor(Math.random() * songList.children.length)]);
+  })();
+</script>
