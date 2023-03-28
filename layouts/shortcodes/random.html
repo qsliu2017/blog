@@ -1,0 +1,14 @@
+{{$id := substr (md5 .Inner) 0 16 }}
+<div id="{{$id}}">
+  {{ .Inner }}
+  <script>
+    (() => {
+      let dummy = document.getElementById("{{$id}}");
+      let list = dummy.children;
+      if (list.length > 0)
+        dummy.replaceWith(list[Math.floor(Math.random() * (list.length - 1))]);
+      else
+        dummy.remove();
+    })();
+  </script>
+</div>
