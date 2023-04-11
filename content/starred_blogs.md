@@ -4,6 +4,9 @@ title: Starred Blogs
 
 Here's some blogs I like.
 
+- [colah's blog](https://colah.github.io/) *work on reverse engineering artificial neural networks into human understandable algorithms*.
+  - [Understanding LSTM Networks](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
+
 - [Embedded in Academia](https://blog.regehr.org/) by John Regehr, Professor of Computer Science, University of Utah, USA
   - [Why Take a Compiler Course?](https://blog.regehr.org/archives/169)
   - [Why Take an Operating Systems Course?](https://blog.regehr.org/archives/164)
