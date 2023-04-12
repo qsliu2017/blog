@@ -4,6 +4,8 @@ title: Starred Blogs
 
 Here's some blogs I like.
 
+- I learned a lot about how to read a paper and write a review from [Metadata](http://muratbuffalo.blogspot.com/) by [@Murat Demirbas](https://twitter.com/muratdemirbas).
+
 - [colah's blog](https://colah.github.io/) *work on reverse engineering artificial neural networks into human understandable algorithms*.
   - [Understanding LSTM Networks](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)
 
