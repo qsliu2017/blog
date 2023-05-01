@@ -4,6 +4,9 @@ title: Starred Blogs
 
 Here's some blogs I like.
 
+- *#Databases*: [NEON](https://neon.tech/blog) is a serverless Postgres.
+- *#Databases*: [OtterTune](https://ottertune.com/blog/) is AI-powered cloud database tuning.
+
 - I learned a lot about how to read a paper and write a review from [Metadata](http://muratbuffalo.blogspot.com/) by [@Murat Demirbas](https://twitter.com/muratdemirbas).
 
 - [colah's blog](https://colah.github.io/) *work on reverse engineering artificial neural networks into human understandable algorithms*.
