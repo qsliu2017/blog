@@ -1,6 +1,8 @@
 {{$id := substr (md5 .Inner) 0 16 }}
 <div id="{{$id}}">
   {{ .Inner }}
+  <!-- only random on production  -->
+  {{ if not .Site.IsServer }}
   <script>
     (() => {
       let dummy = document.getElementById("{{$id}}");
@@ -11,4 +13,5 @@
         dummy.remove();
     })();
   </script>
+  {{ end }}
 </div>
