@@ -4,6 +4,8 @@ title: Starred Blogs
 
 Here's some blogs I like.
 
+- [research!rsc](https://research.swtch.com/) Thoughts and links about programming, by Russ Cox
+
 - *#Databases*: [NEON](https://neon.tech/blog) is a serverless Postgres.
 - *#Databases*: [OtterTune](https://ottertune.com/blog/) is AI-powered cloud database tuning.
 
