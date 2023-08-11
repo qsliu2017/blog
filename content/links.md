@@ -3,6 +3,7 @@ title: Links
 # slug: links
 ---
 
+- [Google API design guide](https://cloud.google.com/apis/design)
 - [中文文案排版](https://github.com/sparanoid/chinese-copywriting-guidelines)
 - [A Good GDB Cheatsheet](https://www.cse.unsw.edu.au/~learn/debugging/modules/all_gdb/)
 - [Learnings from 5 years of tech startup code audits](https://kenkantzer.com/learnings-from-5-years-of-tech-startup-code-audits/)
