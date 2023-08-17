@@ -9,7 +9,7 @@ math: true
 
 (Using `Semaphore` primitive to write pseudo code, make it right and concurrency.) There are processes and their execution order must satisfy the following DAG. For example, `P3` must be executed after `P1` and `P2`, while `P6` must wait for `P3`.
 
-![](./proc_sync_dag.png)
+![](././proc_sync_dag.png)
 
 # My Simple Solution
 

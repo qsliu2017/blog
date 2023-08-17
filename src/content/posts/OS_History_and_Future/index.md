@@ -48,7 +48,7 @@ Nowadays, computer clustering has become the de facto standard for servers. As t
 
 Kubernetes has most characteristics of an OS.
 
-![](os-vs-k8s.excalidraw.png)
+![](./os-vs-k8s.excalidraw.png)
 
 |Linux|Kubernetes|
 |:-:|:-:|

@@ -15,7 +15,7 @@ I'm learning [MIT 6.824: Distributed Systems](https://pdos.csail.mit.edu/6.824/)
   
   For example, the election ticker has 3 channels: `reset`, `pause` and `continue`. It loops to select a random timeout, `reset` signal or `pause` signal. For (1)timeout, it converts to candidate (which starts a election); for (2)`reset`, it restarts a loop; for (3)`pause`, it blocks to wait for another signal from `continue`.
 
-  ![](ticker.excalidraw.png)
+  ![](./ticker.excalidraw.png)
 
   The heartbeat ticker is almost the same, except it has no `reset` channel.
 
@@ -49,7 +49,7 @@ I'm learning [MIT 6.824: Distributed Systems](https://pdos.csail.mit.edu/6.824/)
 
   In Figure 4 of the paper, 5 edges are defined. For convinience, I add `Follower->Follower` to deal with election timer reset.
 
-  ![](states_dag.excalidraw.png)
+  ![](./states_dag.excalidraw.png)
 
 - Election, `RequestVote` RPC
 

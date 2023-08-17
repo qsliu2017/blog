@@ -85,6 +85,6 @@ Optimal actions are performed by the software on behalf of the observer. These a
 
 A physically indexed CPU cache is designed such that addresses in adjacent physical memory blocks take different *cache lines* in the cache. But virtually adjacent memory blocks could potentially take the same position in the cache.
 
-![](900px-Page_Cache_Coloring.svg.png)
+![](./900px-Page_Cache_Coloring.svg.png)
 
 Coloring solves this problem by selecting pages that do not contend with neighbor pages. Physical memory pages are *colored* so that pages with different *colors* have different positions in CPU cache memory. When allocating sequential pages in virtual memory for processes, the kernel collects pages with different *colors* and maps them to the virtual memory. In this way, sequential pages in virtual memory do not contend for the same cache line.

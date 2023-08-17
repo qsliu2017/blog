@@ -18,7 +18,7 @@ In this post, we will write a native eBPF application using [`libbpf`](https://g
 
 An eBPF application consists of two main components: (1)a user program running in the user space and (2)an eBPF program running in the kernel space. When the user program is terminated, all eBPF programs it created will be destroyed.
 
-![eBPF applications components](ebpf_applications_components.excalidraw.png)
+![eBPF applications components](./ebpf_applications_components.excalidraw.png)
 
 The eBPF program is compiled to the bpf target, while the user program should be compiled to the machine target.
 

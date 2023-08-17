@@ -31,7 +31,7 @@ So we can mark this row as *frozen* and reuse the XID. The process of freezing r
 
 The word *vacuum* is quite interesting. Consider XID counter is going through the XIDs space and leaving some used XIDs along the way, while a vacuum cleaner is following and cleaning the space.
 
-![](vacuum.svg)
+![](./vacuum.svg)
 
 With the linear XID space, XID counter returns to the beginning of XID space once the wrap-around occurs.
 However it must be blocked until all XIDs are vacuumed. This could become a bottleneck of database.
@@ -48,7 +48,7 @@ We can think of XIDs space as a circle. Given a XID, there are 2^31 XIDs (a half
 
 With modulo XID space, Postgres just need to promise that, whenever a transcation begins, the greater half of the space is vacuumed.
 
-![](modulo-vacuum.svg)
+![](./modulo-vacuum.svg)
 
 Consider if we do vacuum so aggressive that the XID space is always almost clean up, the XID counter will never be blocked!
 

@@ -31,7 +31,7 @@ In my humble opinion, chatbot-like UI confuses people into thinking that it is a
 
 ## Playground
 
-![OpenAI Playground](openai_playground.png)
+![OpenAI Playground](./openai_playground.png)
 
 OpenAI provides a better platform called playground to use its model. For me, the most important features are:
 

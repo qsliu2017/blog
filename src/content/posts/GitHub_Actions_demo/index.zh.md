@@ -57,7 +57,7 @@ GitHub Actions 在每一次触发后自动执行预先设定的脚本，完成�
    ```
 
 1. 保存文件，commit 并[push 到 GitHub 上](https://github.com/qsliu2017/GitHub-Actions-Demo/commit/47c2b5ee62d41c6c9796ae58e65b39405f1d69b8)后，可以在仓库页面的 Actions 页下看到执行结果，之后每次 push 都会执行测试。
-   ![Workflows Result](./workflows_result.png)
+   ![Workflows Result](././workflows_result.png)
 1. 接下来我们继续完善这个工作流。我们希望在测试通过以后，能够自动构建 jar 包并供下载。
 
    我们在工作流中增加一个阶段：
@@ -98,7 +98,7 @@ GitHub Actions 在每一次触发后自动执行预先设定的脚本，完成�
    ```
 
 1. 同样 push 到 GitHub 上。可以看到 test 运行完成后执行了 package，并且可以下载构建的`demo.jar`。
-   ![Package and Artifacts](./package_and_artifacts.png)
+   ![Package and Artifacts](././package_and_artifacts.png)
    > 这个工作流只是作为一个添加阶段的例子，并不是一个好的实践，因为`maven`的 package 命令可以在打包前执行测试。
    > 但是对于一些其他的构建工具，比如`node`，这样做是有意义的。
 

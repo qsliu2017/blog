@@ -30,7 +30,7 @@ tags: [OpenAI, ChatGPT, GPT, DeepLearning]
 
 ## Playground
 
-![OpenAI Playground](openai_playground.png)
+![OpenAI Playground](./openai_playground.png)
 
 OpenAI 提供了一个更好的 Playground 来使用 GPT 模型。Playground 对我最有用的点是：
 
