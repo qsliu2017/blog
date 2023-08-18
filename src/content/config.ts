@@ -26,4 +26,19 @@ const posts = defineCollection({
 	}),
 });
 
-export const collections = { posts, bookmarks };
+const starredBlogs = defineCollection({
+	type: 'data',
+	schema: z.object({
+		title: z.string(),
+		url: z.string().url(),
+		author: z.ostring(),
+		comment: z.ostring(),
+		tags: z.string().array().optional(),
+		posts: z.object({
+			title: z.string(),
+			url: z.string().url(),
+		}).array().optional(),
+	}),
+});
+
+export const collections = { bookmarks, posts, "starred-blogs": starredBlogs };

@@ -1,0 +1,40 @@
+---
+import { getCollection } from "astro:content";
+import Layouts from "../layouts/Layouts.astro";
+
+const starredBlogs = await getCollection("starred-blogs");
+---
+
+<Layouts title="Starred Blogs" description="qsliu's starred blogs">
+  <section>
+    <ul>
+      {
+        starredBlogs
+          .map((blog) => blog.data)
+          .map(({ title, url, comment, tags, author, posts }) => (
+            <li>
+              <a href={url}>
+                <h4>{title}</h4>
+              </a>
+              {author && <h5>{`@${author}`}</h5>}
+              {tags
+                ?.map((tag) => (tag.includes(" ") ? `#[[${tag}]]` : `#${tag}`))
+                .join(" ")}
+              {comment && <p>{comment}</p>}
+              {posts && (
+                <ul>
+                  {posts.map(({ title, url }) => (
+                    <li>
+                      <a href={url}>
+                        <h5>{title}</h5>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))
+      }
+    </ul>
+  </section>
+</Layouts>
