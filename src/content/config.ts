@@ -1,5 +1,13 @@
 import { defineCollection, z } from 'astro:content';
 
+const bookmarks = defineCollection({
+	type: 'data',
+	schema: z.object({
+		title: z.string(),
+		url: z.string().url(),
+	}),
+});
+
 const posts = defineCollection({
 	type: 'content',
 	schema: z.object({
@@ -18,4 +26,4 @@ const posts = defineCollection({
 	}),
 });
 
-export const collections = { posts };
+export const collections = { posts, bookmarks };
