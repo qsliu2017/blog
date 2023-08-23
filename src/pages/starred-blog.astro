@@ -1,11 +1,11 @@
 ---
 import { getCollection } from "astro:content";
-import Layouts from "../layouts/Layouts.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const starredBlogs = await getCollection("starred-blogs");
 ---
 
-<Layouts title="Starred Blogs" description="qsliu's starred blogs">
+<BaseLayout title="Starred Blogs" description="qsliu's starred blogs">
   <section>
     <ul>
       {
@@ -37,4 +37,4 @@ const starredBlogs = await getCollection("starred-blogs");
       }
     </ul>
   </section>
-</Layouts>
+</BaseLayout>

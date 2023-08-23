@@ -1,11 +1,11 @@
 ---
 import { getCollection } from "astro:content";
-import Layouts from "../layouts/Layouts.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const bookmarks = await getCollection("bookmarks");
 ---
 
-<Layouts title="Bookmarks" description="qsliu's bookmarks">
+<BaseLayout title="Bookmarks" description="qsliu's bookmarks">
   <section>
     <ul>
       {
@@ -21,4 +21,4 @@ const bookmarks = await getCollection("bookmarks");
       }
     </ul>
   </section>
-</Layouts>
+</BaseLayout>
