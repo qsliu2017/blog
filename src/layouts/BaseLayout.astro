@@ -2,6 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import MathJaxHead from "../components/MathJaxHead.astro";
 
 type Props = {
   title: string;
@@ -13,7 +14,10 @@ const { title, description } = Astro.props;
 
 <!DOCTYPE html>
 <html lang="en">
-  <head><BaseHead title={title} description={description ?? ""} /></head>
+  <head>
+    <BaseHead title={title} description={description ?? ""} />
+    <MathJaxHead />
+  </head>
   <body>
     <Header />
     <main class="w-[720px] max-w-[calc(100%-1em)] m-auto py-4">
