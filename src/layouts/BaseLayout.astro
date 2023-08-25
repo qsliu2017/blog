@@ -18,9 +18,9 @@ const { title, description } = Astro.props;
     <BaseHead title={title} description={description ?? ""} />
     <MathJaxHead />
   </head>
-  <body>
+  <body class="flex flex-col h-screen">
     <Header />
-    <main class="w-[720px] max-w-[calc(100%-1em)] m-auto py-4">
+    <main class="w-[720px] max-w-[calc(100%-1em)] mx-auto mb-auto py-4">
       <slot />
     </main>
     <Footer />
