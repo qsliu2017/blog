@@ -6,7 +6,7 @@ const pages: {
   name: string;
   href: string;
 }[] = [
-  { name: "Home", href: "/" },
+  // { name: "Home", href: "/" },
   { name: "Posts", href: "/posts" },
   { name: "Bookmarks", href: "/bookmark" },
   { name: "Starred Blogs", href: "/starred-blog" },
@@ -38,12 +38,12 @@ const icons: {
 
 <header class="m-0 py-4 bg-white shadow-md">
   <nav class="flex items-center justify-between">
-    <h2 class="m-0 text-base">
+    <h2 class="m-0 text-lg max-sm:hidden">
       <a class="active:normal-case px-4 py-2 font-heading" href="/"
         >{SITE_TITLE}</a
       >
     </h2>
-    <div class="">
+    <div class="mx-auto">
       {
         pages.map(({ name, href }) => (
           <a
@@ -56,7 +56,7 @@ const icons: {
         ))
       }
     </div>
-    <div class="flex max-[720px]:hidden">
+    <div class="flex max-sm:hidden">
       {
         icons.map(({ href, sr, svg }) => (
           <a href={href} target="_blank" class="px-3 py-1">
