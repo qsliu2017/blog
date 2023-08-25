@@ -5,17 +5,27 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 const posts = (await getCollection("posts")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
+const today = new Date();
+const dateString = (date: Date) =>
+  date.toLocaleDateString("zh-cn", {
+    year: date.getFullYear() === today.getFullYear() ? undefined : "numeric",
+    day: "2-digit",
+    month: "2-digit",
+  });
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <section>
-    <ul class="list-none hover:list-disc">
+    <ul class="list-none">
       {
-        posts.map((post) => (
+        posts.map(({ slug, data: { title, date } }) => (
           <li>
-            <a href={`/posts/${post.slug}`}>
-              <h4>{post.data.title}</h4>
-            </a>
+            <div class="flex justify-between">
+              <a href={`/posts/${slug}`}>
+                <h4>{title}</h4>
+              </a>
+              <span>{dateString(date)}</span>
+            </div>
           </li>
         ))
       }
