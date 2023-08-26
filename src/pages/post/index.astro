@@ -21,7 +21,7 @@ const dateString = (date: Date) =>
         posts.map(({ slug, data: { title, date } }) => (
           <li>
             <div class="flex justify-between">
-              <a href={`/posts/${slug}`}>
+              <a href={`/post/${slug}`}>
                 <h4>{title}</h4>
               </a>
               <span>{dateString(date)}</span>
