@@ -1,6 +1,5 @@
 ---
 import { CollectionEntry, getCollection } from "astro:content";
-import FormattedDate from "../../components/FormattedDate.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
@@ -22,7 +21,15 @@ const { Content } = await post.render();
     <div class="prose w-full m-auto">
       <div class="title">
         <div class="date">
-          <FormattedDate date={date} />
+          <time datetime={date.toISOString()}>
+            {
+              date.toLocaleDateString("en-us", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })
+            }
+          </time>
         </div>
         <h1>{title}</h1>
         <hr />

@@ -18,6 +18,7 @@ const posts = defineCollection({
 			.string()
 			.or(z.date())
 			.transform((val) => new Date(val)),
+		tags: z.string().array().default([]),
 	}),
 });
 

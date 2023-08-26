@@ -1,5 +1,4 @@
 import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
 import tailwind from "@astrojs/tailwind";
 import { defineConfig } from 'astro/config';
 
@@ -34,7 +33,7 @@ const hugoPostsRedirects = [
 // https://astro.build/config
 export default defineConfig({
   site: 'https://example.com',
-  integrations: [mdx(), sitemap(), tailwind()],
+  integrations: [mdx(), tailwind()],
   experimental: {
     assets: true
   },

@@ -16,15 +16,22 @@ const dateString = (date: Date) =>
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
   <section>
-    <ul class="list-none">
+    <ul class="unset">
       {
-        posts.map(({ slug, data: { title, date } }) => (
-          <li>
+        posts.map(({ slug, data: { title, date, tags } }) => (
+          <li class="mt-4 p-0">
             <div class="flex justify-between">
-              <a href={`/post/${slug}`}>
-                <h4>{title}</h4>
-              </a>
-              <span>{dateString(date)}</span>
+              <div class="flex flex-wrap">
+                <a class="" href={`/post/${slug}`}>
+                  <h3 class="text-lg">{title}</h3>
+                </a>
+                {tags.map((tag) => (
+                  <span class="text-sm font-extralight h-fit ml-1 px-1 py-[1px] border rounded-2xl bg-slate-100 border-gray-300 text-gray-600 max-sm:hidden text-ellipsis">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <span class="">{dateString(date)}</span>
             </div>
           </li>
         ))
