@@ -1,29 +1,32 @@
 ---
+import ExternalLink from "./ExternalLink.astro";
 const today = new Date();
+const { PUBLIC_GIT_COMMIT_HASH } = import.meta.env;
 ---
 
-<footer>
-	<p>&copy; {today.getFullYear()} qsliu. All rights reserved.<p/>
-	<p>This website is built by <a href="https://astro.build/">Astro</a>.</p>
+<footer class="p-[1em] text-center">
+	<p>
+		<p>&copy; {today.getFullYear()} qsliu. All rights reserved.</p>
+		<p>
+			source code avaliable on <ExternalLink
+				href="https://github.com/qsliu2017/blog"
+			>
+				<span class="underline">qsliu2017/blog</span>
+			</ExternalLink>
+		</p>
+		<p>
+			version
+			{
+				PUBLIC_GIT_COMMIT_HASH ? (
+					<ExternalLink
+						href={`https://github.com/qsliu2017/blog/tree/${PUBLIC_GIT_COMMIT_HASH}`}
+					>
+						<span class="underline">{PUBLIC_GIT_COMMIT_HASH}</span>
+					</ExternalLink>
+				) : (
+					<span class="underline">development</span>
+				)
+			}
+		</p>
+	</p>
 </footer>
-<style>
-	footer {
-		padding: 1em 1em 1em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
-		text-align: center;
-	}
-	.social-links {
-		display: flex;
-		justify-content: center;
-		gap: 1em;
-		margin-top: 1em;
-	}
-	.social-links a {
-		text-decoration: none;
-		color: rgb(var(--gray));
-	}
-	.social-links a:hover {
-		color: rgb(var(--gray-dark));
-	}
-</style>
