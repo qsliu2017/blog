@@ -1,9 +1,3 @@
----
-title: About
----
-
-## Toolchain
-
 - I read Hacker News via [Haxplore](https://haxplore.com/), even through it's not open source.
 - [typst](https://github.com/typst/typst) is an awesome alternative to LaTeX.
 - I use [Logseq](https://logseq.com/) to build personal wiki and write dairy.

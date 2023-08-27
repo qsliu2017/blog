@@ -1,0 +1,18 @@
+---
+import { Content as Toolchain } from "./toolchain.md";
+import RandomSong from "../../components/RandomSong.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="About Me">
+  <div class="mb-4">
+    <h2 class="text-2xl py-2 font-serif font-semibold">Toolchain</h2>
+    <ul class="list-disc list-inside">
+      <Toolchain />
+    </ul>
+  </div>
+  <div class="mb-4">
+    <h2 class="text-2xl py-2 font-serif font-semibold">Listen now</h2>
+    <RandomSong />
+  </div>
+</BaseLayout>
