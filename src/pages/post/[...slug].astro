@@ -1,5 +1,6 @@
 ---
 import { CollectionEntry, getCollection } from "astro:content";
+import Tag from "../../components/Tag.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
@@ -12,27 +13,26 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"posts">;
 
 const post = Astro.props;
-const { title, description, date } = post.data;
+const { title, description, date, tags } = post.data;
 const { Content } = await post.render();
 ---
 
 <BaseLayout title={title} description={description}>
   <article>
     <div class="prose w-full m-auto">
-      <div class="title">
-        <div class="date">
-          <time datetime={date.toISOString()}>
-            {
-              date.toLocaleDateString("en-us", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-              })
-            }
-          </time>
-        </div>
-        <h1>{title}</h1>
-        <hr />
+      <div>
+        <time datetime={date.toISOString()}>
+          {
+            date.toLocaleDateString("en-us", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })
+          }
+        </time>
+        <h1 class="mt-2 mb-3">{title}</h1>
+        {tags.map((tag) => <Tag>{tag}</Tag>)}
+        <hr class="mt-5 mb-8" />
       </div>
       <Content />
     </div>
