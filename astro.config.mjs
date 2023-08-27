@@ -32,7 +32,7 @@ const hugoPostsRedirects = [
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://blog.qsliu.dev',
   integrations: [mdx(), tailwind()],
   experimental: {
     assets: true

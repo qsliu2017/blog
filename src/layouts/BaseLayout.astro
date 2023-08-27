@@ -5,17 +5,18 @@ import Header from "../components/Header.astro";
 import MathJaxHead from "../components/MathJaxHead.astro";
 
 type Props = {
-  title: string;
-  description: string | undefined;
+  title?: string | undefined;
+  description?: string | undefined;
+  image?: string | undefined;
 };
 
-const { title, description } = Astro.props;
+const props = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description ?? ""} />
+    <BaseHead {...props} />
     <MathJaxHead />
   </head>
   <body class="flex flex-col h-screen">
