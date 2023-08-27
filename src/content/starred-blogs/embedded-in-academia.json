@@ -1,0 +1,18 @@
+{
+    "title": "Embedded in Academia",
+    "url": "https://blog.regehr.org/",
+    "tags": [
+        "personal"
+    ],
+    "author": "John Regehr",
+    "posts": [
+        {
+            "title": "Why Take a Compiler Course?",
+            "url": "https://blog.regehr.org/archives/169"
+        },
+        {
+            "title": "Why Take an Operating Systems Course?",
+            "url": "https://blog.regehr.org/archives/164"
+        }
+    ]
+}

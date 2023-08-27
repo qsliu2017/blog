@@ -1,9 +1,8 @@
-name: Deploy GitHub Page
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -11,21 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: true
-          fetch-depth: 0
-
-      - uses: peaceiris/actions-hugo@v2
-        with:
-          hugo-version: "latest"
-          extended: true
-
-      - name: Build
-        run: hugo --minify
-
-      - uses: actions/upload-pages-artifact@main
-        with:
-          path: public
+      - uses: withastro/action@v0
 
   deploy:
     needs: build

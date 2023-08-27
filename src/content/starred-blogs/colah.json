@@ -1,0 +1,15 @@
+{
+    "title": "colah's blog",
+    "url": "https://colah.github.io/",
+    "tags": [
+        "personal",
+        "deep learning"
+    ],
+    "comment": "His blog works on reverse engineering artificial neural networks into human understandable algorithms",
+    "posts": [
+        {
+            "title": "Understanding LSTM Networks",
+            "url": "https://colah.github.io/posts/2015-08-Understanding-LSTMs/"
+        }
+    ]
+}

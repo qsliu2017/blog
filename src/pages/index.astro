@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <section>
+    <h1 class="text-3xl my-8">It's me, hi! 👋</h1>
+    <div class="my-4">
+      <span class="text-xl">I'd like to introduce myself as</span>
+      <ul class="unset">
+        {
+          ["Developer", "Open Source Enthusiast", "Database Engineer"].map(
+            (text) => (
+              <li class="pl-0 text-3xl">
+                <em class="italic font-sans font-extralight">{text}</em>
+              </li>
+            )
+          )
+        }
+      </ul>
+    </div>
+    <div class="my-4 text-right">
+      <span class="text-xl">3 things I love about programming</span>
+      <ul class="unset">
+        {
+          ["Beautiful Design", "Single Source of Truth", "DX"].map((text) => (
+            <li class="text-3xl text-right">
+              <em class="font-serif">{text}</em>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="my-4">
+      <span class="text-xl">PLs I use the most</span>
+      <ul class="unset">
+        {
+          ["Go", "Python", "Typescript"].map((text) => (
+            <li class="pl-0">
+              <em class="text-3xl font-mono not-italic">{text}</em>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
