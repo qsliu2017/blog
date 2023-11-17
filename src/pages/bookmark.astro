@@ -1,26 +1,26 @@
 ---
-import { getCollection } from "astro:content";
-import ExternalLink from "../components/ExternalLink.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from 'astro:content';
+import ExternalLink from '../components/ExternalLink.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-const bookmarks = await getCollection("bookmarks");
+const bookmarks = await getCollection('bookmarks');
 ---
 
-<BaseLayout title="Bookmarks" description="qsliu's bookmarks">
-  <section>
-    <ul class="unset">
-      {
-        bookmarks
-          .map((bookmark) => bookmark.data)
-          .map(({ title, url }) => (
-            <li class="flex items-center my-4 p-0">
-              <span class="text-sm max-sm:hidden mr-3">&gt;</span>
-              <ExternalLink href={url} class="text-lg font-mono">
-                {title}
-              </ExternalLink>
-            </li>
-          ))
-      }
-    </ul>
-  </section>
+<BaseLayout title='Bookmarks' description="qsliu's bookmarks">
+	<section>
+		<ul class='unset'>
+			{
+				bookmarks
+					.map(bookmark => bookmark.data)
+					.map(({ title, url }) => (
+						<li class='my-4 flex items-center p-0'>
+							<span class='mr-3 text-sm max-sm:hidden'>&gt;</span>
+							<ExternalLink href={url} class='font-mono text-lg'>
+								{title}
+							</ExternalLink>
+						</li>
+					))
+			}
+		</ul>
+	</section>
 </BaseLayout>

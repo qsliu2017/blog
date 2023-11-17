@@ -1,5 +1,5 @@
 ---
-title: "Operating Systems: The History and the Future"
+title: 'Operating Systems: The History and the Future'
 date: 2022-09-19
 tags: [OS]
 ---
@@ -8,16 +8,16 @@ tags: [OS]
 
 ### Operators to Operating Systems
 
-For those early computers, it is human operators that put the jobs on the machine one by one and returned the output to the users. These procedures are known as jobs scheduling today, but back then they did it *manually*.
+For those early computers, it is human operators that put the jobs on the machine one by one and returned the output to the users. These procedures are known as jobs scheduling today, but back then they did it _manually_.
 
 These manual procedures were soon automated in the late 1950s. There came the first operating systems. From then on, engineers wanted to automate other aspects of computing. So the functionality of OS expanded to resource allocation, user interaction, etc.
 
-|||
-|--|--|
-|1950–1960|Batch systems|
-|1960–1975|Interactive systems|
-|1975–2005|Desktop systems|
-|2005 onward|Cloud-mobile systems|
+|             |                      |
+| ----------- | -------------------- |
+| 1950–1960   | Batch systems        |
+| 1960–1975   | Interactive systems  |
+| 1975–2005   | Desktop systems      |
+| 2005 onward | Cloud-mobile systems |
 
 ### OS Principles
 
@@ -44,20 +44,20 @@ Engineers had also learned other principles that led to reliable and dependable 
 
 Nowadays, computer clustering has become the de facto standard for servers. As they did fifty years ago, engineers want to automate the procedures of operating these clusters. So there comes Kubernetes.
 
-*Is Kubernetes an OS? Yes!*
+_Is Kubernetes an OS? Yes!_
 
 Kubernetes has most characteristics of an OS.
 
 ![](./os-vs-k8s.excalidraw.png)
 
-|Linux|Kubernetes|
-|:-:|:-:|
-|Process|Pod|
-|Thread|Container|
-|Socket|Network|
-|File|Resource|
-|Disk|Storage|
-|...|...|
+|  Linux  | Kubernetes |
+| :-----: | :--------: |
+| Process |    Pod     |
+| Thread  | Container  |
+| Socket  |  Network   |
+|  File   |  Resource  |
+|  Disk   |  Storage   |
+|   ...   |    ...     |
 
 - Pods are scheduled to computer nodes.
 - Pods share the physical resources (cpu, memory, disk, network).
@@ -65,6 +65,6 @@ Kubernetes has most characteristics of an OS.
 - Pods can connect to each other via Kubernetes network.
 - ...
 
-The main difference between Kubernetes and other OS is that OS runs *directly on the metal* but Kubernetes runs on the actual OS. More precisely, Kubernetes is a cloud operating system rather than an OS. It abstracts computing resources over functionality provided by the actual OS. That is to say, Kubernetes does not replace Linux because it runs on Linux, at least for now.
+The main difference between Kubernetes and other OS is that OS runs _directly on the metal_ but Kubernetes runs on the actual OS. More precisely, Kubernetes is a cloud operating system rather than an OS. It abstracts computing resources over functionality provided by the actual OS. That is to say, Kubernetes does not replace Linux because it runs on Linux, at least for now.
 
 Will Kubernetes become a real OS? For many servers, Kubernetes is almost the only application that runs on the actual OS. That is to say, some functionality of OS maybe unnecessary.

@@ -30,5 +30,6 @@ Under this situation, you should create a new branch from the latest `main` bran
 Don't use `git blame` to blame others (even though it's named after it). Instead, use `git blame` to find who is repsonsible for a specific line of code when you want to ask for help. `git history -L<start>,<end>:<file>` is also good to find the commit history of a specific line of code.
 
 ## Reference
+
 1. [MIT 6.NULL](https://missing.csail.mit.edu/) contains subjects rarely covered in common CS cources, including Git.
 2. [GitHub Copilot for CLI](https://githubnext.com/projects/copilot-cli) includes a powerful command `git?` used for searching specifically for git invocations.

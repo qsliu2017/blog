@@ -5,7 +5,7 @@ date: 2023-05-08
 
 ### Unit Tests (UT)
 
-Everyone in this industry *knows* the importance of UT, but most do not write it. Developers who are familiar with the project might think the code is straightforward and does not need UTs.
+Everyone in this industry _knows_ the importance of UT, but most do not write it. Developers who are familiar with the project might think the code is straightforward and does not need UTs.
 
 However, imagine your new colleague who is assigned to an on-board task or a user from the community who is trying to fix a bug. UTs can help them find the related code instead of understanding the whole project. Sometimes, UTs are even more important than documentation.
 

@@ -14,7 +14,7 @@ CFS picks the task with the smallest runtime to balance tasks' runtime. Implemen
 ## Time Accounting
 
 Task's schedule info is defined in [`struct sched_entity`](https://github.com/torvalds/linux/blob/fef7fd48922d11b22620e19f9c9101647bfe943d/include/linux/sched.h#L547).
-There is a [`vruntime`](https://github.com/torvalds/linux/blob/fef7fd48922d11b22620e19f9c9101647bfe943d/include/linux/sched.h#L556) field recording the *virtual runtime* of the task, which is the *actual runtime* normalized by the number of runnable tasks.
+There is a [`vruntime`](https://github.com/torvalds/linux/blob/fef7fd48922d11b22620e19f9c9101647bfe943d/include/linux/sched.h#L556) field recording the _virtual runtime_ of the task, which is the _actual runtime_ normalized by the number of runnable tasks.
 
 When [`update_curr()`](https://github.com/torvalds/linux/blob/fef7fd48922d11b22620e19f9c9101647bfe943d/kernel/sched/fair.c#L882), a weighted delta will be added to the `vruntime`.
 The calculation defined in [`calc_delta_fair()`](https://github.com/torvalds/linux/blob/fef7fd48922d11b22620e19f9c9101647bfe943d/kernel/sched/fair.c#L694) and [`__calc_delta()`](https://github.com/torvalds/linux/blob/fef7fd48922d11b22620e19f9c9101647bfe943d/kernel/sched/fair.c#L308:12) is as follow:
@@ -46,11 +46,11 @@ Picking the next task to run is the same as picking the leftmost node in the tre
 
 ## Timeslice
 
-Timeslice is how long a task runs. CFS calculates how long a task should run as a function of the total number of runnable tasks. Each task runs for a *timeslice* proportional to its weight divided by the total weight of all runnable threads.
+Timeslice is how long a task runs. CFS calculates how long a task should run as a function of the total number of runnable tasks. Each task runs for a _timeslice_ proportional to its weight divided by the total weight of all runnable threads.
 
-The actual timeslice is called the *targeted latency*. Smaller latency yield better interactivity and a closer approximation to perfect multitasking, at the expense of higher switching costs and thus worse overall throughput.
+The actual timeslice is called the _targeted latency_. Smaller latency yield better interactivity and a closer approximation to perfect multitasking, at the expense of higher switching costs and thus worse overall throughput.
 
-CFS imposes a floor on the timeslice assigned to each task. This floor is called the *minimum granularity* which is 1 millisecond by default. Thus, even as the number of runnable tasks approaches infinity, each will run for at least 1 millisecond, to ensure there is a ceiling on the incurred switching costs.
+CFS imposes a floor on the timeslice assigned to each task. This floor is called the _minimum granularity_ which is 1 millisecond by default. Thus, even as the number of runnable tasks approaches infinity, each will run for at least 1 millisecond, to ensure there is a ceiling on the incurred switching costs.
 
 Overall, a task will get timeslice as follow:
 
@@ -60,18 +60,18 @@ $$
 
 ## Scheduler Classes
 
-In fact, CFS is not the only scheduler in Linux. There are other algorithms for scheduling different types of tasks (e.g. real-time tasks). To enable different, pluggable algorithms to coexist, Linux uses the modularity called *scheduler classes*.
+In fact, CFS is not the only scheduler in Linux. There are other algorithms for scheduling different types of tasks (e.g. real-time tasks). To enable different, pluggable algorithms to coexist, Linux uses the modularity called _scheduler classes_.
 
 The base schedule iterates over each scheduler class in order of priority. The highest priority scheduler class that has a runnable process wins, selecting who runs next. The CFS is registered as [`SCHED_NORMAL`](https://github.com/torvalds/linux/blob/fef7fd48922d11b22620e19f9c9101647bfe943d/include/uapi/linux/sched.h#L114), which has the lowest priority.
 
 # Comparing with Traditional Scheduler
 
-Modern process schedulers have two common concepts: *priority* and *timeslice*. Timeslice is how long a process runs. Processes with a higher priority run more frequently and/or (on many systems) receive a higher timeslice.
+Modern process schedulers have two common concepts: _priority_ and _timeslice_. Timeslice is how long a process runs. Processes with a higher priority run more frequently and/or (on many systems) receive a higher timeslice.
 
-Priority in Unix is in the form of *nice* values, but in practice it leads to several pathological problem.
+Priority in Unix is in the form of _nice_ values, but in practice it leads to several pathological problem.
 
-1. Mapping nice values onto *absolute timeslices* leads to frequent context switching of tasks with lower priority.
-   
+1. Mapping nice values onto _absolute timeslices_ leads to frequent context switching of tasks with lower priority.
+
    Let's say we map nice 0 to timeslice of 100 ms, while nice 20 to 5 ms. When there are two tasks both has nice 0, each task has a timeslice of 100 ms and context-switching happens every 200 ms. But for two tasks with nice 20, even though each has a half of the CPU time, context-switching happens every 10 ms! Considering tasks with high nice value are usually CPU-bounded, this leads to a low overall throughput.
 
 1. Mapping nice values onto timeslices in a arithmetic sequence leads to wildly different effects depending on the nice value.
@@ -80,12 +80,13 @@ Priority in Unix is in the form of *nice* values, but in practice it leads to se
 
 1. Timeslices are limited by the timer tick.
 
-    The timeslice must be some integer multiple of the timer tick. The minimum timeslice has a floor of the period of the timer tick. The system timer limits the difference between two timeslices. Timeslices change with different timer ticks.
+   The timeslice must be some integer multiple of the timer tick. The minimum timeslice has a floor of the period of the timer tick. The system timer limits the difference between two timeslices. Timeslices change with different timer ticks.
 
 1. Optimition of running a freshly woken-up tasks immediately for interactice tasks might be abused.
 
 The approach taken by CFS is a radical (for process schedulers) rethinking of timeslice allotment: Do away with timeslices completely and assign each process a proportion of the processor. CFS thus yields constant fairness but a variable switching rate.
 
 # References
+
 1. [Linux Kernel Development 3rd Edition](https://www.amazon.com/Linux-Kernel-Development-Robert-Love/dp/0672329468)
 1. [Inside the Linux 2.6 Completely Fair Scheduler](https://developer.ibm.com/tutorials/l-completely-fair-scheduler)

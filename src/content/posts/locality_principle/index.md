@@ -24,7 +24,7 @@ There is no differentiation into phases in this model. So empirically this model
 
 ### Phase-transition
 
-Execution of a computation consists of a series of phases; *phase* $i$ has holding *time* $T_i$ and *locality set* $L_i$. The locality set is the set of objects referenced in the phase. A particular object is referenced only in the phases in which it is a member of the locality set.
+Execution of a computation consists of a series of phases; _phase_ $i$ has holding _time_ $T_i$ and _locality set_ $L_i$. The locality set is the set of objects referenced in the phase. A particular object is referenced only in the phases in which it is a member of the locality set.
 
 Thus, the history of the computation appears as a sequence,
 
@@ -52,12 +52,12 @@ It is usually possible to choose the window size $T$ so that it is contained wit
 
 Context awareness embraces four key ideas:
 
-|Modern Model|Original Model|
-|:-:|--|
-|Observer|the execution point of the computational process|
-|Neighborhood|the current locality set|
-|Inference|the distance function|
-|Optimal Action|to guarantee that the current locality is present in a processor’s cache|
+|  Modern Model  | Original Model                                                           |
+| :------------: | ------------------------------------------------------------------------ |
+|    Observer    | the execution point of the computational process                         |
+|  Neighborhood  | the current locality set                                                 |
+|   Inference    | the distance function                                                    |
+| Optimal Action | to guarantee that the current locality is present in a processor’s cache |
 
 ### An observer
 
@@ -83,8 +83,8 @@ Optimal actions are performed by the software on behalf of the observer. These a
 
 **Cache coloring** (also known as **page coloring**) attempts to allocate free pages that are contiguous from the CPU cache's point of view, in order to maximize the total number of pages cached by the processor.
 
-A physically indexed CPU cache is designed such that addresses in adjacent physical memory blocks take different *cache lines* in the cache. But virtually adjacent memory blocks could potentially take the same position in the cache.
+A physically indexed CPU cache is designed such that addresses in adjacent physical memory blocks take different _cache lines_ in the cache. But virtually adjacent memory blocks could potentially take the same position in the cache.
 
 ![](./900px-Page_Cache_Coloring.svg.png)
 
-Coloring solves this problem by selecting pages that do not contend with neighbor pages. Physical memory pages are *colored* so that pages with different *colors* have different positions in CPU cache memory. When allocating sequential pages in virtual memory for processes, the kernel collects pages with different *colors* and maps them to the virtual memory. In this way, sequential pages in virtual memory do not contend for the same cache line.
+Coloring solves this problem by selecting pages that do not contend with neighbor pages. Physical memory pages are _colored_ so that pages with different _colors_ have different positions in CPU cache memory. When allocating sequential pages in virtual memory for processes, the kernel collects pages with different _colors_ and maps them to the virtual memory. In this way, sequential pages in virtual memory do not contend for the same cache line.

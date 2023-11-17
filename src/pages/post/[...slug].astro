@@ -1,16 +1,16 @@
 ---
-import { CollectionEntry, getCollection } from "astro:content";
-import Tag from "../../components/Tag.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import { CollectionEntry, getCollection } from 'astro:content';
+import Tag from '../../components/Tag.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection("posts");
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+	const posts = await getCollection('posts');
+	return posts.map(post => ({
+		params: { slug: post.slug },
+		props: post,
+	}));
 }
-type Props = CollectionEntry<"posts">;
+type Props = CollectionEntry<'posts'>;
 
 const post = Astro.props;
 const { title, description, date, tags } = post.data;
@@ -18,23 +18,23 @@ const { Content } = await post.render();
 ---
 
 <BaseLayout title={title} description={description}>
-  <article>
-    <div class="prose w-full m-auto">
-      <div>
-        <time datetime={date.toISOString()}>
-          {
-            date.toLocaleDateString("en-us", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })
-          }
-        </time>
-        <h1 class="mt-2 mb-3">{title}</h1>
-        {tags.map((tag) => <Tag>{tag}</Tag>)}
-        <hr class="mt-5 mb-8" />
-      </div>
-      <Content />
-    </div>
-  </article>
+	<article>
+		<div class='prose m-auto w-full'>
+			<div>
+				<time datetime={date.toISOString()}>
+					{
+						date.toLocaleDateString('en-us', {
+							year: 'numeric',
+							month: 'short',
+							day: 'numeric',
+						})
+					}
+				</time>
+				<h1 class='mb-3 mt-2'>{title}</h1>
+				{tags.map(tag => <Tag>{tag}</Tag>)}
+				<hr class='mb-8 mt-5' />
+			</div>
+			<Content />
+		</div>
+	</article>
 </BaseLayout>

@@ -5,7 +5,7 @@ tags: [OS, Concurreny, Data Structure]
 math: true
 ---
 
-> *A processes synchronize problem from my OS lecture...*
+> _A processes synchronize problem from my OS lecture..._
 
 (Using `Semaphore` primitive to write pseudo code, make it right and concurrency.) There are processes and their execution order must satisfy the following DAG. For example, `P3` must be executed after `P1` and `P2`, while `P6` must wait for `P3`.
 
@@ -127,7 +127,7 @@ P8() {
 
 # Barrier Pattern
 
-In [*The Little Book of Semaphores*](https://greenteapress.com/wp/semaphores/), there is a data struct called *Barrier*, works for the pattern that each process cannot pass through the critical point until all processes have reached that point.
+In [_The Little Book of Semaphores_](https://greenteapress.com/wp/semaphores/), there is a data struct called _Barrier_, works for the pattern that each process cannot pass through the critical point until all processes have reached that point.
 
 A simplified C version of barrier:
 
