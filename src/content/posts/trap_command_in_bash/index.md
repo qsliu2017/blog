@@ -4,7 +4,7 @@ date: 2022-12-11
 tags: [Bash, Today I Learned]
 ---
 
-The `trap` command in Bash allows you to specify commands that will be executed when the shell receives a specific signal. This can be useful for performing tasks like ***cleaning up temporary files***.
+The `trap` command in Bash allows you to specify commands that will be executed when the shell receives a specific signal. This can be useful for performing tasks like **_cleaning up temporary files_**.
 
 The trap command has the following syntax:
 

@@ -1,11 +1,7 @@
 {
-    "title": "research!rsc",
-    "url": "https://research.swtch.com/",
-    "author": "Russ Cox",
-    "comment": "Thoughts and links about programming",
-    "tags": [
-        "personal",
-        "programming language",
-        "golang"
-    ]
+	"title": "research!rsc",
+	"url": "https://research.swtch.com/",
+	"author": "Russ Cox",
+	"comment": "Thoughts and links about programming",
+	"tags": ["personal", "programming language", "golang"]
 }

@@ -1,9 +1,7 @@
 {
-    "title": "Metadata",
-    "url": "http://muratbuffalo.blogspot.com/",
-    "tags": [
-        "personal"
-    ],
-    "author": "Murat Demirbas",
-    "comment": "I learned a lot about how to read a paper and write a review"
+	"title": "Metadata",
+	"url": "http://muratbuffalo.blogspot.com/",
+	"tags": ["personal"],
+	"author": "Murat Demirbas",
+	"comment": "I learned a lot about how to read a paper and write a review"
 }

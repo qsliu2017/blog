@@ -1,47 +1,42 @@
 ---
-import { getCollection } from "astro:content";
-import ExternalLink from "../components/ExternalLink.astro";
-import Tag from "../components/Tag.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from 'astro:content';
+import ExternalLink from '../components/ExternalLink.astro';
+import Tag from '../components/Tag.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-const starredBlogs = await getCollection("starred-blogs");
+const starredBlogs = await getCollection('starred-blogs');
 ---
 
-<BaseLayout title="Starred Blogs" description="qsliu's starred blogs">
-  <section>
-    <ul class="unset">
-      {
-        starredBlogs
-          .map((blog) => blog.data)
-          .map(({ title, url, comment, tags, author, posts }) => (
-            <li class="mt-8 p-0">
-              <div class="flex items-end flex-wrap">
-                <ExternalLink href={url} class="text-2xl font-light font-sans">
-                  {title}
-                </ExternalLink>
-                {author && (
-                  <span class="text-2xl font-thin font-sans ml-2">{`@${author}`}</span>
-                )}
-                {tags && tags.map((tag) => <Tag>{tag}</Tag>)}
-              </div>
-              {comment && <p class="text-lg my-2">{comment}</p>}
-              {posts && (
-                <ul class="unset mt-2">
-                  {posts.map(({ title, url }) => (
-                    <li class="ml-2 p-0">
-                      <ExternalLink
-                        href={url}
-                        class="mr-2 text-base font-thin font-sans"
-                      >
-                        {title}
-                      </ExternalLink>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))
-      }
-    </ul>
-  </section>
+<BaseLayout title='Starred Blogs' description="qsliu's starred blogs">
+	<section>
+		<ul class='unset'>
+			{
+				starredBlogs
+					.map(blog => blog.data)
+					.map(({ title, url, comment, tags, author, posts }) => (
+						<li class='mt-8 p-0'>
+							<div class='flex flex-wrap items-end'>
+								<ExternalLink href={url} class='font-sans text-2xl font-light'>
+									{title}
+								</ExternalLink>
+								{author && <span class='ml-2 font-sans text-2xl font-thin'>{`@${author}`}</span>}
+								{tags && tags.map(tag => <Tag>{tag}</Tag>)}
+							</div>
+							{comment && <p class='my-2 text-lg'>{comment}</p>}
+							{posts && (
+								<ul class='unset mt-2'>
+									{posts.map(({ title, url }) => (
+										<li class='ml-2 p-0'>
+											<ExternalLink href={url} class='mr-2 font-sans text-base font-thin'>
+												{title}
+											</ExternalLink>
+										</li>
+									))}
+								</ul>
+							)}
+						</li>
+					))
+			}
+		</ul>
+	</section>
 </BaseLayout>

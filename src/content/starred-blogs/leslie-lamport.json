@@ -1,8 +1,6 @@
 {
-    "title": "Leslie Lamport",
-    "url": "http://lamport.azurewebsites.net/pubs/pubs.html",
-    "comment": "Leslie Lamport wrote his first publication at high school!",
-    "tags": [
-        "personal"
-    ]
+	"title": "Leslie Lamport",
+	"url": "http://lamport.azurewebsites.net/pubs/pubs.html",
+	"comment": "Leslie Lamport wrote his first publication at high school!",
+	"tags": ["personal"]
 }

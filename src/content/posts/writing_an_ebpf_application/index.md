@@ -10,8 +10,9 @@ In this post, we will write a native eBPF application using [`libbpf`](https://g
 
 - A Linux system with `bpf` enabled.
 - Linux headers installed.
-  
+
   For most Linux distributions, install `linux-headers-$(uname -r)` in the package manager.
+
 - `libbpf` installed.
 
 ## eBPF Application Components
@@ -45,7 +46,7 @@ int helloworld(void *ctx) {
 }
 ```
 
-The main part of this program is `int helloworld(void *ctx)`. `SEC("kprobe/do_nanosleep")` indicates that this function (or *program*) will be attached to kernel probe `do_nanosleep`. For a complete list of kprobe, run `cat /proc/kallsyms`.
+The main part of this program is `int helloworld(void *ctx)`. `SEC("kprobe/do_nanosleep")` indicates that this function (or _program_) will be attached to kernel probe `do_nanosleep`. For a complete list of kprobe, run `cat /proc/kallsyms`.
 
 Notice that `SEC("license")` is essential for this program. Because some helper functions are only accessible to programs that are compatible with the GNU Privacy License (GPL). In order to use such helpers, the eBPF program must be loaded with the correct license string.
 
@@ -108,6 +109,7 @@ sudo cat /sys/kernel/debug/tracing/trace
 ```
 
 You shall see:
+
 ```sh
 sudo cat /sys/kernel/debug/tracing/trace
 # tracer: nop
@@ -133,7 +135,7 @@ sudo cat /sys/kernel/debug/tracing/trace
 
 ## Conclusion
 
-In this post, we implement a simple eBPF program having the same function as in the last post [*bpftrace demo*](../bpftrace_demo). Even though using tools and infrastructures like bpftrace is a better choice for simple application and prototyping, understand the native ebpf is sometime the only road left for developers who want to implement a brand new function or a performance-sensitive application.
+In this post, we implement a simple eBPF program having the same function as in the last post [_bpftrace demo_](../bpftrace_demo). Even though using tools and infrastructures like bpftrace is a better choice for simple application and prototyping, understand the native ebpf is sometime the only road left for developers who want to implement a brand new function or a performance-sensitive application.
 
 ## References
 

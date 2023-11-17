@@ -5,13 +5,13 @@ date: 2023-01-06
 
 C++11 provides the template `std::atomic<T>` for defining arbitrary atomic types. All atomic operations on these types can have several orderings, including:
 
-| Value | Explanation |
-|:-:|--|
-| `memory_order_relaxed` | no ordering constraints on reads or writes |
-| `memory_order_consume` | no reads or writes in the current thread *dependent* on the value currently loaded can be reordered *before* this load |
-| `memory_order_acquire` | no reads or writes in the current thread can be reordered *before* this load |
-| `memory_order_release` | no reads or writes in the current thread can be reordered *after* this store |
-| `memory_order_acq_rel` | no memory reads or writes in the current thread can be reordered *before* the load, nor *after* the store |
+|         Value          | Explanation                                                                                                                                                                                                                                                                                      |
+| :--------------------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `memory_order_relaxed` | no ordering constraints on reads or writes                                                                                                                                                                                                                                                       |
+| `memory_order_consume` | no reads or writes in the current thread _dependent_ on the value currently loaded can be reordered _before_ this load                                                                                                                                                                           |
+| `memory_order_acquire` | no reads or writes in the current thread can be reordered _before_ this load                                                                                                                                                                                                                     |
+| `memory_order_release` | no reads or writes in the current thread can be reordered _after_ this store                                                                                                                                                                                                                     |
+| `memory_order_acq_rel` | no memory reads or writes in the current thread can be reordered _before_ the load, nor _after_ the store                                                                                                                                                                                        |
 | `memory_order_seq_cst` | A load operation with this memory order performs an acquire operation, a store performs a release operation, and read-modify-write performs both an acquire operation and a release operation, plus a single total order exists in which all threads observe all modifications in the same order |
 
 ### Relaxed Ordering
@@ -25,7 +25,7 @@ For example, both
 r1 = y.load(std::memory_order_relaxed); // A
 x.store(r1, std::memory_order_relaxed); // B
 // Thread 2:
-r2 = x.load(std::memory_order_relaxed); // C 
+r2 = x.load(std::memory_order_relaxed); // C
 y.store(42, std::memory_order_relaxed); // D
 ```
 
@@ -101,6 +101,7 @@ Atomic operations tagged `memory_order_seq_cst` not only order memory the same w
 Although the idealised compiler considered naively applies a one-to-one mapping from C memory accesses to machine memory accesses, [some common compiler optimisations are invalid in the C11 memory model](https://plv.mpi-sws.org/c11comp/popl15.pdf) (such as expression linearisation and “roach motel” reorderings). Thus, it cannot be used to define the semantics of intermediate languages of compilers, for instance, LLVM IR.
 
 ## Reference
+
 1. [What every systems programmer should know about concurrency](https://assets.bitbashing.io/papers/concurrency-primer.pdf)
 1. [Common Compiler Optimisations are Invalid in the C11 Memory Model and what we can do about it](https://plv.mpi-sws.org/c11comp/popl15.pdf)
 1. [C++11 Memory Order](https://en.cppreference.com/w/cpp/atomic/memory_order)

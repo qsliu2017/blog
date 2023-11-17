@@ -1,8 +1,6 @@
 {
-    "title": "OtterTune",
-    "url": "https://ottertune.com/blog/",
-    "tags": [
-        "database"
-    ],
-    "comment": "OtterTune is AI-powered cloud database tuning."
+	"title": "OtterTune",
+	"url": "https://ottertune.com/blog/",
+	"tags": ["database"],
+	"comment": "OtterTune is AI-powered cloud database tuning."
 }

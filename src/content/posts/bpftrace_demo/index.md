@@ -1,5 +1,5 @@
 ---
-title: "`bpftrace` demo"
+title: '`bpftrace` demo'
 date: 2023-02-18
 tags: [eBPF, bpftrace]
 ---

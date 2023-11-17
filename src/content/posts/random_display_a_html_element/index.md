@@ -4,10 +4,19 @@ tags: [javascript, html, hugo]
 date: 2023-03-28
 ---
 
-Today I want to add a ***Listen Now*** section in my blog, to display a random song from my playlist. Spotify provides embed code for each song, for example:
+Today I want to add a **_Listen Now_** section in my blog, to display a random song from my playlist. Spotify provides embed code for each song, for example:
 
 ```html
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5oO3drDxtziYU2H1X23ZIp?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<iframe
+	style="border-radius:12px"
+	src="https://open.spotify.com/embed/track/5oO3drDxtziYU2H1X23ZIp?utm_source=generator"
+	width="100%"
+	height="352"
+	frameborder="0"
+	allowfullscreen=""
+	allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+	loading="lazy"
+></iframe>
 ```
 
 For simplicity, I want to use the code copied from Spotify directly.
@@ -23,10 +32,7 @@ I store the embed code in `data/playlist.toml`. It can be fetch by Hugo's `.Site
 Then I use Hugo's `shuffle` function to randomize the playlist and `range` function to display the first element.
 
 ```html
-{{ $playlist := shuffle $playlist }}
-{{ range first 1 $playlist }}
-{{ . }}
-{{ end }}
+{{ $playlist := shuffle $playlist }} {{ range first 1 $playlist }} {{ . }} {{ end }}
 ```
 
 Save this snippet to `layouts/shortcodes/random.html` and use it in my blog.
@@ -46,17 +52,15 @@ I want the song to change every time when I enter this page. So I write some `sc
 ```html
 {{$id := substr (md5 .Inner) 0 16 }}
 <div id="{{$id}}">
-  {{ .Inner }}
-  <script>
-    (() => {
-      let dummy = document.getElementById("{{$id}}");
-      let list = dummy.children;
-      if (list.length > 0)
-        dummy.replaceWith(list[Math.floor(Math.random() * (list.length - 1))]);
-      else
-        dummy.remove();
-    })();
-  </script>
+	{{ .Inner }}
+	<script>
+		(() => {
+			let dummy = document.getElementById('{{$id}}');
+			let list = dummy.children;
+			if (list.length > 0) dummy.replaceWith(list[Math.floor(Math.random() * (list.length - 1))]);
+			else dummy.remove();
+		})();
+	</script>
 </div>
 ```
 
@@ -66,6 +70,7 @@ Use it in the content:
 
 ```md
 {{</* random */>}}
+
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5oO3drDxtziYU2H1X23ZIp?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3wFLWP0FcIqHK1wb1CPthQ?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0MMyJUC3WNnFS1lit5pTjk?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
@@ -75,6 +80,7 @@ Use it in the content:
 It works!
 
 {{< random >}}
+
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5oO3drDxtziYU2H1X23ZIp?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3wFLWP0FcIqHK1wb1CPthQ?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0MMyJUC3WNnFS1lit5pTjk?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>

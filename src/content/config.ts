@@ -17,7 +17,7 @@ const posts = defineCollection({
 		date: z
 			.string()
 			.or(z.date())
-			.transform((val) => new Date(val)),
+			.transform(val => new Date(val)),
 		tags: z.string().array().default([]),
 	}),
 });
@@ -37,11 +37,14 @@ const starredBlogs = defineCollection({
 		author: z.ostring(),
 		comment: z.ostring(),
 		tags: z.string().array().optional(),
-		posts: z.object({
-			title: z.string(),
-			url: z.string().url(),
-		}).array().optional(),
+		posts: z
+			.object({
+				title: z.string(),
+				url: z.string().url(),
+			})
+			.array()
+			.optional(),
 	}),
 });
 
-export const collections = { bookmarks, posts, songs, "starred-blogs": starredBlogs };
+export const collections = { bookmarks, posts, songs, 'starred-blogs': starredBlogs };

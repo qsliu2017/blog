@@ -1,41 +1,41 @@
 ---
-import { getCollection } from "astro:content";
-import Tag from "../../components/Tag.astro";
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from 'astro:content';
+import Tag from '../../components/Tag.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const posts = await getCollection("posts");
+const posts = await getCollection('posts');
 
 const today = new Date();
 const dateString = (date: Date) =>
-  date.toLocaleDateString("zh-cn", {
-    year: date.getFullYear() === today.getFullYear() ? undefined : "numeric",
-    day: "2-digit",
-    month: "2-digit",
-  });
+	date.toLocaleDateString('zh-cn', {
+		year: date.getFullYear() === today.getFullYear() ? undefined : 'numeric',
+		day: '2-digit',
+		month: '2-digit',
+	});
 ---
 
 <BaseLayout>
-  <section>
-    <ul class="unset">
-      {
-        posts
-          .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-          .map(({ slug, data: { title, date, tags } }) => (
-            <li class="mt-4 p-0">
-              <div class="flex justify-between">
-                <div class="flex flex-wrap">
-                  <a class="" href={`/post/${slug}`}>
-                    <h3 class="text-lg">{title}</h3>
-                  </a>
-                  {tags.map((tag) => (
-                    <Tag class="max-sm:hidden">{tag}</Tag>
-                  ))}
-                </div>
-                <span class="">{dateString(date)}</span>
-              </div>
-            </li>
-          ))
-      }
-    </ul>
-  </section>
+	<section>
+		<ul class='unset'>
+			{
+				posts
+					.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+					.map(({ slug, data: { title, date, tags } }) => (
+						<li class='mt-4 p-0'>
+							<div class='flex justify-between'>
+								<div class='flex flex-wrap'>
+									<a class='' href={`/post/${slug}`}>
+										<h3 class='text-lg'>{title}</h3>
+									</a>
+									{tags.map(tag => (
+										<Tag class='max-sm:hidden'>{tag}</Tag>
+									))}
+								</div>
+								<span class=''>{dateString(date)}</span>
+							</div>
+						</li>
+					))
+			}
+		</ul>
+	</section>
 </BaseLayout>

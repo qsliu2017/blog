@@ -1,29 +1,29 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
-import MathJaxHead from "../components/MathJaxHead.astro";
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import MathJaxHead from '../components/MathJaxHead.astro';
 
 type Props = {
-  title?: string | undefined;
-  description?: string | undefined;
-  image?: string | undefined;
+	title?: string | undefined;
+	description?: string | undefined;
+	image?: string | undefined;
 };
 
 const props = Astro.props;
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <BaseHead {...props} />
-    <MathJaxHead />
-  </head>
-  <body class="flex flex-col h-screen">
-    <Header />
-    <main class="w-[720px] max-w-[calc(100%-1em)] mx-auto mb-auto p-4">
-      <slot />
-    </main>
-    <Footer />
-  </body>
+<!doctype html>
+<html lang='en'>
+	<head>
+		<BaseHead {...props} />
+		<MathJaxHead />
+	</head>
+	<body class='flex h-screen flex-col'>
+		<Header />
+		<main class='mx-auto mb-auto w-[720px] max-w-[calc(100%-1em)] p-4'>
+			<slot />
+		</main>
+		<Footer />
+	</body>
 </html>
