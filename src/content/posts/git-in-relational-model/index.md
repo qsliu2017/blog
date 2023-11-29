@@ -27,11 +27,9 @@ CREATE TABLE blob (
 );
 ```
 
-The prefix `_` in `_oid` is used to indicate that it is not physically stored in the object.
-On the other hand, `content` is stored in the object and it is the only payload of the object.
+The prefix underscore in `_oid` indicates that it is not physically stored in the object. On the other hand, `content` is stored in the object and it is the only payload of the blob object.
 
-Note that there is no filename stored in the blob object, nor the other metadata of the file.
-Actually this metadata is stored in the tree object, which we will discuss later.
+Note that there is no filename stored in the blob object, nor the other metadata of the file. In fact, this metadata is stored in the tree object. We will discuss it later.
 
 An important difference between this SQL schema and the actual Git storage is that the content can be only indexed by `_oid`, i.e. the `SHA1(content)`. That means we can not search a blob by its content directly.
 
@@ -44,16 +42,15 @@ CREATE TABLE tree (
     _oid oid,
     child_oid oid,
     path text,
-    created_time timestamp,
     ... /* other metadata */
 );
 ```
 
-Each tree object has one or more children, so we use a relation table to store the tree. Since a tree object has nothing except its children, we can ignore the tree entity table.
+Each tree object has one or more children, so we use a relation table to store the tree. Since a tree object has nothing except its children items, we just ignore the tree entity table.
 
-Each row in the `tree` table represents a child of a tree object, which can be a blob object or another tree object. Thus `child_oid` field can be either a `blob(_oid)` or a `tree(_oid)`. However this type of reference is not supported by SQL.
+Each row in the `tree` table represents a child of a tree object, which can be a blob object or another tree object. Thus `child_oid` field is reference to `blob(_oid)` or `tree(_oid)`. However this type of reference is not supported by SQL, so we just omit the foreign key constraint.
 
-`path` is the filename or subdirectory name. Note that a tree only stores its direct children, so the path is relative to the tree object and does not contains `.` or `/`. The other metadata of child, such as `created_time`, is also stored in tree object.
+`path` is the filename or subdirectory name. Note that a tree only stores its direct children, so the path is relative to the tree object and does not contains `.` or `/`. The other metadata of child, such as created time and privilege mode, is also stored in tree object.
 
 An empty directory is not stored in Git. Thus there is no empty tree object.
 
@@ -70,11 +67,11 @@ CREATE TABLE commit (
     message text,
     author text,
     committer text,
-    ... /* other payloads */
+    ... /* other metadata */
 )
 ```
 
-A commit object contains an OID of the root tree object with other human-readable information such as message, author and committer. We can use `git cat-file` command to browse the content of a commit object.
+A commit object contains an OID of the root tree object with other human-readable information such as commit message, author and committer. We can use `git cat-file` command to browse the content of a commit object.
 
 ```sh
 > git cat-file commit 246f96e522e28bedc4440a7975c2740299f9db1e
@@ -87,11 +84,11 @@ committer qsliu <qsliu2017@outlook.com> 1700130352 +0800
 post: ci system the users perspective
 ```
 
-## (Cont.) Commit is a Pointer to Parent Commit(s)
+## (Cont.) Commit is also a Pointer to Parent Commit(s)
 
 But wait, what's the `parent` in the content of the commit object?
 
-Recall that Git is a _version control_ system. Only the snapshots of repository in different time are not enough, we need the relationship between snapshots to represent the revoluation and branches of the repository. Thus commit object also contains OID of its parent commit(s). This relationship can be represented by the following table.
+Recall that Git is a _version control_ system. The snapshots of repository in different time are not enough. To represent the revoluation and branches of the repository, we need the relationship between snapshots. Thus commit object also contains OID of its parent commit(s). This relationship can be represented by the following table.
 
 ```sql
 CREATE TABLE commit_parent (
@@ -106,11 +103,11 @@ A commit might have zero, one or more parents.
 - If a commit has one parent, it is a normal commit.
 - If a commit has more than one parent, it is a merge commit.
 
-## Branch/Tag is a Pointer to a Commit
+## Branch/Tag is an Alias to a Commit
 
-Finally, we talk about branch/tag. However they are _NOT_ objects, and do not have an OID. Instead, they are just pointers to a commit object.
+Finally, we discuss branch/tag. However they are _NOT_ objects and do not have an OID. Instead, they are just aliases to a commit object.
 
-We can browse the structure of the `.git/refs` directory to see the branch/tag pointers.
+We can browse the structure of the `.git/refs` directory to see the branch/tag.
 
 ```sh
 > tree refs
@@ -136,7 +133,7 @@ As we can see, branches and tags are stored in the `refs` directory. And the pat
 
 The difference between branch and tag is that branch is mutable, while tag is immutable. Branch commit is moved when we commit a new snapshot, while tag commit is fixed.
 
-We can also see that remote branches has no difference with local branches. They are just stored in different directories and updated by different commands.
+We can also tell that remote branches has no difference with local branches. They are just stored in different directories and updated by different commands.
 
 ## Conclusion
 
@@ -144,8 +141,10 @@ In this post, we discuss objects in Git storage and try to understand them in a 
 
 ## Other Resources
 
+1. [_Git Internals - Git Objects_](https://git-scm.com/book/en/v2/Git-Internals-Git-Objects) chapter in the _Pro Git_ book has the most detailed explanation of Git objects.
+
 1. "But wait, I thought commit is diff?"
 
    Most Git clients display a commit by the diff of the commit and its parent commit(s), and usually we only care about the diff. [_Commits are snapshots, not diffs_](https://github.blog/2020-12-17-commits-are-snapshots-not-diffs/) explains why commit is a snapshot and not a diff. And the author also discusses how the `cherry-pick`, `rebase` and `merge` do when commit is actually a snapshot.
 
-2. The idea of seeing Git as a database comes from [_Git’s database internals_](https://github.blog/2022-08-29-gits-database-internals-i-packed-object-store/), where the author sees Git as a key-value database and discusses more about how to query the Git objects.
+1. The idea of seeing Git as a database comes from [_Git’s database internals_](https://github.blog/2022-08-29-gits-database-internals-i-packed-object-store/), where the author sees Git as a key-value database and discusses more about how to query the Git objects.
