@@ -84,9 +84,9 @@ committer qsliu <qsliu2017@outlook.com> 1700130352 +0800
 post: ci system the users perspective
 ```
 
-## (Cont.) Commit is also a Pointer to Parent Commit(s)
-
 But wait, what's the `parent` in the content of the commit object?
+
+## (Cont.) Commit is also a Pointer to Parent Commit(s)
 
 Recall that Git is a _version control_ system. The snapshots of repository in different time are not enough. To represent the revoluation and branches of the repository, we need the relationship between snapshots. Thus commit object also contains OID of its parent commit(s). This relationship can be represented by the following table.
 
