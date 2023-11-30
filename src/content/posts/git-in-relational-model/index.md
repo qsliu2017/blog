@@ -38,7 +38,7 @@ An important difference between this SQL schema and the actual Git storage is th
 The second object is `tree`. Tree represents a directory in the repository. We browse the content of a tree object by `git cat-file` command.
 
 ```sh
-git cat-file -p e0504e788345f65315e6a53f992b40f503937618
+> git cat-file -p e0504e788345f65315e6a53f992b40f503937618
 040000 tree ea7cab952a09f0c8d6c3d74e3f72c011aec794e0    .github
 100644 blob 6240da8b10bfc3ab9dc4564c4169453cf143db7f    .gitignore
 100644 blob 92280800c38a7edb2e5dd3a89602aa4857adcbe2    .prettierrc
