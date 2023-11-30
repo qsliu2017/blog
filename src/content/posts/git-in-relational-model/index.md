@@ -35,22 +35,41 @@ An important difference between this SQL schema and the actual Git storage is th
 
 ## Tree is a Directory
 
-The second object is `tree`. Tree represents a directory in the repository.
+The second object is `tree`. Tree represents a directory in the repository. We browse the content of a tree object by `git cat-file` command.
+
+```sh
+git cat-file -p e0504e788345f65315e6a53f992b40f503937618
+040000 tree ea7cab952a09f0c8d6c3d74e3f72c011aec794e0    .github
+100644 blob 6240da8b10bfc3ab9dc4564c4169453cf143db7f    .gitignore
+100644 blob 92280800c38a7edb2e5dd3a89602aa4857adcbe2    .prettierrc
+040000 tree 3b444578da46570923e19673c309503f6c42752c    .vscode
+100644 blob f6d4ce044edd974f0d5d752ce8591f0282f86ed0    LICENSE
+100644 blob c7cf6d75fc413de1386b1c005da03dd4df1c95be    astro.config.mjs
+100644 blob 5d3d5a9d14deff76470cf0105a8e233986235cd9    package-lock.json
+100644 blob 8c44bc97117ec7b43cd15edb6c562f25db871304    package.json
+040000 tree 5cf636ff3d0cf422423e4a09f7bdd7a5636f9851    public
+040000 tree 3a470abd49534a41d5231a16bb4f2040b26593f9    src
+100644 blob 8358535e3131c2f8fe2f34ce16aaacd333037628    tailwind.config.cjs
+100644 blob 6befff5128e6b06c8984595d7b786bee41d02367    tsconfig.json
+```
+
+This content can be described by the following table.
 
 ```sql
 CREATE TABLE tree (
     _oid oid,
+    mode text,
+    type text,
     child_oid oid,
-    path text,
-    ... /* other metadata */
+    path text
 );
 ```
 
 Each tree object has one or more children, so we use a relation table to store the tree. Since a tree object has nothing except its children items, we just ignore the tree entity table.
 
-Each row in the `tree` table represents a child of a tree object, which can be a blob object or another tree object. Thus `child_oid` field is reference to `blob(_oid)` or `tree(_oid)`. However this type of reference is not supported by SQL, so we just omit the foreign key constraint.
+Each row in the `tree` table represents a child of a tree object, which can be a blob object or another tree object. Thus `child_oid` field is reference to `blob(_oid)` or `tree(_oid)`. However this type of reference is not supported by SQL, so we just omit the foreign key constraint. Instead, we use field `type` to indicate the type of the child object.
 
-`path` is the filename or subdirectory name. Note that a tree only stores its direct children, so the path is relative to the tree object and does not contains `.` or `/`. The other metadata of child, such as created time and privilege mode, is also stored in tree object.
+`path` is the filename or subdirectory name. Note that a tree only stores its direct children, so the path is relative to the tree object and does not contains `.` or `/`. Another metadata of child, the privilege mode, is also stored in tree object.
 
 An empty directory is not stored in Git. Thus there is no empty tree object.
 
