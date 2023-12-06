@@ -32,9 +32,7 @@ const hugoPostsRedirects = [
 export default defineConfig({
 	site: 'https://blog.qsliu.dev',
 	integrations: [mdx(), tailwind()],
-	experimental: {
-		assets: true,
-	},
+	assets: true,
 	redirects: {
 		...hugoPostsRedirects,
 	},
