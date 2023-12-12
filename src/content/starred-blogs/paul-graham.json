@@ -1,0 +1,13 @@
+{
+	"title": "Paul Graham",
+	"url": "http://www.paulgraham.com/index.html",
+	"tags": ["personal"],
+	"author": "Paul Graham",
+	"comment": "I love the essay 'Maker's Schedule, Manager's Schedule' (and hope all of my colleagues read it). Then I found out Paul is who wrote 'Hackers and Painters'.",
+	"posts": [
+		{
+			"title": "Maker's Schedule, Manager's Schedule",
+			"url": "http://www.paulgraham.com/makersschedule.html"
+		}
+	]
+}
