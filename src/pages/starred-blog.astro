@@ -8,7 +8,7 @@ const starredBlogs = await getCollection('starred-blogs');
 ---
 
 <BaseLayout title='Starred Blogs' description="qsliu's starred blogs">
-	<section>
+	<main class='mx-auto mb-auto w-[calc(100%-1em)] max-w-2xl'>
 		<ul class='unset'>
 			{
 				starredBlogs
@@ -38,5 +38,5 @@ const starredBlogs = await getCollection('starred-blogs');
 					))
 			}
 		</ul>
-	</section>
+	</main>
 </BaseLayout>

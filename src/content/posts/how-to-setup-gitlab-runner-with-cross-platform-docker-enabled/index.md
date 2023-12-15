@@ -6,13 +6,6 @@ tags: [How-to, GitLab, Docker]
 
 In this how-to, we will setup a GitLab Runner with Docker cross-platform build enabled inside the job container. Debian is used as example, but the steps should be similar for other Linux distributions.
 
-### Table of Contents
-
-1. [Install Docker](#1-install-docker)
-1. [Register GitLab Runner](#2-register-gitlab-runner)
-1. [Enable Docker in Docker](#3-enable-docker-in-docker)
-1. [Support Cross-Platform](#4-support-cross-platform)
-
 ## 1. Install Docker
 
 Follow the [Docker docs](https://docs.docker.com/engine/install/) to install Docker Engine.

@@ -5,14 +5,16 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title='About Me'>
-	<div class='mb-4'>
-		<h2 class='py-2 font-serif text-2xl font-semibold'>Toolchain</h2>
-		<ul class='list-inside list-disc'>
-			<Toolchain />
-		</ul>
-	</div>
-	<div class='mb-4'>
-		<h2 class='py-2 font-serif text-2xl font-semibold'>Listen now</h2>
-		<RandomSong />
-	</div>
+	<main class='mx-auto mb-auto w-[calc(100%-1em)] max-w-2xl'>
+		<div class='mb-4'>
+			<h2 class='py-2 font-serif text-2xl font-semibold'>Toolchain</h2>
+			<ul class='list-inside list-disc'>
+				<Toolchain />
+			</ul>
+		</div>
+		<div class='mb-4'>
+			<h2 class='py-2 font-serif text-2xl font-semibold'>Listen now</h2>
+			<RandomSong />
+		</div>
+	</main>
 </BaseLayout>

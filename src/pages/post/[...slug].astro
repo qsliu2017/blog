@@ -1,5 +1,5 @@
 ---
-import { CollectionEntry, getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import Tag from '../../components/Tag.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
@@ -14,27 +14,31 @@ type Props = CollectionEntry<'posts'>;
 
 const post = Astro.props;
 const { title, description, date, tags } = post.data;
-const { Content } = await post.render();
+const { Content, headings } = await post.render();
 ---
 
 <BaseLayout title={title} description={description}>
-	<article>
-		<div class='prose m-auto w-full'>
-			<div>
-				<time datetime={date.toISOString()}>
-					{
-						date.toLocaleDateString('en-us', {
-							year: 'numeric',
-							month: 'short',
-							day: 'numeric',
-						})
-					}
-				</time>
-				<h1 class='mb-3 mt-2'>{title}</h1>
-				{tags.map(tag => <Tag>{tag}</Tag>)}
-				<hr class='mb-8 mt-5' />
-			</div>
-			<Content />
+	<div class='mx-auto mb-auto grid w-[calc(100%-1em)] max-w-6xl grid-cols-5 max-md:grid-cols-3'>
+		<div class='col-span-3 col-start-2 max-md:col-start-1'>
+			<time datetime={date.toISOString()}>{date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+			<h1 class='mb-3 mt-2 font-heading text-4xl font-bold'>{title}</h1>
+			{tags.map(tag => <Tag>{tag}</Tag>)}
+			<hr class='mb-8 mt-5' />
 		</div>
-	</article>
+		<main class='prose col-span-3 col-start-2 max-md:col-start-1'>
+			<Content />
+		</main>
+		<aside class='sticky top-0 ml-4 mt-2 h-fit scroll-smooth pt-2 max-md:hidden'>
+			<h1>Table of Content</h1>
+			<ul>
+				{
+					headings.map(h => (
+						<li>
+							<a href={`#${h.slug}`}>{h.text}</a>
+						</li>
+					))
+				}
+			</ul>
+		</aside>
+	</div>
 </BaseLayout>

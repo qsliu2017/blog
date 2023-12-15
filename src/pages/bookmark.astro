@@ -7,7 +7,7 @@ const bookmarks = await getCollection('bookmarks');
 ---
 
 <BaseLayout title='Bookmarks' description="qsliu's bookmarks">
-	<section>
+	<main class='mx-auto mb-auto w-[calc(100%-1em)] max-w-2xl'>
 		<ul class='unset'>
 			{
 				bookmarks
@@ -22,5 +22,5 @@ const bookmarks = await getCollection('bookmarks');
 					))
 			}
 		</ul>
-	</section>
+	</main>
 </BaseLayout>
