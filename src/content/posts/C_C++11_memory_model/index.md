@@ -20,7 +20,7 @@ Relaxed ordering is the weakest constraint. Loads and stores are not guaranteed 
 
 For example, both
 
-```C++
+```c++
 // Thread 1:
 r1 = y.load(std::memory_order_relaxed); // A
 x.store(r1, std::memory_order_relaxed); // B
@@ -31,7 +31,7 @@ y.store(42, std::memory_order_relaxed); // D
 
 and
 
-```C++
+```c++
 // Thread 1:
 r1 = y.load(std::memory_order_relaxed);   // A
 if (r1 == 42)                             // B
@@ -48,7 +48,7 @@ are allowed to produce `r1 == r2 == 42`. Since there is no guarantee how they ar
 
 For example,
 
-```C++
+```c++
 std::atomic<std::string*> ptr;
 int data;
 
@@ -72,7 +72,7 @@ Mutual exclusion locks are an example of release-acquire ordering: when the lock
 
 For example,
 
-```C++
+```c++
 std::atomic<std::string*> ptr;
 int data;
 

@@ -8,7 +8,7 @@ The `trap` command in Bash allows you to specify commands that will be executed 
 
 The trap command has the following syntax:
 
-```txt
+```plaintext
 trap [COMMANDS] [SIGNALS]
 ```
 

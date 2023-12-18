@@ -15,14 +15,14 @@ math: true
 
 For each process,
 
-```txt
+```plaintext
 M := the mutex indicate that process is ready to execute
 NODE := the node that this process point to
 ```
 
 For each node,
 
-```txt
+```plaintext
 MUTEX := mutex access this node
 CNT := the number of processes that have reach this node, initial 0.
 N := in-degree of the node
@@ -31,7 +31,7 @@ OUT := the set of all out edges
 
 And the pseudo code of each process is:
 
-```txt
+```plaintext
 Process(P) {
   Wait(P.M) // wait for this process is ready to execute
 
@@ -48,7 +48,7 @@ Process(P) {
 
 The complete solution of the problem (simplify the processes that do not wait for others and the node where both in-degree and out-degree is 1):
 
-```txt
+```plaintext
 S3 = Semaphore(0)
 S4 = Semaphore(0)
 S5 = Semaphore(0)
@@ -131,7 +131,7 @@ In [_The Little Book of Semaphores_](https://greenteapress.com/wp/semaphores/), 
 
 A simplified C version of barrier:
 
-```C
+```c
 struct {
   int n, cnt;
   sem_t mutex, barrier;
@@ -159,7 +159,7 @@ void go_through_barrier(barrier_t *b) {
 
 We can find the common pattern of barrier and the DAG in the beginning: wait for a semaphore to reach a given number (`n` in the barrier pattern and in-degree of the node in the DAG). Therefore we can create a new type of synchronization primitive for this pattern:
 
-```C
+```c
 struct {
   int n, cnt;
   sem_t mutex;
@@ -184,7 +184,7 @@ void post_n_sem(n_sem_t *sem) {
 
 The problem at the beginning can be solved using this primitive:
 
-```C
+```c
 n_sem_t node1;
 init_n_sem(&node1, 2);
 

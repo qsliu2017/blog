@@ -13,7 +13,7 @@ For instance, a row created by a transcation has a `XMIN` value equals to XID of
 
 Given a transcation with `XID` and a row with `XMIN`, let's say we use a simple algorithm to determine the visibility:
 
-```C
+```c
 bool isVisible(unsigned int XID, unsigned int XMIN){
   return XID > XMIN;
 }
@@ -41,7 +41,7 @@ However it must be blocked until all XIDs are vacuumed. This could become a bott
 
 In real world, Postgres actually uses a modulo 2^32 arithmetic XID space, where the visibility algorithm can be briefly described as:
 
-```C
+```c
 bool isVisible(unsigned int XID, unsigned int XMIN){
   return  XID - XMIN < 2^31;
 }

@@ -26,7 +26,7 @@ bpftrace -e 'kprobe:do_nanosleep { printf("%d is falling asleep\n", pid); }'
 
 When you run this command, you will see the following output:
 
-```txt
+```plaintext
 Attaching 1 probe...
 209 is falling asleep
 209 is falling asleep
@@ -45,7 +45,7 @@ There are several kinds of probes available. For example, `kprobe:do_sys_open` c
 
 In addition to kernel functions, `bpftrace` can also trace user functions. Let's write a simple C program and compile it to `/root/a.out`.
 
-```C
+```c
 #include <stdlib.h>
 void increment(int *p) { (*p)++; }
 int main() {
@@ -64,7 +64,7 @@ bpftrace -e 'uprobe:/root/a.out:increment { printf("increment %p\n", arg0); }'
 
 Now, run the program in another terminal window. You should see output similar to the following in the terminal running `bpftrace`:
 
-```txt
+```plaintext
 Attaching 1 probe...
 increment 0x7ffc6c4b3658
 increment 0x7ffc6c4b3658

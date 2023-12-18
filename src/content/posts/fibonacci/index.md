@@ -95,7 +95,7 @@ $$
 
 A Golang version code can be found in my [GitHub](https://github.com/qsliu2017/fibonacci). In my test, this solution is way more fast than the $\text{O}(n)$ version.
 
-```txt
+```plaintext
 $ go test -bench '^BenchmarkFibonacci(2|3)$'
 goos: darwin
 goarch: arm64

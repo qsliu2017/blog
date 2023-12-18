@@ -25,7 +25,7 @@ $$
 
 where $w$ is the weight decided by nice value in [`sched_prio_to_weight[40]`](https://github.com/torvalds/linux/blob/fef7fd48922d11b22620e19f9c9101647bfe943d/kernel/sched/core.c#L11180) and $w_0$ is the weight of nice 0 (i.e. `sched_prio_to_weight[20]`).
 
-```C
+```c
 const int sched_prio_to_weight[40] = {
  /* -20 */     88761,     71755,     56483,     46273,     36291,
  /* -15 */     29154,     23254,     18705,     14949,     11916,

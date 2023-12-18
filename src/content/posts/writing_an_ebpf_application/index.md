@@ -31,7 +31,7 @@ The user program can be written in Rust or Go via their [libbpf-rs](https://gith
 
 We write a simple eBPF program that prints log when `do_nanosleep` is called.
 
-```C
+```c
 #include <linux/bpf.h>
 
 #include <bpf/bpf_helpers.h>
@@ -64,7 +64,7 @@ clang \
 
 We then write a simple user program to load the bpf program.
 
-```C
+```c
 #include <bpf/libbpf.h>
 #include <stdio.h>
 
