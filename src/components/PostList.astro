@@ -1,0 +1,39 @@
+---
+import { type CollectionEntry } from 'astro:content';
+
+type Props = {
+	posts: CollectionEntry<'posts'>[];
+};
+
+const { posts } = Astro.props;
+
+const today = new Date();
+const dateString = (date: Date) =>
+	date.toLocaleDateString('zh-cn', {
+		year: date.getFullYear() === today.getFullYear() ? undefined : 'numeric',
+		day: '2-digit',
+		month: '2-digit',
+	});
+---
+
+<ul class='flex flex-col gap-4 font-body'>
+	{
+		posts
+			.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+			.map(({ slug, data: { title, date, tags } }) => (
+				<li class='flex items-baseline justify-between'>
+					<div class='flex flex-wrap items-baseline gap-x-1'>
+						<a class='text-lg' href={`/post/${slug}`}>
+							{title}
+						</a>
+						{tags.map(tag => (
+							<a href={`/post/tag/${tag}`}>
+								<span class='h-fit rounded-full border border-gray-300 bg-slate-100 px-1 text-base font-extralight text-gray-600'>{tag}</span>
+							</a>
+						))}
+					</div>
+					<time datetime={date.toISOString()}>{dateString(date)}</time>
+				</li>
+			))
+	}
+</ul>

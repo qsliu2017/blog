@@ -1,0 +1,25 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import PostList from '../../../components/PostList.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export const getStaticPaths = (async () => {
+	const posts = await getCollection('posts');
+	const tags = new Set(posts.flatMap(post => post.data.tags));
+	return Array.from(tags).map(tag => ({
+		params: { slug: tag },
+		props: { tag, posts: posts.filter(post => post.data.tags.includes(tag)) },
+	}));
+}) satisfies GetStaticPaths;
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout>
+	<main class='mx-auto mb-auto mt-4 w-[calc(100%-1em)] max-w-2xl'>
+		<h1 class='font-heading text-3xl'>#{tag}</h1>
+		<hr class='mb-4 mt-2' />
+		<PostList posts={posts} />
+	</main>
+</BaseLayout>

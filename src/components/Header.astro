@@ -13,7 +13,7 @@ const pages: {
 	{ name: 'About', href: '/about' },
 ];
 const { pathname } = Astro.url;
-const isActive = (href: string) => href === pathname || href === pathname.replace(/\/$/, '');
+const isActive = (href: string) => pathname.startsWith(href);
 
 const icons: {
 	href: string;

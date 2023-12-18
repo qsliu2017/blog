@@ -26,7 +26,7 @@ const { Content, headings } = await post.render();
 	</head>
 	<body>
 		<div class='mx-auto mb-auto grid w-[calc(100%-1em)] max-w-6xl grid-cols-11 max-md:grid-cols-5'>
-			<div class='col-span-6 col-start-3 my-2 flex flex-col items-start gap-1 font-body max-md:col-start-1'>
+			<div class='col-span-6 col-start-3 my-2 flex flex-col items-start font-body max-md:col-start-1'>
 				<span class='flex items-center'>
 					<a class='text-slate-500 hover:text-slate-600' href='/post'>Posts</a><svg
 						xmlns='http://www.w3.org/2000/svg'
@@ -52,7 +52,7 @@ const { Content, headings } = await post.render();
 						))
 					}
 				</ul>
-				<hr class='self-stretch' />
+				<hr class='mb-4 mt-2 self-stretch' />
 			</div>
 			<main class='prose col-span-6 col-start-3 max-md:col-start-1'>
 				<Content />
