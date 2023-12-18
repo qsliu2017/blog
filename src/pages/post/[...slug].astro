@@ -54,7 +54,9 @@ const { Content, headings } = await post.render();
 				</ul>
 				<hr class='mb-4 mt-2 self-stretch' />
 			</div>
-			<main class='prose col-span-6 col-start-3 max-md:col-start-1'>
+			<main
+				class='prose col-span-6 col-start-3 prose-a:font-normal prose-a:underline prose-a:after:inline-block prose-a:after:w-[15px] prose-a:after:align-middle prose-a:after:content-[url(/external-link.svg)] max-md:col-start-1'
+			>
 				<Content />
 			</main>
 			<aside class='sticky top-0 col-span-2 ml-4 mt-2 h-fit scroll-smooth pt-2 max-md:hidden'>
