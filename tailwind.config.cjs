@@ -48,6 +48,20 @@ module.exports = {
 						'h1, h2, h3, h4, h5': {
 							color: 'rgb(var(--color-text-heading))',
 						},
+						'pre code': {
+							'counter-reset': 'line',
+						},
+						'pre code span.line': {
+							'counter-increment': 'line',
+							'text-wrap': 'wrap',
+						},
+						'pre code span.line::before': {
+							content: 'counter(line)',
+							width: '1.2em' /* workaround: line number < 100 */,
+							'text-align': 'right',
+							display: 'inline-block',
+							'margin-right': '.5em',
+						},
 						'code::before': {
 							content: 'none',
 						},
