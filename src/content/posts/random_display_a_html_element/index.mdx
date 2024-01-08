@@ -4,6 +4,25 @@ tags: [javascript, html, hugo]
 date: 2023-03-28
 ---
 
+_Updated at 2024/01/08_: I have migrated my blog from Hugo to Astro. The `replaceWith` DOM manipulation method still works. And I find [`customElement.define()`](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define) is a more general way to implement this. The following is the snippet code:
+
+```html
+<script>
+	customElements.define(
+		'random-one-of',
+		class extends HTMLElement {
+			constructor() {
+				super();
+				this.replaceChildren(this.children.item(Math.floor(Math.random() * this.children.length))!);
+			}
+		},
+	);
+</script>
+<random-one-of><slot /></random-one-of>
+```
+
+<hr />
+
 Today I want to add a **_Listen Now_** section in my blog, to display a random song from my playlist. Spotify provides embed code for each song, for example:
 
 ```html
@@ -79,9 +98,8 @@ Use it in the content:
 
 It works!
 
-{{< random >}}
-
+<RandomOneOf>
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/5oO3drDxtziYU2H1X23ZIp?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3wFLWP0FcIqHK1wb1CPthQ?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0MMyJUC3WNnFS1lit5pTjk?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-{{</ random >}}
+</RandomOneOf>
