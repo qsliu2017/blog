@@ -1,0 +1,16 @@
+---
+
+---
+
+<script>
+	customElements.define(
+		'random-one-of',
+		class extends HTMLElement {
+			constructor() {
+				super();
+				this.replaceChildren(this.children.item(Math.floor(Math.random() * this.children.length))!);
+			}
+		},
+	);
+</script>
+<random-one-of><slot /></random-one-of>
