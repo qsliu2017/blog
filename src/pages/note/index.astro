@@ -1,0 +1,10 @@
+---
+import { getNotes } from './note';
+
+const notes = await getNotes();
+const titles = Object.keys(notes);
+---
+
+<ol>
+	{titles.map(title => <a href={`/note/${title}`}>{title} </a>)}
+</ol>

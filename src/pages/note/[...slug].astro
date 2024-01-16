@@ -1,0 +1,52 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import MathJaxHead from '../../components/MathJaxHead.astro';
+import { getNotes, type NoteEntry } from './note';
+
+export const getStaticPaths = (async () => {
+	const notes = await getNotes();
+	return Object.entries(notes).map(([slug, notes]) => ({
+		params: { slug },
+		props: { notes },
+	}));
+}) satisfies GetStaticPaths;
+
+type Props = { notes: NoteEntry[] };
+
+const { slug } = Astro.params;
+const { notes } = Astro.props;
+const rendered = await Promise.all(notes.map(async note => ({ ...note, ...(await note.render()) })));
+---
+
+<!doctype html>
+<html lang='en'>
+	<head>
+		<BaseHead title={slug} />
+		<MathJaxHead />
+	</head>
+	<body>
+		<div class='mx-auto mb-auto grid w-[calc(100%-1em)] max-w-6xl grid-cols-11 max-md:grid-cols-5'>
+			<div class='col-span-6 col-start-3 my-2 flex flex-col items-start font-body max-md:col-start-1'>
+				<main
+					class='prose col-span-6 col-start-3 prose-a:font-normal prose-a:underline prose-a:after:inline-block prose-a:after:w-[15px] prose-a:after:align-middle prose-a:after:content-[url(/external-link.svg)] max-md:col-start-1'
+				>
+					{
+						rendered
+							.sort((a, b) => b.data.date.getDate() - a.data.date.getDate())
+							.map(({ Content, data: { date } }) => (
+								<section>
+									<time class='text-lg' datetime={date.toISOString()}>
+										{date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
+									</time>
+									<Content />
+								</section>
+							))
+					}
+				</main>
+			</div>
+		</div>
+		<Footer />
+	</body>
+</html>

@@ -8,6 +8,17 @@ const bookmarks = defineCollection({
 	}),
 });
 
+const notes = defineCollection({
+	type: 'content',
+	schema: z.object({
+		id: z.string(),
+		date: z
+			.string()
+			.or(z.date())
+			.transform(val => new Date(val)),
+	}),
+});
+
 const posts = defineCollection({
 	type: 'content',
 	schema: z.object({
@@ -47,4 +58,4 @@ const starredBlogs = defineCollection({
 	}),
 });
 
-export const collections = { bookmarks, posts, songs, 'starred-blogs': starredBlogs };
+export const collections = { bookmarks, notes, posts, songs, 'starred-blogs': starredBlogs };
