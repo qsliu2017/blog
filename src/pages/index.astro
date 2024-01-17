@@ -1,45 +1,35 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import MathJaxHead from '../components/MathJaxHead.astro';
+import PostList from '../components/PostList.astro';
+
+const posts = await getCollection('posts');
 ---
 
-<BaseLayout>
-	<main class='mx-auto mb-auto w-[calc(100%-1em)] max-w-2xl'>
-		<h1 class='my-8 text-3xl'>It's me, hi! 👋</h1>
-		<div class='my-4'>
-			<span class='text-xl'>I'd like to introduce myself as</span>
-			<ul class='unset'>
-				{
-					['Developer', 'Open Source Enthusiast', 'Database Engineer'].map(text => (
-						<li class='pl-0 text-3xl'>
-							<em class='font-sans font-extralight italic'>{text}</em>
-						</li>
-					))
-				}
-			</ul>
-		</div>
-		<div class='my-4 text-right'>
-			<span class='text-xl'>3 things I love about programming</span>
-			<ul class='unset'>
-				{
-					['Beautiful Design', 'Single Source of Truth', 'DX'].map(text => (
-						<li class='text-right text-3xl'>
-							<em class='font-serif'>{text}</em>
-						</li>
-					))
-				}
-			</ul>
-		</div>
-		<div class='my-4'>
-			<span class='text-xl'>PLs I use the most</span>
-			<ul class='unset'>
-				{
-					['Go', 'Python', 'Typescript'].map(text => (
-						<li class='pl-0'>
-							<em class='font-mono text-3xl not-italic'>{text}</em>
-						</li>
-					))
-				}
-			</ul>
-		</div>
-	</main>
-</BaseLayout>
+<!doctype html>
+<html lang='en'>
+	<head>
+		<BaseHead />
+		<MathJaxHead />
+	</head>
+	<body>
+		<main class='mx-auto mb-auto mt-4 max-w-2xl px-1'>
+			<h1 class='mb-4 text-2xl'>
+				<a class='text-slate-500 hover:text-slate-600' href='/' target='_self'>Posts</a><svg
+					xmlns='http://www.w3.org/2000/svg'
+					width='16'
+					height='16'
+					fill='currentColor'
+					class='bi bi-slash inline-block'
+					viewBox='0 0 16 16'
+				>
+					<path d='M11.354 4.646a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708l6-6a.5.5 0 0 1 .708 0z'></path>
+				</svg>
+			</h1>
+			<PostList posts={posts} />
+		</main>
+		<Footer />
+	</body>
+</html>

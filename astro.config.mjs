@@ -33,7 +33,5 @@ export default defineConfig({
 	site: 'https://blog.qsliu.dev',
 	integrations: [mdx(), tailwind()],
 	assets: true,
-	redirects: {
-		...hugoPostsRedirects,
-	},
+	redirects: { ...hugoPostsRedirects },
 });
