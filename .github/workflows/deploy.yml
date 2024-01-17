@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: withastro/action@v1
+        with:
+          package-manager: bun
 
   deploy:
     needs: build
