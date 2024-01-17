@@ -1,11 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import ExternalLink from '../../components/ExternalLink.astro';
-import Footer from '../../components/Footer.astro';
-import RandomOneOf from '../../components/RandomOneOf.astro';
-import Tag from '../../components/Tag.astro';
-import { Content as Toolchain } from './toolchain.md';
+import BaseHead from '../components/BaseHead.astro';
+import ExternalLink from '../components/ExternalLink.astro';
+import Footer from '../components/Footer.astro';
+import RandomOneOf from '../components/RandomOneOf.astro';
+import Tag from '../components/Tag.astro';
 
 const bookmarks = await getCollection('bookmarks');
 const starredBlogs = await getCollection('starred-blogs');
@@ -41,7 +40,7 @@ const starredBlogs = await getCollection('starred-blogs');
 						starredBlogs
 							.map(blog => blog.data)
 							.map(({ title, url, comment, tags, author, posts }) => (
-								<li class='mt-8 p-0'>
+								<li class=' p-0'>
 									<div class='flex flex-wrap items-end'>
 										<ExternalLink href={url} class='font-sans text-2xl font-light'>
 											{title}
@@ -64,12 +63,6 @@ const starredBlogs = await getCollection('starred-blogs');
 								</li>
 							))
 					}
-				</ul>
-			</div>
-			<div class='mb-4'>
-				<h2 class='py-2 font-serif text-2xl font-semibold'>Toolchain</h2>
-				<ul class='list-inside list-disc'>
-					<Toolchain />
 				</ul>
 			</div>
 			<div class='mb-4'>
