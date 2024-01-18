@@ -47,7 +47,7 @@ const { Content, headings } = await post.render();
 				<ul class='flex flex-wrap gap-1'>
 					{
 						tags.map(tag => (
-							<a href={`/tag/${tag}`}>
+							<a href={`/tag/${tag}/`}>
 								<li class='h-fit rounded-full border border-gray-300 bg-slate-100 px-1 text-base font-light text-gray-600'>{tag}</li>
 							</a>
 						))

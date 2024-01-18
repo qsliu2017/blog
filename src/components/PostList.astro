@@ -23,11 +23,11 @@ const dateString = (date: Date) =>
 			.map(({ slug, data: { title, date, tags } }) => (
 				<li class='flex items-baseline justify-between'>
 					<div class='flex flex-wrap items-baseline gap-x-1'>
-						<a class='text-lg' href={`/post/${slug}`}>
+						<a class='text-lg' href={`/post/${slug}/`}>
 							{title}
 						</a>
 						{tags.map(tag => (
-							<a href={`/tag/${tag}`}>
+							<a href={`/tag/${tag}/`}>
 								<span class='h-fit rounded-full border border-gray-300 bg-slate-100 px-1 text-base font-extralight text-gray-600'>{tag}</span>
 							</a>
 						))}
