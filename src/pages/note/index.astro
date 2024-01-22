@@ -1,10 +1,10 @@
 ---
-import { getNotes } from './note';
+import { getNotes, normalizeId } from './note';
 
 const notes = await getNotes();
 const titles = Object.keys(notes);
 ---
 
 <ol>
-	{titles.map(title => <a href={`/note/${title}/`}>{title} </a>)}
+	{titles.map(title => <a href={`/note/${normalizeId(title)}/`}>{title} </a>)}
 </ol>

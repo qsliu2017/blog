@@ -6,11 +6,11 @@ export const normalizeId = (id: string) => id.toLowerCase().replace(' ', '-').re
 
 export const getNotes = async () =>
 	(await getCollection('notes'))
-		.map(note => ({ id: normalizeId(note.data.id), note }))
+		.map(note => ({ page: note.data.page, note }))
 		.reduce(
-			(group, { id, note }) => ({
+			(group, { page, note }) => ({
 				...group,
-				[id]: [note, ...(group[id] || [])],
+				[page]: [note, ...(group[page] || [])],
 			}),
-			{} as { [K in NoteEntry['data']['id']]: NoteEntry[] },
+			{} as { [K in NoteEntry['data']['page']]: NoteEntry[] },
 		);

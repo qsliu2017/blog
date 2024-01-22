@@ -11,7 +11,7 @@ const bookmarks = defineCollection({
 const notes = defineCollection({
 	type: 'content',
 	schema: z.object({
-		id: z.string(),
+		page: z.string(),
 		date: z
 			.string()
 			.or(z.date())
