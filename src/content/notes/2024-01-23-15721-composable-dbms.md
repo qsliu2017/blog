@@ -3,7 +3,7 @@ page: 'CMU 15721'
 date: 2024-01-23
 ---
 
-## Reading Review: [The Composable Data Management System Manifesto](https://15721.courses.cs.cmu.edu/spring2024/papers/01-modern/p2679-pedreira.pdf) (P. Pedreira, et al., VLDB 2023)
+## _Reading Review_ [The Composable Data Management System Manifesto](https://15721.courses.cs.cmu.edu/spring2024/papers/01-modern/p2679-pedreira.pdf) (P. Pedreira, et al., VLDB 2023)
 
 - _Overview of the main idea presented in the paper (3 sentences)._
 

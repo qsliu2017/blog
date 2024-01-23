@@ -14,22 +14,20 @@ const posts = await getCollection('posts');
 		<BaseHead />
 		<MathJaxHead />
 	</head>
-	<body>
-		<main class='mx-auto mb-auto mt-4 max-w-2xl px-1'>
-			<h1 class='mb-4 text-2xl'>
-				<a class='text-slate-500 hover:text-slate-600' href='/' target='_self'>Posts</a><svg
-					xmlns='http://www.w3.org/2000/svg'
-					width='16'
-					height='16'
-					fill='currentColor'
-					class='bi bi-slash inline-block'
-					viewBox='0 0 16 16'
-				>
-					<path d='M11.354 4.646a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708l6-6a.5.5 0 0 1 .708 0z'></path>
-				</svg>
-			</h1>
-			<PostList posts={posts} />
-		</main>
+	<body class='mx-auto mt-4 max-w-2xl max-sm:px-1'>
+		<nav class='mb-4 font-heading text-2xl'>
+			<a class='text-slate-600 hover:text-slate-800' href='/' target='_self'>Posts</a><svg
+				xmlns='http://www.w3.org/2000/svg'
+				width='16'
+				height='16'
+				fill='currentColor'
+				class='bi bi-slash inline-block'
+				viewBox='0 0 16 16'
+			>
+				<path d='M11.354 4.646a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708l6-6a.5.5 0 0 1 .708 0z'></path>
+			</svg>
+		</nav>
+		<PostList posts={posts} />
 		<Footer />
 	</body>
 </html>

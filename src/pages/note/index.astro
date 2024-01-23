@@ -1,10 +1,40 @@
 ---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
 import { getNotes, normalizeId } from './note';
 
 const notes = await getNotes();
 const titles = Object.keys(notes);
 ---
 
-<ol>
-	{titles.map(title => <a href={`/note/${normalizeId(title)}/`}>{title} </a>)}
-</ol>
+<html lang='en'>
+	<head>
+		<BaseHead />
+	</head>
+	<body class='mx-auto mt-4 max-w-2xl max-sm:px-1'>
+		<nav class='mb-4 font-heading text-2xl'>
+			<a href='/note/' target='_self' class='text-slate-600 hover:text-slate-800'>Notes</a><svg
+				xmlns='http://www.w3.org/2000/svg'
+				width='16'
+				height='16'
+				fill='currentColor'
+				class='bi bi-slash inline-block'
+				viewBox='0 0 16 16'
+			>
+				<path d='M11.354 4.646a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708l6-6a.5.5 0 0 1 .708 0z'></path>
+			</svg>
+		</nav>
+		<ul class='flex flex-col gap-4 font-body'>
+			{
+				titles.map(title => (
+					<li>
+						<a class='text-lg' href={`/note/${normalizeId(title)}/`}>
+							{title}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+		<Footer />
+	</body>
+</html>
