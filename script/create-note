@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]; then
-  echo "Usage: $0 <note-title>"
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 <page> <filename>"
   exit 1
 fi
 
-filename=$(date +%Y-%m-%d)-$(echo $1 | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr '_' '-').md
+filename=$(date +%Y-%m-%d)-$(echo $2 | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | tr '_' '-').md
 note_dir=$(dirname $0)/../src/content/notes
 
 if [ -e $note_dir/$filename ]; then
@@ -16,7 +16,7 @@ fi
 mkdir -p $note_dir
 cat > $note_dir/$filename <<EOF
 ---
-id: "$1"
+page: "$1"
 date: $(date +%Y-%m-%d)
 ---
 EOF
