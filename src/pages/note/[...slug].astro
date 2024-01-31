@@ -45,7 +45,7 @@ const rendered = await Promise.all(notes.map(async note => ({ ...note, ...(await
 		>
 			{
 				rendered
-					.sort((a, b) => b.data.date.getDate() - a.data.date.getDate())
+					.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 					.map(({ Content, data: { date } }) => (
 						<>
 							<time class='text-lg' datetime={date.toISOString()}>
