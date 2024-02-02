@@ -3,23 +3,23 @@ page: 'CMU 15721'
 date: 2024-02-01
 ---
 
-# _Lecture Note_ 03. Data Formats & Encoding II
+## _Lecture Note_ 03. Data Formats & Encoding II
 
 _I try to read the papers before class, but it's hard to understand (FastLane in particular). I decide to watch the video first but just to find this lecture is mainly about that 3 papers...😅 Thus this note will just simply cover the main idea._
 
-## Nested Data Representation (from last class)
+### Nested Data Representation (from last class)
 
 1. Shredding
 1. Length + Presence
 
-## Critiques of Existing Formats
+### Critiques of Existing Formats
 
 - Variable-sizes runs is _not_ SIMD friendly.
 - No random access if using block compression.
 - Dependencies between adjacent values.
 - Not designed for SIMD of all ISAs.
 
-## The Ideas from Papers
+### The Ideas from Papers
 
 The ideas from the 3 papers to solve these challenges:
 
@@ -52,7 +52,7 @@ The ideas from the 3 papers to solve these challenges:
 
   ![bit hack 2](./bit-hack-2.png)
 
-## Lesson Learned
+### Lesson Learned
 
 **Logical-physical data independence** allows hacking on physical representation/computation without logical interfaces changed.
 
