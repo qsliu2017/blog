@@ -35,7 +35,7 @@ const { tag, posts } = Astro.props;
 				viewBox='0 0 16 16'
 			>
 				<path d='M11.354 4.646a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708l6-6a.5.5 0 0 1 .708 0z'></path>
-			</svg><a href={`/tag/${tag}/`} target='_self' class='text-slate-600 hover:text-slate-800'>#{tag}</a>
+			</svg><a href={`/tagged/${tag}/`} target='_self' class='text-slate-600 hover:text-slate-800'>#{tag}</a>
 		</nav>
 		<PostList posts={posts} />
 		<Footer />

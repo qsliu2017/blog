@@ -8,12 +8,15 @@ type Props = {
 const { posts } = Astro.props;
 
 const today = new Date();
-const dateString = (date: Date) =>
-	date.toLocaleDateString('zh-cn', {
-		year: date.getFullYear() === today.getFullYear() ? undefined : 'numeric',
-		day: '2-digit',
-		month: '2-digit',
-	});
+const dateString = (date: Date) => {
+	const yr = date.getFullYear();
+	const mo = date.getMonth() + 1;
+	const da = date.getDate();
+
+	if (yr === today.getFullYear()) return `${mo < 10 ? '0' : ''}${mo}-${da < 10 ? '0' : ''}${da}`;
+
+	return `${yr}-${mo < 10 ? '0' : ''}${mo}-${da < 10 ? '0' : ''}${da}`;
+};
 ---
 
 <ul class='flex flex-col gap-4 font-body'>
@@ -21,18 +24,20 @@ const dateString = (date: Date) =>
 		posts
 			.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 			.map(({ slug, data: { title, date, tags } }) => (
-				<li class='flex items-baseline justify-between'>
-					<div class='flex flex-wrap items-baseline gap-x-1'>
+				<li class='flex place-content-baseline justify-between'>
+					<div class='flex flex-wrap place-items-baseline gap-x-1'>
 						<a class='text-lg' href={`/post/${slug}/`}>
 							{title}
 						</a>
 						{tags.map(tag => (
-							<a href={`/tag/${tag}/`}>
-								<span class='h-fit rounded-full border border-gray-300 bg-slate-100 px-1 text-base font-extralight text-gray-600'>{tag}</span>
+							<a href={`/tagged/${tag}/`} class='rounded-full border border-gray-300 bg-slate-100 px-1 text-sm font-extralight text-gray-600'>
+								{tag}
 							</a>
 						))}
 					</div>
-					<time datetime={date.toISOString()}>{dateString(date)}</time>
+					<time class='flex-shrink-0 text-nowrap font-mono' datetime={date.toISOString()}>
+						{dateString(date)}
+					</time>
 				</li>
 			))
 	}
