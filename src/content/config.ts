@@ -30,6 +30,7 @@ const posts = defineCollection({
 			.or(z.date())
 			.transform(val => new Date(val)),
 		tags: z.string().array().default([]),
+		draft: z.boolean().default(false),
 	}),
 });
 

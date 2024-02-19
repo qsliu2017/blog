@@ -23,9 +23,10 @@ const dateString = (date: Date) => {
 	{
 		posts
 			.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-			.map(({ slug, data: { title, date, tags } }) => (
+			.map(({ slug, data: { title, date, tags, draft } }) => (
 				<li class='flex place-content-baseline justify-between'>
 					<div class='flex flex-wrap place-items-baseline gap-x-1'>
+						{draft && <span class='text-lg italic text-gray-400 underline'>Draft</span>}
 						<a class='text-lg' href={`/post/${slug}/`}>
 							{title}
 						</a>
