@@ -1,33 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import MathJaxHead from '../components/MathJaxHead.astro';
 import PostList from '../components/PostList.astro';
-
-const posts = await getCollection('posts');
 ---
 
-<!doctype html>
-<html lang='en'>
-	<head>
-		<BaseHead />
-		<MathJaxHead />
-	</head>
-	<body class='mx-auto mt-4 max-w-2xl max-sm:px-1'>
-		<nav class='font-serif text-3xl font-extralight text-gray-700 hover:text-black'>
-			<a class='' href='/' target='_self'>Posts</a><svg
-				xmlns='http://www.w3.org/2000/svg'
-				width='16'
-				height='16'
-				fill='currentColor'
-				class='bi bi-slash inline-block'
-				viewBox='0 0 16 16'
-			>
-				<path d='M11.354 4.646a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708l6-6a.5.5 0 0 1 .708 0z'></path>
-			</svg>
-		</nav>
-		<PostList posts={posts} />
-		<Footer />
-	</body>
-</html>
+<PostList />
