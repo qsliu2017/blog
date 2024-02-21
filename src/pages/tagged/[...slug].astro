@@ -25,8 +25,8 @@ const { tag, posts } = Astro.props;
 		<MathJaxHead />
 	</head>
 	<body class='mx-auto mt-4 max-w-2xl max-sm:px-1'>
-		<nav class='mb-4 font-heading text-2xl'>
-			<a href='/' target='_self' class='text-slate-600 hover:text-slate-800'>Posts</a><svg
+		<nav class='font-serif text-3xl font-extralight text-gray-700'>
+			<a class='hover:text-black' href='/' target='_self'>Posts</a><svg
 				xmlns='http://www.w3.org/2000/svg'
 				width='16'
 				height='16'
@@ -35,7 +35,7 @@ const { tag, posts } = Astro.props;
 				viewBox='0 0 16 16'
 			>
 				<path d='M11.354 4.646a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708l6-6a.5.5 0 0 1 .708 0z'></path>
-			</svg><a href={`/tagged/${tag}/`} target='_self' class='text-slate-600 hover:text-slate-800'>#{tag}</a>
+			</svg><a href={`/tagged/${tag}/`} target='_self' class='hover:text-black'>#{tag}</a>
 		</nav>
 		<PostList posts={posts} />
 		<Footer />

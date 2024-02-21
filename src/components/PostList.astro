@@ -7,39 +7,40 @@ type Props = {
 
 const { posts } = Astro.props;
 
-const today = new Date();
-const dateString = (date: Date) => {
-	const yr = date.getFullYear();
-	const mo = date.getMonth() + 1;
-	const da = date.getDate();
+const postsOfYear = posts.reduce(
+	(acc, post) => {
+		const year = post.data.date.getFullYear();
+		acc[year] = [...(acc[year] || []), post];
+		return acc;
+	},
+	{} as Record<number, CollectionEntry<'posts'>[]>,
+);
 
-	if (yr === today.getFullYear()) return `${mo < 10 ? '0' : ''}${mo}-${da < 10 ? '0' : ''}${da}`;
-
-	return `${yr}-${mo < 10 ? '0' : ''}${mo}-${da < 10 ? '0' : ''}${da}`;
-};
+const zeroPadding = (n: number) => (n < 10 ? '0' : '') + n;
+const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zeroPadding(date.getDate());
 ---
 
-<ul class='flex flex-col gap-4 font-body'>
+<div class='flex flex-col items-stretch font-body'>
 	{
-		posts
-			.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-			.map(({ slug, data: { title, date, tags, draft } }) => (
-				<li class='flex place-content-baseline justify-between'>
-					<div class='flex flex-wrap place-items-baseline gap-x-1'>
-						{draft && <span class='text-lg italic text-gray-400 underline'>Draft</span>}
-						<a class='text-lg' href={`/post/${slug}/`}>
-							{title}
-						</a>
-						{tags.map(tag => (
-							<a href={`/tagged/${tag}/`} class='rounded-full border border-gray-300 bg-slate-100 px-1 text-sm font-extralight text-gray-600'>
-								{tag}
-							</a>
+		Object.entries(postsOfYear)
+			.sort(([a], [b]) => Number(b) - Number(a))
+			.map(([year, posts]) => (
+				<>
+					<h2 class='mt-3 text-xl text-gray-400'>{year}</h2>
+					<hr />
+					{posts
+						.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+						.map(({ slug, data: { title, date } }) => (
+							<div class='mt-1 flex justify-between'>
+								<a class='text-lg' href={`/post/${slug}/`}>
+									{title}
+								</a>
+								<time class='text-nowrap text-gray-400' datetime={date.toISOString()}>
+									{dateString(date)}
+								</time>
+							</div>
 						))}
-					</div>
-					<time class='flex-shrink-0 text-nowrap font-mono' datetime={date.toISOString()}>
-						{dateString(date)}
-					</time>
-				</li>
+				</>
 			))
 	}
-</ul>
+</div>
