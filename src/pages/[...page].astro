@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import MathJaxHead from '../components/MathJaxHead.astro';
+import { getNotes, normalizeId } from '../components/note';
+import RandomOneOf from '../components/RandomOneOf.astro';
+
+export async function getStaticPaths() {
+	const notes = Object.entries(await getNotes()).map(async ([page, notes]) => ({
+		props: { page, notes: await Promise.all(notes.map(async ({ render, ...note }) => ({ ...note, rendered: await render() }))) },
+		params: { page: `/note/${normalizeId(page)}` },
+	}));
+	const posts = (await getCollection('posts')).map(async ({ render, ...post }) => ({
+		props: { post: { ...post, rendered: await render() } },
+		params: { page: `/post/${post.slug}` },
+	}));
+	return await Promise.all([...notes, ...posts]);
+}
+
+const { page, notes, post } = Astro.props;
+---
+
+<!doctype html>
+<html lang='en'>
+	<head>
+		<BaseHead title={post?.data.title || page} description={post?.data.description} />
+		<MathJaxHead />
+	</head>
+	<body class='bg-gray-50'>
+		<main class='mx-auto mb-auto mt-1 w-max max-w-full rounded-sm bg-white p-4 pb-6 shadow-lg shadow-gray-200'>
+			<header class='flex flex-col items-start font-body'>
+				<a class='font-serif text-xl text-gray-700 hover:text-black' href={post ? '/' : '/note'}>{post ? 'Posts' : 'Notes'}</a>
+				{
+					post && (
+						<time class='text-lg' datetime={post.data.date.toISOString()}>
+							{post.data.date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
+						</time>
+					)
+				}
+				<h1 class='font-heading text-4xl font-bold'>{page || post?.data.title}</h1>
+				{
+					post && (
+						<ul class='flex flex-wrap gap-1'>
+							{post.data.tags.map(tag => (
+								<a href={`/tagged/${tag}/`}>
+									<li class='h-fit rounded-full border border-gray-300 bg-slate-100 px-1 font-light text-gray-600'>{tag}</li>
+								</a>
+							))}
+						</ul>
+					)
+				}
+				<hr class='mb-4 mt-2 self-stretch' />
+			</header>
+			<article
+				class='prose prose-a:font-normal prose-a:underline prose-a:after:inline-block prose-a:after:w-[15px] prose-a:after:align-middle prose-a:after:content-[url(/external-link.svg)]'
+			>
+				{post && <post.rendered.Content components={{ RandomOneOf }} />}
+				{notes && notes.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).map(note => <note.rendered.Content />)}
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

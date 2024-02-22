@@ -1,9 +1,14 @@
 ---
 const today = new Date();
 const commit = import.meta.env.PUBLIC_GIT_COMMIT_HASH || 'main';
+const pages = [
+	{ title: 'Posts', url: '/' },
+	{ title: 'Notes', url: '/note' },
+	{ title: 'About', url: '/about' },
+];
 ---
 
-<footer class='pb-4 pt-8 text-center'>
+<footer class='pb-4 pt-4 text-center font-body'>
 	<p>&copy; {today.getFullYear()} qsliu. All rights reserved.</p>
 	<p>
 		source code available on <a target='_blank' href='https://github.com/qsliu2017/blog'>
@@ -18,5 +23,17 @@ const commit = import.meta.env.PUBLIC_GIT_COMMIT_HASH || 'main';
 			</svg><span class='underline'>qsliu2017/blog</span>
 		</a>
 		(version <a target='_blank' href={`https://github.com/qsliu2017/blog/tree/${commit}`} class='underline'>{commit}</a>)
+	</p>
+	<p>
+		{
+			pages.map(({ title, url }, i) => (
+				<>
+					{i > 0 && <span class='text-gray-400'>|</span>}
+					<a href={url} target='_self'>
+						<span class='underline '>{title}</span>
+					</a>
+				</>
+			))
+		}
 	</p>
 </footer>
