@@ -29,7 +29,7 @@ func ColumnAt(raw []byte, offset int) T {
 
 In fact, this rule checks if `sizeof T > sizeof U` in the scenario like `(*T)(unsafe.Pointer(*U))`. Let's browse the types in the above code snippet.
 
-```text
+```
  raw         -> []byte
  raw[offset] -> byte
 &raw[offset] -> *byte
