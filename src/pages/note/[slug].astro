@@ -3,7 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import MathJaxHead from '../../components/MathJaxHead.astro';
-import { getNotes, normalizeId, type NoteEntry } from './note';
+import { getNotes, normalizeId, type NoteEntry } from '../../components/note';
 
 export const getStaticPaths = (async () => {
 	const notes = await getNotes();
