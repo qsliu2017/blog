@@ -6,7 +6,6 @@ import { defineConfig } from 'astro/config';
 const hugoPostsRedirects = [
 	'how_to_make_developer_happy',
 	'dont_use_chatgpt',
-	'dont_use_chatgpt.zh',
 	'random_display_a_html_element',
 	'fibonacci',
 	'writing_an_ebpf_application',
@@ -18,7 +17,6 @@ const hugoPostsRedirects = [
 	'the-completely-fair-scheduler',
 	'proc_sync_barrier_pattern',
 	'oltp_olap_tuple_storage_schemes',
-	'helloworld',
 	'locality_principle',
 	'os_history_and_future',
 	'postgres-xid-wraparound-failure',
