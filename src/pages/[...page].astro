@@ -28,9 +28,11 @@ const { page, notes, post } = Astro.props;
 		<MathJaxHead />
 	</head>
 	<body class='bg-gray-50'>
-		<main class='mx-auto mb-auto mt-1 w-max max-w-full rounded-sm bg-white p-4 pb-6 shadow-lg shadow-gray-200'>
-			<header class='flex flex-col items-start font-body'>
-				<a class='font-serif text-xl text-gray-700 hover:text-black' href={post ? '/' : '/note'}>{post ? 'Posts' : 'Notes'}</a>
+		<main class='mx-auto mb-auto mt-1 w-full max-w-fit rounded-sm bg-white p-4 pb-6 font-body shadow-lg shadow-gray-200'>
+			<header class='max-w-prose'>
+				<nav>
+					<a class='font-serif text-xl text-gray-700 hover:text-black' href={post ? '/' : '/note'}>{post ? 'Post' : 'Note'}</a>
+				</nav>
 				{
 					post && (
 						<time class='text-lg' datetime={post.data.date.toISOString()}>
@@ -50,13 +52,28 @@ const { page, notes, post } = Astro.props;
 						</ul>
 					)
 				}
-				<hr class='mb-4 mt-2 self-stretch' />
+				<hr class='mb-4 mt-2' />
 			</header>
 			<article
-				class='prose prose-a:font-normal prose-a:underline prose-a:after:inline-block prose-a:after:w-[15px] prose-a:after:align-middle prose-a:after:content-[url(/external-link.svg)]'
+				class='prose prose-headings:mt-0 prose-a:font-normal prose-a:underline prose-a:after:inline-block prose-a:after:w-[15px] prose-a:after:align-middle prose-a:after:content-[url(/external-link.svg)]'
 			>
-				{post && <post.rendered.Content components={{ RandomOneOf }} />}
-				{notes && notes.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).map(note => <note.rendered.Content />)}
+				{
+					post ? (
+						<post.rendered.Content components={{ RandomOneOf }} />
+					) : (
+						notes
+							.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+							.map(({ data: { date }, rendered }, i) => (
+								<>
+									{i > 0 && <hr class='mb-2 mt-4' />}
+									<time class='text-lg' datetime={date.toISOString()}>
+										{date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
+									</time>
+									<rendered.Content />
+								</>
+							))
+					)
+				}
 			</article>
 		</main>
 		<Footer />
