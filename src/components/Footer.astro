@@ -1,18 +1,16 @@
 ---
 const today = new Date();
 const commit = import.meta.env.PUBLIC_GIT_COMMIT_HASH || 'main';
-const pages = [
-	{ title: 'Posts', url: '/' },
-	{ title: 'Notes', url: '/note' },
-	{ title: 'About', url: '/about' },
-];
 ---
 
 <footer class='pb-4 pt-4 text-center font-body'>
-	<p>&copy; {today.getFullYear()} qsliu. All rights reserved.</p>
-	<p>
-		source code available on <a target='_blank' href='https://github.com/qsliu2017/blog'>
-			<svg class='mb-[2px] mr-[1px] inline-block h-[16px] w-[16px]' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
+	<p>&copy;{today.getFullYear()} qsliu. All rights reserved.</p>
+	<p class='flex justify-center gap-2'>
+		<a href='/' class='underline'>Posts</a>
+		<a href='/note' class='underline'>Notes</a>
+		<a href='/about' class='underline'>About</a>
+		<a href='https://github.com/qsliu2017' target='_blank'>
+			<svg class='mb-[2px] mr-[1px] inline h-4 w-4 text-gray-700' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
 				<path
 					fill-rule='evenodd'
 					clip-rule='evenodd'
@@ -20,20 +18,28 @@ const pages = [
 					fill='currentColor'
 				>
 				</path>
-			</svg><span class='underline'>qsliu2017/blog</span>
+			</svg><span class='underline'>GitHub</span>
 		</a>
-		(version <a target='_blank' href={`https://github.com/qsliu2017/blog/tree/${commit}`} class='underline'>{commit}</a>)
+		<a href='mailto:hi@qsliu.dev'>
+			<svg
+				xmlns='http://www.w3.org/2000/svg'
+				fill='none'
+				viewBox='0 0 24 24'
+				stroke-width={1.5}
+				stroke='currentColor'
+				class='mb-[1px] inline h-5 w-5 text-gray-700'
+			>
+				<path
+					stroke-linecap='round'
+					stroke-linejoin='round'
+					d='M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75'
+				>
+				</path>
+			</svg><span class='underline'>Email</span>
+		</a>
 	</p>
 	<p>
-		{
-			pages.map(({ title, url }, i) => (
-				<>
-					{i > 0 && <span class='text-gray-400'>|</span>}
-					<a href={url} target='_self'>
-						<span class='underline '>{title}</span>
-					</a>
-				</>
-			))
-		}
+		<span>Version</span>
+		<a href={`https://github.com/qsliu2017/blog/tree/${commit}`} target='_blank' class='underline'>{commit}</a>
 	</p>
 </footer>

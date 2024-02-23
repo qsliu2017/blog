@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import MathJaxHead from '../components/MathJaxHead.astro';
+import Nav from '../components/Nav.astro';
 import { getNotes, normalizeId } from '../components/note';
 
 export const getStaticPaths = async () => {
@@ -57,45 +58,19 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang='en' class='text-pretty bg-gray-50 font-body'>
 	<head>
 		<BaseHead />
 		<MathJaxHead />
 	</head>
-	<body class='mx-auto max-w-lg max-sm:px-1'>
-		<nav class='mt-4 font-serif text-3xl text-gray-700'>
-			{
-				type === 'note' ? (
-					<a class='hover:text-black' href='/note' target='_self'>
-						Notes
-					</a>
-				) : (
-					<>
-						<a class='hover:text-black' href='/' target='_self'>
-							Posts
-						</a>
-						{tag && (
-							<>
-								<svg
-									xmlns='http://www.w3.org/2000/svg'
-									width='16'
-									height='16'
-									fill='currentColor'
-									class='bi bi-slash inline-block'
-									viewBox='0 0 16 16'
-								>
-									<path d='M11.354 4.646a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708l6-6a.5.5 0 0 1 .708 0z' />
-								</svg>
-								<a href={`/tagged/${tag}/`} target='_self' class='hover:text-black'>
-									#{tag}
-								</a>
-							</>
-						)}
-					</>
-				)
-			}
-		</nav>
-		<div class='flex flex-col items-stretch font-body'>
+	<body class='mx-auto flex min-h-screen w-main max-w-full flex-col justify-between'>
+		<main class='px-4'>
+			<Nav
+				class='mt-4 font-serif'
+				nav={type === 'note'
+					? [{ href: '/note', text: 'Notes' }]
+					: [{ href: '/', text: 'Posts' }, ...(tag ? [{ href: `/tagged/${tag}/`, text: `#${tag}` }] : [])]}
+			/>
 			{
 				Object.entries(itemsOfYear)
 					.sort(([a], [b]) => Number(b) - Number(a))
@@ -118,7 +93,7 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 						</>
 					))
 			}
-		</div>
+		</main>
 		<Footer />
 	</body>
 </html>

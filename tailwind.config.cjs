@@ -6,7 +6,10 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				body: ['Atkinson', 'Open Sans', 'sans-serif'],
-				heading: ['Atkinson', 'Open Sans', 'sans-serif'],
+				heading: ['ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
+			},
+			width: {
+				main: '65ch',
 			},
 			colors: {
 				transparent: 'transparent',
