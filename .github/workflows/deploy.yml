@@ -6,16 +6,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
     steps:
       - uses: actions/checkout@v3
       - uses: withastro/action@v1
         with:
           node-version: '20.11.0'
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+          directory: dist
+          wranglerVersion: '3'
 
-  deploy:
-    needs: build
+  deploy-github-pages:
+    needs: build-and-deploy
     permissions:
       pages: write
       id-token: write
