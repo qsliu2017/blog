@@ -3,28 +3,314 @@
 @tailwind utilities;
 
 @font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-regular.woff') format('woff');
-	font-weight: 400;
+	font-family: 'Zed-mono';
+	src: url('/fonts/zed-mono-extended.ttf');
+	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
 }
 
 @font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-bold.woff') format('woff');
-	font-weight: 700;
+	font-family: 'Zed-sans';
+	src: url('/fonts/zed-sans-extended.ttf');
+	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
 }
 
-/* 
-    Tailwind colors listed here: https://tailwindcss.com/docs/customizing-colors
-    
-    Why colors are written in rgb format (255 255 255) instead of hex (#ffffff)
-    https://tailwindcss.com/docs/customizing-colors#using-css-variables 
-*/
+@font-face {
+	font-family: 'Zed-sans';
+	src: url('/fonts/zed-sans-extendeditalic.ttf');
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Zed-sans';
+	src: url('/fonts/zed-sans-extendedbold.ttf');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Zed-sans';
+	src: url('/fonts/zed-sans-extendedbolditalic.ttf');
+	font-weight: bold;
+	font-style: italic;
+	font-display: swap;
+}
+
 @layer base {
+	html {
+		border-color: var(--color-border);
+		background-color: var(--color-background);
+		color: var(--color-text);
+		font-family: 'Zed-sans', sans-serif;
+	}
+	.theme-ayu {
+		--color-border: #cfd1d2ff;
+		--color-border-variant: #dfe0e1ff;
+		--color-border-focused: #c4daf6ff;
+		--color-border-selected: #c4daf6ff;
+		--color-border-transparent: #00000000;
+		--color-border-disabled: #d5d6d8ff;
+		--color-elevated-surface-background: #ececedff;
+		--color-surface-background: #ececedff;
+		--color-background: #dcdddeff;
+		--color-element-background: #ececedff;
+		--color-element-hover: #dfe0e1ff;
+		--color-element-active: #cfd0d2ff;
+		--color-element-selected: #cfd0d2ff;
+		--color-element-disabled: #ececedff;
+		--color-drop-target-background: #8b8e9280;
+		--color-ghost-element-background: #00000000;
+		--color-ghost-element-hover: #dfe0e1ff;
+		--color-ghost-element-active: #cfd0d2ff;
+		--color-ghost-element-selected: #cfd0d2ff;
+		--color-ghost-element-disabled: #ececedff;
+		--color-text: #5c6166ff;
+		--color-text-muted: #8b8e92ff;
+		--color-text-placeholder: #a9acaeff;
+		--color-text-disabled: #a9acaeff;
+		--color-text-accent: #3b9ee5ff;
+		--color-icon: #5c6166ff;
+		--color-icon-muted: #8b8e92ff;
+		--color-icon-disabled: #a9acaeff;
+		--color-icon-placeholder: #8b8e92ff;
+		--color-icon-accent: #3b9ee5ff;
+		--color-status-bar-background: #dcdddeff;
+		--color-title-bar-background: #dcdddeff;
+		--color-toolbar-background: #fcfcfcff;
+		--color-tab-bar-background: #ececedff;
+		--color-tab-inactive-background: #ececedff;
+		--color-tab-active-background: #fcfcfcff;
+		--color-search-match-background: #3b9ee566;
+		--color-panel-background: #ececedff;
+		--color-panel-focused-border: null;
+		--color-pane-focused-border: null;
+		--color-scrollbar-thumb-background: #5c61664c;
+		--color-scrollbar-thumb-hover-background: #dfe0e1ff;
+		--color-scrollbar-thumb-border: #dfe0e1ff;
+		--color-scrollbar-track-background: #00000000;
+		--color-scrollbar-track-border: #efeff0ff;
+		--color-editor-foreground: #5c6166ff;
+		--color-editor-background: #fcfcfcff;
+		--color-editor-gutter-background: #fcfcfcff;
+		--color-editor-subheader-background: #ececedff;
+		--color-editor-active-line-background: #ececedbf;
+		--color-editor-highlighted-line-background: #ececedff;
+		--color-editor-line-number: #5c616659;
+		--color-editor-active-line-number: #5c6166ff;
+		--color-editor-invisible: #acafb1ff;
+		--color-editor-wrap-guide: #5c61660d;
+		--color-editor-active-wrap-guide: #5c61661a;
+		--color-editor-document-highlight-read-background: #3b9ee51a;
+		--color-editor-document-highlight-write-background: #acafb166;
+		--color-terminal-background: #fcfcfcff;
+		--color-terminal-foreground: #5c6166ff;
+		--color-terminal-bright-foreground: #5c6166ff;
+		--color-terminal-dim-foreground: #fcfcfcff;
+		--color-terminal-ansi-black: #fcfcfcff;
+		--color-terminal-ansi-bright-black: #bcbec0ff;
+		--color-terminal-ansi-dim-black: #5c6166ff;
+		--color-terminal-ansi-red: #ef7271ff;
+		--color-terminal-ansi-bright-red: #febab6ff;
+		--color-terminal-ansi-dim-red: #833538ff;
+		--color-terminal-ansi-green: #85b304ff;
+		--color-terminal-ansi-bright-green: #c7d98fff;
+		--color-terminal-ansi-dim-green: #445613ff;
+		--color-terminal-ansi-yellow: #f1ad49ff;
+		--color-terminal-ansi-bright-yellow: #fed5a3ff;
+		--color-terminal-ansi-dim-yellow: #8a5227ff;
+		--color-terminal-ansi-blue: #3b9ee5ff;
+		--color-terminal-ansi-bright-blue: #abcdf2ff;
+		--color-terminal-ansi-dim-blue: #214c76ff;
+		--color-terminal-ansi-magenta: #55b4d3ff;
+		--color-terminal-ansi-bright-magenta: #b1d8e8ff;
+		--color-terminal-ansi-dim-magenta: #2f5669ff;
+		--color-terminal-ansi-cyan: #4dbf99ff;
+		--color-terminal-ansi-bright-cyan: #ace0cbff;
+		--color-terminal-ansi-dim-cyan: #2a5f4aff;
+		--color-terminal-ansi-white: #5c6166ff;
+		--color-terminal-ansi-bright-white: #5c6166ff;
+		--color-terminal-ansi-dim-white: #9c9fa2ff;
+		--color-link-text-hover: #3b9ee5ff;
+		--color-conflict: #f1ad49ff;
+		--color-conflict-background: #ffeedaff;
+		--color-conflict-border: #ffe1beff;
+		--color-created: #85b304ff;
+		--color-created-background: #e9efd2ff;
+		--color-created-border: #d7e3aeff;
+		--color-deleted: #ef7271ff;
+		--color-deleted-background: #ffe3e1ff;
+		--color-deleted-border: #ffcdcaff;
+		--color-error: #ef7271ff;
+		--color-error-background: #ffe3e1ff;
+		--color-error-border: #ffcdcaff;
+		--color-hidden: #a9acaeff;
+		--color-hidden-background: #dcdddeff;
+		--color-hidden-border: #d5d6d8ff;
+		--color-hint: #8ca7c2ff;
+		--color-hint-background: #deebfaff;
+		--color-hint-border: #c4daf6ff;
+		--color-ignored: #8b8e92ff;
+		--color-ignored-background: #dcdddeff;
+		--color-ignored-border: #cfd1d2ff;
+		--color-info: #3b9ee5ff;
+		--color-info-background: #deebfaff;
+		--color-info-border: #c4daf6ff;
+		--color-modified: #f1ad49ff;
+		--color-modified-background: #ffeedaff;
+		--color-modified-border: #ffe1beff;
+		--color-predictive: #9eb9d3ff;
+		--color-predictive-background: #e9efd2ff;
+		--color-predictive-border: #d7e3aeff;
+		--color-renamed: #3b9ee5ff;
+		--color-renamed-background: #deebfaff;
+		--color-renamed-border: #c4daf6ff;
+		--color-success: #85b304ff;
+		--color-success-background: #e9efd2ff;
+		--color-success-border: #d7e3aeff;
+		--color-unreachable: #8b8e92ff;
+		--color-unreachable-background: #dcdddeff;
+		--color-unreachable-border: #cfd1d2ff;
+		--color-warning: #f1ad49ff;
+		--color-warning-background: #ffeedaff;
+		--color-warning-border: #ffe1beff;
+	}
+	.theme-ayu:where([data-mode='dark'], [data-mode='dark'] *) {
+		--color-border: #3f4043ff;
+		--color-border-variant: #2d2f34ff;
+		--color-border-focused: #1b4a6eff;
+		--color-border-selected: #1b4a6eff;
+		--color-border-transparent: #00000000;
+		--color-border-disabled: #383a3eff;
+		--color-elevated-surface-background: #1f2127ff;
+		--color-surface-background: #1f2127ff;
+		--color-background: #313337ff;
+		--color-element-background: #1f2127ff;
+		--color-element-hover: #2d2f34ff;
+		--color-element-active: #3e4043ff;
+		--color-element-selected: #3e4043ff;
+		--color-element-disabled: #1f2127ff;
+		--color-drop-target-background: #8a898680;
+		--color-ghost-element-background: #00000000;
+		--color-ghost-element-hover: #2d2f34ff;
+		--color-ghost-element-active: #3e4043ff;
+		--color-ghost-element-selected: #3e4043ff;
+		--color-ghost-element-disabled: #1f2127ff;
+		--color-text: #bfbdb6ff;
+		--color-text-muted: #8a8986ff;
+		--color-text-placeholder: #696a6aff;
+		--color-text-disabled: #696a6aff;
+		--color-text-accent: #5ac1feff;
+		--color-icon: #bfbdb6ff;
+		--color-icon-muted: #8a8986ff;
+		--color-icon-disabled: #696a6aff;
+		--color-icon-placeholder: #8a8986ff;
+		--color-icon-accent: #5ac1feff;
+		--color-status-bar-background: #313337ff;
+		--color-title-bar-background: #313337ff;
+		--color-toolbar-background: #0d1016ff;
+		--color-tab-bar-background: #1f2127ff;
+		--color-tab-inactive-background: #1f2127ff;
+		--color-tab-active-background: #0d1016ff;
+		--color-search-match-background: #5ac2fe66;
+		--color-panel-background: #1f2127ff;
+		--color-panel-focused-border: null;
+		--color-pane-focused-border: null;
+		--color-scrollbar-thumb-background: #bfbdb64c;
+		--color-scrollbar-thumb-hover-background: #2d2f34ff;
+		--color-scrollbar-thumb-border: #2d2f34ff;
+		--color-scrollbar-track-background: #00000000;
+		--color-scrollbar-track-border: #1b1e24ff;
+		--color-editor-foreground: #bfbdb6ff;
+		--color-editor-background: #0d1016ff;
+		--color-editor-gutter-background: #0d1016ff;
+		--color-editor-subheader-background: #1f2127ff;
+		--color-editor-active-line-background: #1f2127bf;
+		--color-editor-highlighted-line-background: #1f2127ff;
+		--color-editor-line-number: #bfbdb659;
+		--color-editor-active-line-number: #bfbdb6ff;
+		--color-editor-invisible: #666767ff;
+		--color-editor-wrap-guide: #bfbdb60d;
+		--color-editor-active-wrap-guide: #bfbdb61a;
+		--color-editor-document-highlight-read-background: #5ac1fe1a;
+		--color-editor-document-highlight-write-background: #66676766;
+		--color-terminal-background: #0d1016ff;
+		--color-terminal-foreground: #bfbdb6ff;
+		--color-terminal-bright-foreground: #bfbdb6ff;
+		--color-terminal-dim-foreground: #0d1016ff;
+		--color-terminal-ansi-black: #0d1016ff;
+		--color-terminal-ansi-bright-black: #545557ff;
+		--color-terminal-ansi-dim-black: #bfbdb6ff;
+		--color-terminal-ansi-red: #ef7177ff;
+		--color-terminal-ansi-bright-red: #83353bff;
+		--color-terminal-ansi-dim-red: #febab9ff;
+		--color-terminal-ansi-green: #aad84cff;
+		--color-terminal-ansi-bright-green: #567627ff;
+		--color-terminal-ansi-dim-green: #d8eca8ff;
+		--color-terminal-ansi-yellow: #feb454ff;
+		--color-terminal-ansi-bright-yellow: #92582bff;
+		--color-terminal-ansi-dim-yellow: #ffd9aaff;
+		--color-terminal-ansi-blue: #5ac1feff;
+		--color-terminal-ansi-bright-blue: #27618cff;
+		--color-terminal-ansi-dim-blue: #b7dffeff;
+		--color-terminal-ansi-magenta: #39bae5ff;
+		--color-terminal-ansi-bright-magenta: #205a78ff;
+		--color-terminal-ansi-dim-magenta: #addcf3ff;
+		--color-terminal-ansi-cyan: #95e5cbff;
+		--color-terminal-ansi-bright-cyan: #4c806fff;
+		--color-terminal-ansi-dim-cyan: #cbf2e4ff;
+		--color-terminal-ansi-white: #bfbdb6ff;
+		--color-terminal-ansi-bright-white: #bfbdb6ff;
+		--color-terminal-ansi-dim-white: #787876ff;
+		--color-link-text-hover: #5ac1feff;
+		--color-conflict: #feb454ff;
+		--color-conflict-background: #572815ff;
+		--color-conflict-border: #754221ff;
+		--color-created: #aad84cff;
+		--color-created-background: #294113ff;
+		--color-created-border: #405c1cff;
+		--color-deleted: #ef7177ff;
+		--color-deleted-background: #48161bff;
+		--color-deleted-border: #66272dff;
+		--color-error: #ef7177ff;
+		--color-error-background: #48161bff;
+		--color-error-border: #66272dff;
+		--color-hidden: #696a6aff;
+		--color-hidden-background: #313337ff;
+		--color-hidden-border: #383a3eff;
+		--color-hint: #628b80ff;
+		--color-hint-background: #0d2f4eff;
+		--color-hint-border: #1b4a6eff;
+		--color-ignored: #8a8986ff;
+		--color-ignored-background: #313337ff;
+		--color-ignored-border: #3f4043ff;
+		--color-info: #5ac1feff;
+		--color-info-background: #0d2f4eff;
+		--color-info-border: #1b4a6eff;
+		--color-modified: #feb454ff;
+		--color-modified-background: #572815ff;
+		--color-modified-border: #754221ff;
+		--color-predictive: #5a728bff;
+		--color-predictive-background: #294113ff;
+		--color-predictive-border: #405c1cff;
+		--color-renamed: #5ac1feff;
+		--color-renamed-background: #0d2f4eff;
+		--color-renamed-border: #1b4a6eff;
+		--color-success: #aad84cff;
+		--color-success-background: #294113ff;
+		--color-success-border: #405c1cff;
+		--color-unreachable: #8a8986ff;
+		--color-unreachable-background: #313337ff;
+		--color-unreachable-border: #3f4043ff;
+		--color-warning: #feb454ff;
+		--color-warning-background: #572815ff;
+		--color-warning-border: #754221ff;
+	}
 }
 
 @layer components {

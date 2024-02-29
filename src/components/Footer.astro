@@ -1,16 +1,25 @@
 ---
 const today = new Date();
 const commit = import.meta.env.PUBLIC_GIT_COMMIT_HASH || 'main';
+const insiteLinks = [
+	{ href: '/', label: 'Posts' },
+	{ href: '/note', label: 'Notes' },
+	// { href: '/about', label: 'About' },
+];
 ---
 
-<footer class='pb-4 pt-4 text-center font-body'>
+<footer class='py-2 text-center'>
 	<p>&copy;{today.getFullYear()} qsliu. All rights reserved.</p>
-	<p class='flex justify-center gap-2'>
-		<a href='/' class='underline'>Posts</a>
-		<a href='/note' class='underline'>Notes</a>
-		<a href='/about' class='underline'>About</a>
-		<a href='https://github.com/qsliu2017' target='_blank'>
-			<svg class='mb-[2px] mr-[1px] inline h-4 w-4 text-gray-700' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
+	<p class='text-inactive flex justify-center gap-2'>
+		{
+			insiteLinks.map(({ href, label }) => (
+				<a href={href} class='hover:text-active underline'>
+					{label}
+				</a>
+			))
+		}
+		<a href='https://github.com/qsliu2017' target='_blank' class='hover:text-active'>
+			<svg class='mb-[2px] mr-[1px] inline h-4 w-4' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
 				<path
 					fill-rule='evenodd'
 					clip-rule='evenodd'
@@ -20,14 +29,14 @@ const commit = import.meta.env.PUBLIC_GIT_COMMIT_HASH || 'main';
 				</path>
 			</svg><span class='underline'>GitHub</span>
 		</a>
-		<a href='mailto:hi@qsliu.dev'>
+		<a href='mailto:hi@qsliu.dev' class='hover:text-active'>
 			<svg
 				xmlns='http://www.w3.org/2000/svg'
 				fill='none'
 				viewBox='0 0 24 24'
 				stroke-width={1.5}
 				stroke='currentColor'
-				class='mb-[1px] inline h-5 w-5 text-gray-700'
+				class='mb-[1px] inline h-5 w-5'
 			>
 				<path
 					stroke-linecap='round'
@@ -40,6 +49,6 @@ const commit = import.meta.env.PUBLIC_GIT_COMMIT_HASH || 'main';
 	</p>
 	<p>
 		<span>Version</span>
-		<a href={`https://github.com/qsliu2017/blog/tree/${commit}`} target='_blank' class='underline'>{commit}</a>
+		<a href={`https://github.com/qsliu2017/blog/tree/${commit}`} target='_blank' class='text-inactive hover:text-active underline'>{commit}</a>
 	</p>
 </footer>

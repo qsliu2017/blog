@@ -7,16 +7,12 @@ type Props = HTMLAttributes<'nav'> & {
 const { nav, class: className, ...props } = Astro.props;
 ---
 
-<nav class:list={[className, 'font-heading text-3xl text-gray-700']} {...props}>
+<nav class:list={[className, 'text-inactive font-heading text-3xl']} {...props}>
 	{
 		nav.map(({ href, text }, i) => (
 			<>
-				{i > 0 && (
-					<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-slash inline-block' viewBox='0 0 16 16'>
-						<path d='M11.354 4.646a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708l6-6a.5.5 0 0 1 .708 0z' />
-					</svg>
-				)}
-				<a {href} target='_self' class='hover:text-black'>
+				{i > 0 && <span>/</span>}
+				<a {href} class='hover:text-active'>
 					{text}
 				</a>
 			</>

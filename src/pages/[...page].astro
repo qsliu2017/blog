@@ -1,11 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
-import MathJaxHead from '../components/MathJaxHead.astro';
 import { getNotes, normalizeId } from '../components/note';
 import RandomOneOf from '../components/RandomOneOf.astro';
 import Nav from '../components/Nav.astro';
+import Head from '../components/Head.astro';
 
 export async function getStaticPaths() {
 	const notes = Object.entries(await getNotes()).map(async ([page, notes]) => ({
@@ -23,11 +22,8 @@ const { page, notes, post } = Astro.props;
 ---
 
 <!doctype html>
-<html lang='en' class='text-pretty bg-gray-50 font-body'>
-	<head>
-		<BaseHead title={post?.data.title || page} description={post?.data.description} />
-		<MathJaxHead />
-	</head>
+<html lang='en' class='theme-ayu text-pretty bg-gray-50'>
+	<Head title={post?.data.title || page} description={post?.data.description} />
 	<body class='mx-auto flex min-h-screen w-main max-w-full flex-col justify-between'>
 		<main class='mt-4 rounded-sm bg-white px-4 pb-6 pt-1 shadow-lg shadow-gray-200'>
 			<Nav class='font-serif text-2xl' nav={post ? [{ href: '/', text: 'Post' }] : [{ href: '/note', text: 'Note' }]} />
@@ -38,7 +34,7 @@ const { page, notes, post } = Astro.props;
 					</time>
 				)
 			}
-			<h1 class='font-heading text-4xl font-bold'>{page || post?.data.title}</h1>
+			<h1 class='font-serif text-4xl font-bold'>{page || post?.data.title}</h1>
 			{
 				post && (
 					<ul class='flex flex-wrap gap-1'>
@@ -51,9 +47,7 @@ const { page, notes, post } = Astro.props;
 				)
 			}
 			<hr class='mb-4 mt-2' />
-			<article
-				class='prose prose-headings:my-0 prose-a:font-normal prose-a:underline prose-a:after:inline-block prose-a:after:w-[15px] prose-a:after:align-middle prose-a:after:content-[url(/external-link.svg)]'
-			>
+			<article class='prose'>
 				{post && <post.rendered.Content components={{ RandomOneOf }} />}
 				{
 					notes &&

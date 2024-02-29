@@ -1,9 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
+import Head from '../components/Head.astro';
 import Footer from '../components/Footer.astro';
-import MathJaxHead from '../components/MathJaxHead.astro';
-import Nav from '../components/Nav.astro';
 import { getNotes, normalizeId } from '../components/note';
 
 export const getStaticPaths = async () => {
@@ -17,6 +15,12 @@ export const getStaticPaths = async () => {
 };
 
 const { type, tag } = Astro.props;
+
+const navItems = [
+	{ href: '/', text: 'Posts', active: type === 'post' && !tag },
+	{ href: '/note', text: 'Notes', active: type === 'note' },
+	...(tag ? [{ href: `/tagged/${tag}`, text: `Posts#${tag}`, active: true }] : []),
+];
 
 type Item = {
 	url: string;
@@ -58,37 +62,42 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 ---
 
 <!doctype html>
-<html lang='en' class='text-pretty bg-gray-50 font-body'>
-	<head>
-		<BaseHead />
-		<MathJaxHead />
-	</head>
-	<body class='mx-auto flex min-h-screen w-main max-w-full flex-col justify-between'>
-		<main class='px-4'>
-			<Nav
-				class='mt-4 font-serif'
-				nav={type === 'note'
-					? [{ href: '/note', text: 'Notes' }]
-					: [{ href: '/', text: 'Posts' }, ...(tag ? [{ href: `/tagged/${tag}/`, text: `#${tag}` }] : [])]}
-			/>
+<html lang='en' class='theme-ayu text-pretty'>
+	<Head title={type === 'note' ? `qsliu's notes` : tag ? `#${tag} at qsliu's blog` : undefined} />
+	<body class='mx-auto flex min-h-screen w-main max-w-full flex-col justify-between border-x'>
+		<main class='border-y'>
+			<nav>
+				{
+					navItems.map(({ href, text, active }) => (
+						<a
+							class:list={[
+								'inline-block border-r px-3 py-1 text-lg',
+								active ? 'bg-main text-active ' : 'text-inactive hover:bg-active hover:text-active',
+							]}
+							{href}
+						>
+							{text}
+						</a>
+					))
+				}
+			</nav>
 			{
 				Object.entries(itemsOfYear)
 					.sort(([a], [b]) => Number(b) - Number(a))
 					.map(([year, items]) => (
 						<>
-							<h2 class='mt-4 text-xl text-gray-400'>{year}</h2>
-							<hr />
+							<h2 class='border-y'>
+								<span class='bg-main text-disabled overlay-border-b inline-block h-full border-r px-2 py-1'>{year}</span>
+							</h2>
 							{items
 								.sort((a, b) => b.date.valueOf() - a.date.valueOf())
 								.map(({ url, title, date }) => (
-									<div class='mt-2 flex items-baseline justify-between'>
-										<a class='text-lg' href={url}>
-											{title}
-										</a>
-										<time class='text-nowrap text-gray-400' datetime={date.toISOString()}>
+									<a class='bg-main hover:bg-active group flex items-baseline justify-between px-2 py-1' href={url}>
+										<span class=''>{title}</span>
+										<time class='text-inactive group-hover:text-active text-nowrap' datetime={date.toISOString()}>
 											{dateString(date)}
 										</time>
-									</div>
+									</a>
 								))}
 						</>
 					))
