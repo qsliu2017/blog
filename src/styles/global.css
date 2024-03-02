@@ -314,4 +314,26 @@
 }
 
 @layer components {
+	.rendered-content {
+	}
+	.rendered-content pre:has(> code) {
+		border-radius: 0;
+	}
+	.rendered-content pre > code {
+		counter-reset: line-number;
+		font-family: 'Zed-mono', monospace;
+		text-wrap: wrap;
+		list-style: none;
+	}
+	.rendered-content pre > code > span.line {
+		counter-increment: line-number;
+		display: inline flow-root list-item;
+	}
+	.rendered-content pre > code:has(> :nth-child(2)) > span.line {
+		padding-left: 1ch;
+		margin-left: 1ch;
+	}
+	.rendered-content pre > code:has(> :nth-child(2)) > span.line::marker {
+		content: counter(line-number);
+	}
 }
