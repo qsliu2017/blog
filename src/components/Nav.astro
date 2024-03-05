@@ -7,7 +7,7 @@ type Props = HTMLAttributes<'nav'> & {
 const { nav, class: className, ...props } = Astro.props;
 ---
 
-<nav class:list={[className, 'text-inactive font-heading text-3xl']} {...props}>
+<nav class={className + ' text-inactive font-heading text-3xl'} {...props}>
 	{
 		nav.map(({ href, text }, i) => (
 			<>

@@ -70,10 +70,8 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 				{
 					navItems.map(({ href, text, active }) => (
 						<a
-							class:list={[
-								'inline-block border-r px-3 py-1 text-lg',
-								active ? 'bg-main text-active ' : 'text-inactive hover:bg-active hover:text-active',
-							]}
+							data-active={active + ''}
+							class='inline-block border-r px-3 py-1 text-lg data-[active=true]:bg-main data-[active=false]:text-inactive data-[active=true]:text-active data-[active=false]:hover:bg-active data-[active=false]:hover:text-active'
 							{href}
 						>
 							{text}
@@ -87,14 +85,14 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 					.map(([year, items]) => (
 						<>
 							<h2 class='border-y'>
-								<span class='bg-main text-disabled overlay-border-b inline-block h-full border-r px-2 py-1'>{year}</span>
+								<span class='inline-block h-full border-r bg-main px-2 py-1 text-disabled overlay-border-b'>{year}</span>
 							</h2>
 							{items
 								.sort((a, b) => b.date.valueOf() - a.date.valueOf())
 								.map(({ url, title, date }) => (
-									<a class='bg-main hover:bg-active group flex items-baseline justify-between px-2 py-1' href={url}>
+									<a class='group flex items-baseline justify-between bg-main px-2 py-1 hover:bg-active' href={url}>
 										<span class=''>{title}</span>
-										<time class='text-inactive group-hover:text-active text-nowrap' datetime={date.toISOString()}>
+										<time class='text-nowrap text-inactive group-hover:text-active' datetime={date.toISOString()}>
 											{dateString(date)}
 										</time>
 									</a>

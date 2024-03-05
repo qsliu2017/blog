@@ -10,10 +10,10 @@ const insiteLinks = [
 
 <footer class='py-2 text-center'>
 	<p>&copy;{today.getFullYear()} qsliu. All rights reserved.</p>
-	<p class='text-inactive flex justify-center gap-2'>
+	<p class='flex justify-center gap-2 text-inactive'>
 		{
 			insiteLinks.map(({ href, label }) => (
-				<a href={href} class='hover:text-active underline'>
+				<a href={href} class='underline hover:text-active'>
 					{label}
 				</a>
 			))
@@ -49,6 +49,6 @@ const insiteLinks = [
 	</p>
 	<p>
 		<span>Version</span>
-		<a href={`https://github.com/qsliu2017/blog/tree/${commit}`} target='_blank' class='text-inactive hover:text-active underline'>{commit}</a>
+		<a href={`https://github.com/qsliu2017/blog/tree/${commit}`} target='_blank' class='text-inactive underline hover:text-active'>{commit}</a>
 	</p>
 </footer>

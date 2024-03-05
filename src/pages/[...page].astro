@@ -47,7 +47,7 @@ const { page, notes, post } = Astro.props;
 				)
 			}
 			<hr class='mb-4 mt-2' />
-			<article class='prose rendered-content '>
+			<article class='rendered-content prose'>
 				{post && <post.rendered.Content components={{ RandomOneOf }} />}
 				{
 					notes &&
