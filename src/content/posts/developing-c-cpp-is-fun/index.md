@@ -36,4 +36,4 @@ So, ready to dive into C/C++ development? Here's what you need to do:
 1. Choose [clangd] as the language server and provide it with a `compile_commands.json` file.
 1. For Cmake/Bazel projects, use their built-in tools to generate that file. For other projects, use Bear.
 
-[clangd]: (https://github.com/zed-industries/zed/blob/main/docs/src/languages/cpp.md)
+[clangd]: https://github.com/zed-industries/zed/blob/main/docs/src/languages/cpp.md
