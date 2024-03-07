@@ -11,7 +11,7 @@ date: 2024-03-06
 
   This paper purposes a data centric style processing which try to keep data in CPU registers as long as possible and thus achieve better locality.
 
-  The presented framework groups operators in the same pipeline, and compiled them into native machine code using LLVM IR.
+  The presented framework does aggressive operator fusion within pipelines, and compiled them into native machine code using LLVM IR.
 
 - _Key findings/takeaways from the paper (2-3 sentences)._
 

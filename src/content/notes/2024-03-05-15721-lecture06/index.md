@@ -3,7 +3,7 @@ page: 'CMU 15721'
 date: 2024-03-05
 ---
 
-## _Lecture Note_ 05. Vectorized Query Execution
+## _Lecture Note_ 06. Vectorized Query Execution
 
 ### Implementation Approaches
 
