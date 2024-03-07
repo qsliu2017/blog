@@ -315,13 +315,40 @@
 
 @layer components {
 	.rendered-content {
+		letter-spacing: -0.1ch;
+		word-spacing: 0.1ch;
+		line-height: 2;
+	}
+	.rendered-content h2 {
+		margin-top: 0;
+	}
+	.rendered-content code {
+		font-family: 'Zed-mono', monospace;
+		letter-spacing: normal;
+		word-spacing: normal;
+	}
+	.rendered-content :not(pre) > code {
+		text-wrap: nowrap;
+		background-color: var(--color-element-background);
+		border-radius: 9999px;
+		padding: 0.2em 0.45em;
+	}
+	.rendered-content :not(pre) > code::before,
+	.rendered-content :not(pre) > code::after {
+		content: '';
+	}
+	.rendered-content a:has(> code) {
+		text-underline-offset: 0.12em;
+	}
+	.rendered-content a > code:hover {
+		background-color: var(--color-element-hover);
 	}
 	.rendered-content pre:has(> code) {
 		border-radius: 0;
+		line-height: normal;
 	}
 	.rendered-content pre > code {
 		counter-reset: line-number;
-		font-family: 'Zed-mono', monospace;
 		text-wrap: wrap;
 		list-style: none;
 	}
