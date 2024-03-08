@@ -21,6 +21,13 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION, image = SITE_IMAGE, 
 	<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
 	<meta name='generator' content={Astro.generator} />
 
+	<!-- Font preload -->
+	<link rel='preload' href='/fonts/zed-mono-extended.ttf' as='font' type='font/ttf' crossorigin />
+	<link rel='preload' href='/fonts/zed-sans-extended.ttf' as='font' type='font/ttf' crossorigin />
+	<link rel='preload' href='/fonts/zed-sans-extendedbold.ttf' as='font' type='font/ttf' crossorigin />
+	<link rel='preload' href='/fonts/zed-sans-extendedbolditalic.ttf' as='font' type='font/ttf' crossorigin />
+	<link rel='preload' href='/fonts/zed-sans-extendeditalic.ttf' as='font' type='font/ttf' crossorigin />
+
 	<!-- Canonical URL -->
 	<link rel='canonical' href={canonicalURL} />
 
