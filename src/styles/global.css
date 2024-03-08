@@ -318,10 +318,36 @@
 		letter-spacing: -0.1ch;
 		word-spacing: 0.1ch;
 		line-height: 2;
+		font-size: large;
 	}
-	.rendered-content h2 {
+
+	.rendered-content :is(h1, h2, h3, h4, h5, h6) {
 		margin-top: 0;
+		font-size: larger;
 	}
+	.rendered-content :is(h1, h2, h3, h4, h5, h6)::before {
+		color: var(--color-text-muted);
+		letter-spacing: normal;
+	}
+	.rendered-content h1::before {
+		content: '# ';
+	}
+	.rendered-content h2::before {
+		content: '## ';
+	}
+	.rendered-content h3::before {
+		content: '### ';
+	}
+	.rendered-content h4::before {
+		content: '#### ';
+	}
+	.rendered-content h5::before {
+		content: '##### ';
+	}
+	.rendered-content h6::before {
+		content: '###### ';
+	}
+
 	.rendered-content code {
 		font-family: 'Zed-mono', monospace;
 		letter-spacing: normal;
@@ -329,16 +355,18 @@
 	}
 	.rendered-content :not(pre) > code {
 		text-wrap: nowrap;
+		color: var(--color-text);
 		background-color: var(--color-element-background);
-		border-radius: 9999px;
-		padding: 0.2em 0.45em;
+		border-radius: 3px;
+		padding: 0.1em 0.3em;
 	}
 	.rendered-content :not(pre) > code::before,
 	.rendered-content :not(pre) > code::after {
-		content: '';
+		content: unset;
 	}
 	.rendered-content a:has(> code) {
 		text-underline-offset: 0.12em;
+		text-decoration-color: var(--color-text);
 	}
 	.rendered-content a > code:hover {
 		background-color: var(--color-element-hover);
