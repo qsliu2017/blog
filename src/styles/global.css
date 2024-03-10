@@ -391,4 +391,9 @@
 	.rendered-content pre > code:has(> :nth-child(2)) > span.line::marker {
 		content: counter(line-number);
 	}
+
+	.rendered-content blockquote p:first-of-type::before,
+	.rendered-content blockquote p:last-of-type::after {
+		content: unset;
+	}
 }

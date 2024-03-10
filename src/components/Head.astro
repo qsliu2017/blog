@@ -57,17 +57,5 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION, image = SITE_IMAGE, 
 		addEventListener('change', ({ matches }) => (document.documentElement.dataset['mode'] = matches ? 'dark' : 'light'));
 	</script>
 
-	<script is:inline>
-		MathJax = {
-			tex: {
-				inlineMath: [
-					['$', '$'],
-					['\\(', '\\)'],
-				],
-			},
-		};
-	</script>
-	<script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js'></script>
-
 	<slot />
 </head>

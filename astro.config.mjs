@@ -1,6 +1,8 @@
 import mdx from '@astrojs/mdx';
 import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
+import rehypeMathjax from 'rehype-mathjax/chtml';
+import remarkMath from 'remark-math';
 
 /** old posts migrated from hugo */
 const hugoPostsRedirects = [
@@ -30,6 +32,10 @@ const hugoPostsRedirects = [
 export default defineConfig({
 	site: 'https://blog.qsliu.dev',
 	integrations: [mdx(), tailwind()],
+	markdown: {
+		remarkPlugins: [remarkMath],
+		rehypePlugins: [[rehypeMathjax, { chtml: { fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2' } }]],
+	},
 	assets: true,
 	redirects: { ...hugoPostsRedirects },
 });
