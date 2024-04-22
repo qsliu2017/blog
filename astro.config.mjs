@@ -31,7 +31,7 @@ const hugoPostsRedirects = [
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://blog.qsliu.dev',
-	integrations: [mdx(), tailwind()],
+	integrations: [mdx(), tailwind({ applyBaseStyles: false })],
 	markdown: {
 		remarkPlugins: [remarkMath],
 		rehypePlugins: [[rehypeMathjax, { chtml: { fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2' } }]],

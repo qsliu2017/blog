@@ -1,7 +1,12 @@
 ---
 title: 'First Year of Blogging'
 date: 2024-04-07
+theme: tufte
 ---
+
+# First Year of Blogging
+
+<section>
 
 There is no such a moment that I suddenly made up my mind and became a weekly blogger. Actually I built my site at the end of 2022, using Hugo and its default theme. After that I just periodly put my notes and code snippets on it, but never take it seriously. About a year ago, the last year of my undergraduate, I was preparing for my thesis project about eBPF. I found there was a lack of beginner-friendly tutorials on eBPF, so I documented my exploration process into a tutorial and published it on my blog. A few days later, I found it on [ebpf.io](https://ebpf.io), the official eBPF community website. And I even received some emails discussing it. This is the first feedback I received from my blogging efforts. Hence, I consider this tutorial as the beginning of my blogging journey.
 
@@ -13,17 +18,25 @@ One day during the lockdown, I wrote an essay about _why am I not writing_ at th
 
 But now I still hesitate when I start a new post, "Are these worth writing?". That kind of question-and-answer writing seems to be less valuable since LLMs can do it much better. Even if I myself want to know the answer to this question a few months later, I would rather ask ChatGPT than read my own blog post.
 
+</section>
+
+<section>
+
 Is writing blog posts still worth it in the age of AI? I still read human-written blogs today and always find something interesting in them. There is a page on my site collecting my favorite blogs which, from a particular perspective, are a reflection of my ideal blog. Maybe it's time to go over them to find out what mine was made for.
 
 [The Writings of Leslie Lamport] collects nearly 200 writings of Leslie Lamport, one of the most famous mathematicians and computer scientists. Most of them are formal academic papers, and many of them have had a great impact on this field, such as Paxos. He even invented LaTex! What impressed me most is that his first paper was written in high school, and the most recent one was just a month ago!
 
 [paulgraham.com], as of this writing, has 222 essays of Paul Graham, the famous writer (who wrote _Hackers & Painters_) and investor (who co-founded Y Combinator). This blog must be one of the most successful blogs ever in the world. I find that Paul's essays are kind of _eye-catching_. Simple words and short sentences make it easy to read in one breath. Analogies and examples make it easily understandable. Just like a talk or speech. In fact, many of his essays come from speech drafts. The biggest, if not the only, purpose of this type of writing is to spread his original and brilliant viewpoints. Because he's a writer as well as an investor.
 
+<div class="epigraph">
+
 > Write for a reader who won't read the essay as carefully as you do, just as pop songs are designed to sound ok on crappy car radios.
 >
 > <footer>Paul Graham, "Writing, Briefly"</footer>
 
-Except for Leslie and Paul, both of whom are one-in-a-generation talents, there are also some blogs from the best engineers in this industry. [Mara's Blog] ,[research!rsc] ,[without.boats] and [Eric Holk] are some of my favorites, sharing thoughts and tradeoffs behind design, especially for PLs and systems.
+</div>
+
+Except for Leslie and Paul, both of whom are one-in-a-generation talents, there are also some blogs from the best engineers in this industry. [Mara's Blog], [research!rsc], [without.boats] and [Eric Holk] are some of my favorites, sharing thoughts and tradeoffs behind design, especially for PLs and systems.
 
 Somehow these perfect blogs make me hesitate to write. Yes, I do write to express myself. I'm not that kind of who can speak, but I do come up with ideas that I'm dying to share. However these ego prevents me from writing. I doubt it if my ideas are valuable. Do I misunderstand something? Do I have the ability to express my thoughts clearly?
 
@@ -33,16 +46,26 @@ TIL reminds me that I also write to learn. Back in high school, I refactored (I 
 
 [Metadata], in a way, matches this idea. This blog collects the reading notes of papers, most of which are about distributed systems. The reading notes are not for others, but for himself. He writes to understand the paper, and to find the wasted efforts in the research not shown in the paper (because paper is for reviewers). To keep himself noticing things, he set a goal of blogging once a week.
 
+<div class="epigraph">
+
 > This (_goal of blogging once a week_) also helps me lower my standards for writing, which paradoxically maintains and raises my standards.
 >
 > <footer>Murat Demirbas, "Why I blog"</footer>
 
+</div>
+
 Will I continue to write? Definitely. LLMs can provide answers, but never provide thoughts. Writing helps me to find other's thoughts and to express my own. I'd like to write better things in the future. I gain the following suggestions from [Phil Eaton], yet another blog I like.
+
+<div class="epigraph">
 
 > - Show working code
 > - Make things simpler
 > - Talk about tradeoffs and downsides
 > <footer>Phil Eaton, "What makes a great technical blog"</footer>
+
+</div>
+
+</section>
 
 [The Writings of Leslie Lamport]: https://lamport.azurewebsites.net/pubs/pubs.html
 [paulgraham.com]: https://www.paulgraham.com/index.html

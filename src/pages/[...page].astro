@@ -11,10 +11,12 @@ export async function getStaticPaths() {
 		props: { page, notes: await Promise.all(notes.map(async ({ render, ...note }) => ({ ...note, rendered: await render() }))) },
 		params: { page: `/note/${normalizeId(page)}` },
 	}));
-	const posts = (await getCollection('posts')).map(async ({ render, ...post }) => ({
-		props: { post: { ...post, rendered: await render() } },
-		params: { page: `/post/${post.slug}` },
-	}));
+	const posts = (await getCollection('posts'))
+		.filter(({ data: { theme } }) => theme === 'default')
+		.map(async ({ render, ...post }) => ({
+			props: { post: { ...post, rendered: await render() } },
+			params: { page: `/post/${post.slug}` },
+		}));
 	return await Promise.all([...notes, ...posts]);
 }
 

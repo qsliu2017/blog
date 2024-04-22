@@ -31,6 +31,7 @@ const posts = defineCollection({
 			.transform(val => new Date(val)),
 		tags: z.string().array().default([]),
 		draft: z.boolean().default(false),
+		theme: z.enum(['default', 'tufte']).default('default'),
 	}),
 });
 

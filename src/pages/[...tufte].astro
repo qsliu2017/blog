@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import '../styles/tufte.css';
+
+export async function getStaticPaths() {
+	return (await getCollection('posts'))
+		.filter(({ data: { theme } }) => theme === 'tufte')
+		.map(post => ({
+			props: { post },
+			params: { tufte: `/post/${post.slug}` },
+		}));
+}
+
+const { post } = Astro.props;
+const { title, description } = post.data;
+const { Content } = await post.render();
+---
+
+<html lang='en'>
+	<head>
+		<meta charset='utf-8' />
+		<meta name='viewport' content='width=device-width,initial-scale=1' />
+		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+		<meta name='generator' content={Astro.generator} />
+		<title>{title}</title>
+		<meta name='title' content={title} />
+		<meta name='description' content={description} />
+		<script>
+			const { matches, addEventListener } = window.matchMedia('(prefers-color-scheme: dark)');
+			if (matches) document.documentElement.dataset['mode'] = 'dark';
+			addEventListener('change', ({ matches }) => (document.documentElement.dataset['mode'] = matches ? 'dark' : 'light'));
+		</script>
+	</head>
+	<body>
+		<article>
+			<Content />
+		</article>
+	</body>
+</html>
