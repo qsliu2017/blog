@@ -2,6 +2,7 @@
 title: Morsel-Driven Execution Framework in DuckDB
 date: 2024-04-16
 tags: ['duckdb', 'database']
+draft: true
 ---
 
 DuckDB implements morsel-driven parallelism, a NUMA-aware query evaluation framework. This post introduces the morsel model and its implementation in DuckDB.

@@ -22,18 +22,13 @@ const navItems = [
 	...(tag ? [{ href: `/tagged/${tag}`, text: `Posts#${tag}`, active: true }] : []),
 ];
 
-type Item = {
-	url: string;
-	title: string;
-	date: Date;
-};
-
 const getNoteItems = async () => {
 	const notes = await getNotes();
 	return Object.entries(notes).map(([title, notes]) => ({
 		url: `/note/${normalizeId(title)}/`,
 		title,
 		date: notes.map(note => note.data.date).reduce((a, b) => (a > b ? a : b)),
+		draft: false,
 	}));
 };
 
@@ -41,10 +36,11 @@ const getPostItems = async (tag?: string) => {
 	const posts = await getCollection('posts');
 	return posts
 		.filter(post => !tag || post.data.tags.includes(tag))
-		.map(({ slug, data: { title, date } }) => ({
+		.map(({ slug, data: { title, date, draft } }) => ({
 			url: `/post/${slug}/`,
 			title,
 			date,
+			draft,
 		}));
 };
 
@@ -54,7 +50,7 @@ const itemsOfYear = (await (type === 'note' ? getNoteItems() : getPostItems(tag)
 		acc[year] = [...(acc[year] || []), item];
 		return acc;
 	},
-	{} as Record<number, Item[]>,
+	{} as Record<number, Awaited<ReturnType<typeof getNoteItems | typeof getPostItems>>>
 );
 
 const zeroPadding = (n: number) => (n < 10 ? '0' : '') + n;
@@ -89,9 +85,16 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 							</h2>
 							{items
 								.sort((a, b) => b.date.valueOf() - a.date.valueOf())
-								.map(({ url, title, date }) => (
+								.map(({ url, title, date, draft }) => (
 									<a class='group flex items-baseline justify-between bg-main px-2 py-1 hover:bg-active' href={url}>
-										<span class=''>{title}</span>
+										<span>
+											{draft && (
+												<>
+													[<span class=' underline'>draft</span>]
+												</>
+											)}
+											{title}
+										</span>
 										<time class='text-nowrap text-inactive group-hover:text-active' datetime={date.toISOString()}>
 											{dateString(date)}
 										</time>
