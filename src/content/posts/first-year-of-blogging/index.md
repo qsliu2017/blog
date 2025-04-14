@@ -1,5 +1,4 @@
 ---
-title: 'First Year of Blogging'
 date: 2024-04-07
 theme: tufte
 ---

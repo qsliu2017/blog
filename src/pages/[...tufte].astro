@@ -12,8 +12,9 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { title, description, date } = post.data;
-const { Content } = await post.render();
+const { description, date } = post.data;
+const { Content, headings } = await post.render();
+const title = headings.find(h => h.depth == 1)?.text!;
 ---
 
 <html lang='en'>

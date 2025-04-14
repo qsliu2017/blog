@@ -22,7 +22,7 @@ const notes = defineCollection({
 const posts = defineCollection({
 	type: 'content',
 	schema: z.object({
-		title: z.string(),
+		title: z.ostring(),
 		description: z.ostring(),
 		// Transform string to Date object
 		date: z

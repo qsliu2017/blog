@@ -1,5 +1,4 @@
 ---
-title: 'What Software Engineers Can Learn From Air Crashes'
 date: 2024-12-14
 theme: tufte
 ---
