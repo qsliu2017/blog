@@ -8,7 +8,7 @@ import Head from '../components/Head.astro';
 
 export async function getStaticPaths() {
 	const notes = Object.entries(await getNotes()).map(async ([page, notes]) => ({
-		props: { page, notes: await Promise.all(notes.map(async ({ render, ...note }) => ({ ...note, rendered: await render() }))) },
+		props: { page, notes: await Promise.all(notes!.map(async ({ render, ...note }) => ({ ...note, rendered: await render() }))) },
 		params: { page: `/note/${normalizeId(page)}` },
 	}));
 	const posts = (await getCollection('posts'))

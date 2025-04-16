@@ -27,7 +27,7 @@ const getNoteItems = async () => {
 	return Object.entries(notes).map(([title, notes]) => ({
 		url: `/note/${normalizeId(title)}/`,
 		title,
-		date: notes.map(note => note.data.date).reduce((a, b) => (a > b ? a : b)),
+		date: notes!.map(note => note.data.date).reduce((a, b) => (a > b ? a : b)),
 		draft: false,
 	}));
 };
@@ -44,14 +44,7 @@ const getPostItems = async (tag?: string) => {
 		}));
 };
 
-const itemsOfYear = (await (type === 'note' ? getNoteItems() : getPostItems(tag))).reduce(
-	(acc, item) => {
-		const year = item.date.getFullYear();
-		acc[year] = [...(acc[year] || []), item];
-		return acc;
-	},
-	{} as Record<number, Awaited<ReturnType<typeof getNoteItems | typeof getPostItems>>>
-);
+const itemsOfYear = Object.groupBy(await (type === 'note' ? getNoteItems() : getPostItems(tag)), item => item.date.getFullYear());
 
 const zeroPadding = (n: number) => (n < 10 ? '0' : '') + n;
 const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zeroPadding(date.getDate());
@@ -83,7 +76,7 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 							<h2 class='border-y'>
 								<span class='inline-block h-full border-r bg-main px-2 py-1 text-disabled overlay-border-b'>{year}</span>
 							</h2>
-							{items
+							{items!
 								.sort((a, b) => b.date.valueOf() - a.date.valueOf())
 								.map(({ url, title, date, draft }) => (
 									<a class='group flex items-baseline justify-between bg-main px-2 py-1 hover:bg-active' href={url}>
