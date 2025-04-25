@@ -26,47 +26,94 @@ const { page, notes, post } = Astro.props;
 <!doctype html>
 <html lang='en' class='theme-ayu text-pretty bg-gray-50'>
 	<Head title={post?.data.title || page} description={post?.data.description} />
-	<body class='mx-auto flex min-h-screen w-main max-w-full flex-col justify-between'>
-		<main class='mt-4 rounded-sm bg-white px-4 pb-6 pt-1 shadow-lg shadow-gray-200'>
-			<Nav class='font-serif text-2xl' nav={post ? [{ href: '/', text: 'Post' }] : [{ href: '/note', text: 'Note' }]} />
-			{
-				post && (
-					<time class='text-lg' datetime={post.data.date.toISOString()}>
-						{post.data.date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
-					</time>
-				)
-			}
-			<h1 class='font-serif text-4xl font-bold'>{page || post?.data.title}</h1>
-			{
-				post && (
-					<ul class='flex flex-wrap gap-1'>
-						{post.data.tags.map(tag => (
-							<a href={`/tagged/${tag}/`}>
-								<li class='h-fit rounded-full border border-gray-300 bg-slate-100 px-1 font-light text-gray-600'>{tag}</li>
-							</a>
-						))}
-					</ul>
-				)
-			}
-			<hr class='mb-4 mt-2' />
-			<article class='rendered-content prose'>
-				{post && <post.rendered.Content components={{ RandomOneOf }} />}
+	<body class='relative'>
+		{
+			post && post.rendered.headings.length > 1 && (
+				<div class='absolute right-0 px-8 py-4'>
+					<aside class='fixed right-0 top-4 hidden w-48 p-4 lg:block'>
+						<ol class='space-y-1'>
+							{post.rendered.headings.map(({ text, depth, slug }) => (
+								<li class={`block text-sm hover:text-blue-600 ${depth > 2 ? 'ml-4' : ''}`}>
+									<a href={`#${slug}`} data-heading={slug}>
+										{text}
+									</a>
+								</li>
+							))}
+						</ol>
+					</aside>
+				</div>
+			)
+		}
+		<main class='mx-auto flex min-h-screen w-main max-w-full flex-col justify-between'>
+			<div class='mt-4 rounded-sm bg-white px-4 pb-6 pt-1 shadow-lg shadow-gray-200'>
+				<Nav class='font-serif text-2xl' nav={post ? [{ href: '/', text: 'Post' }] : [{ href: '/note', text: 'Note' }]} />
 				{
-					notes &&
-						notes
-							.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-							.map(({ data: { date }, rendered }, i) => (
-								<>
-									{i > 0 && <hr class='mb-2 mt-4' />}
-									<time class='text-lg' datetime={date.toISOString()}>
-										{date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
-									</time>
-									<rendered.Content />
-								</>
-							))
+					post && (
+						<time class='text-lg' datetime={post.data.date.toISOString()}>
+							{post.data.date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
+						</time>
+					)
 				}
-			</article>
+				<h1 class='font-serif text-4xl font-bold'>{page || post?.data.title}</h1>
+				{
+					post && (
+						<ul class='flex flex-wrap gap-1'>
+							{post.data.tags.map(tag => (
+								<a href={`/tagged/${tag}/`}>
+									<li class='h-fit rounded-full border border-gray-300 bg-slate-100 px-1 font-light text-gray-600'>{tag}</li>
+								</a>
+							))}
+						</ul>
+					)
+				}
+				<hr class='mb-4 mt-2' />
+				<article class='rendered-content prose'>
+					{post && <post.rendered.Content components={{ RandomOneOf }} />}
+					{
+						notes &&
+							notes
+								.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+								.map(({ data: { date }, rendered }, i) => (
+									<>
+										{i > 0 && <hr class='mb-2 mt-4' />}
+										<time class='text-lg' datetime={date.toISOString()}>
+											{date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
+										</time>
+										<rendered.Content />
+									</>
+								))
+					}
+				</article>
+			</div>
+			<Footer />
 		</main>
-		<Footer />
+		<script>
+			(() => {
+				const headingLinks = document.querySelectorAll('a[data-heading]');
+				if (!headingLinks.length) return;
+
+				const headingIdToLink = new Map(Array.from(headingLinks).map(link => [link.getAttribute('data-heading')!, link]));
+
+				const highlightStyle = 'text-blue-600';
+				const highlight = (link: Element) => {
+					headingLinks.forEach(l => l.classList.remove(highlightStyle));
+					link.classList.add(highlightStyle);
+				};
+
+				headingLinks.forEach(link => link.addEventListener('click', () => highlight(link)));
+
+				const observer = new IntersectionObserver(
+					entries => {
+						const entry = entries.find(e => e.isIntersecting);
+						if (entry) highlight(headingIdToLink.get(entry.target.id)!);
+					},
+					{ rootMargin: '-80px 0px -80% 0px' },
+				);
+				document.querySelectorAll('article :is(h1, h2, h3, h4, h5, h6)').forEach(heading => observer.observe(heading));
+
+				const hash = window.location.hash.slice(1);
+				highlight(headingIdToLink.get(hash) || headingLinks.item(0));
+			})();
+		</script>
 	</body>
 </html>
