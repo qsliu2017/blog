@@ -71,6 +71,12 @@ Theoretically, only one syscall, [io_uring_setup][io_uring_setup], is needed in 
 
 1. [What is io_uring?](https://unixism.net/loti/what_is_io_uring.html) has a good description of the io_uring mental model.
 1. [golang/go#65064](https://github.com/golang/go/issues/65064) discusses how the singleton epoll instance in the Go runtime could become a scalability problem, and explores whether io_uring could replace it.
+1. The first section of [Efficient IO with io_uring](https://kernel.dk/io_uring.pdf) introduces [AIO](https://man7.org/linux/man-pages/man7/aio.7.html), a failed async I/O interface and predecessor of io_uring.
+1. [How io_uring and eBPF Will Revolutionize Programming in Linux](https://www.scylladb.com/2020/05/05/how-io_uring-and-ebpf-will-revolutionize-programming-in-linux/) presents a use case of io_uring in ScyllaDB and includes a detailed performance comparison.
+
+   Fun fact: I first came across Linus Torvalds’s [complaint](https://lwn.net/Articles/671657/) about AIO in this post.
+
+   > So I think this is ridiculously ugly. AIO is a horrible ad-hoc design...
 
 [pg18beta1]: https://www.postgresql.org/about/news/postgresql-18-beta-1-released-3070/
 [read]: https://man7.org/linux/man-pages/man2/read.2.html
