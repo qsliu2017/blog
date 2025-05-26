@@ -1,7 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
-import Head from '../components/Head.astro';
+import ExternalLink from '../components/ExternalLink.astro';
 import Footer from '../components/Footer.astro';
+import Head from '../components/Head.astro';
 import { getNotes, normalizeId } from '../components/note';
 
 export const getStaticPaths = async () => {
@@ -11,6 +12,7 @@ export const getStaticPaths = async () => {
 		/* post list */ { params: { list: undefined }, props: { type: 'post' } },
 		/* tagged post list */ ...Array.from(tags).map(tag => ({ params: { list: `/tagged/${tag}` }, props: { type: 'post', tag } })),
 		/* note list */ { params: { list: '/note' }, props: { type: 'note' } },
+		/* stars list */ { params: { list: '/star' }, props: { type: 'star' } },
 	];
 };
 
@@ -19,6 +21,7 @@ const { type, tag } = Astro.props;
 const navItems = [
 	{ href: '/', text: 'Posts', active: type === 'post' && !tag },
 	{ href: '/note', text: 'Notes', active: type === 'note' },
+	{ href: '/star', text: 'Stars', active: type === 'star' },
 	...(tag ? [{ href: `/tagged/${tag}`, text: `Posts#${tag}`, active: true }] : []),
 ];
 
@@ -46,6 +49,8 @@ const getPostItems = async (tag?: string) => {
 
 const itemsOfYear = Object.groupBy(await (type === 'note' ? getNoteItems() : getPostItems(tag)), item => item.date.getFullYear());
 
+const starItems = (await getCollection('stars')).flatMap(list => list.data);
+
 const zeroPadding = (n: number) => (n < 10 ? '0' : '') + n;
 const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zeroPadding(date.getDate());
 ---
@@ -69,32 +74,52 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 				}
 			</nav>
 			{
-				Object.entries(itemsOfYear)
-					.sort(([a], [b]) => Number(b) - Number(a))
-					.map(([year, items]) => (
-						<>
-							<h2 class='border-y'>
-								<span class='inline-block h-full border-r bg-main px-2 py-1 text-disabled overlay-border-b'>{year}</span>
-							</h2>
-							{items!
-								.sort((a, b) => b.date.valueOf() - a.date.valueOf())
-								.map(({ url, title, date, draft }) => (
-									<a class='group flex items-baseline justify-between bg-main px-2 py-1 hover:bg-active' href={url}>
-										<span>
-											{draft && (
-												<>
-													[<span class=' underline'>draft</span>]
-												</>
-											)}
-											{title}
-										</span>
-										<time class='text-nowrap text-inactive group-hover:text-active' datetime={date.toISOString()}>
-											{dateString(date)}
-										</time>
-									</a>
-								))}
-						</>
-					))
+				type === 'star' ? (
+					<>
+						{starItems
+							.flatMap(({ title, url, posts }) => [
+								{ title, url },
+								...(posts?.map(({ title, url }, idx) => ({
+									title: (idx < posts.length - 1 ? '├─ ' : '└─ ') + title,
+									url,
+								})) ?? []),
+							])
+							.map(({ title, url }) => (
+								<>
+									<ExternalLink class='group flex items-baseline justify-between bg-main px-2 py-1 hover:bg-active' href={url}>
+										{title}
+									</ExternalLink>
+								</>
+							))}
+					</>
+				) : (
+					Object.entries(itemsOfYear)
+						.sort(([a], [b]) => Number(b) - Number(a))
+						.map(([year, items]) => (
+							<>
+								<h2 class='border-y'>
+									<span class='inline-block h-full border-r bg-main px-2 py-1 text-disabled overlay-border-b'>{year}</span>
+								</h2>
+								{items!
+									.sort((a, b) => b.date.valueOf() - a.date.valueOf())
+									.map(({ url, title, date, draft }) => (
+										<a class='group flex items-baseline justify-between bg-main px-2 py-1 hover:bg-active' href={url}>
+											<span>
+												{draft && (
+													<>
+														[<span class=' underline'>draft</span>]
+													</>
+												)}
+												{title}
+											</span>
+											<time class='text-nowrap text-inactive group-hover:text-active' datetime={date.toISOString()}>
+												{dateString(date)}
+											</time>
+										</a>
+									))}
+							</>
+						))
+				)
 			}
 		</main>
 		<Footer />

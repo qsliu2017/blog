@@ -1,0 +1,97 @@
+[
+	{
+		"title": "Addy Osmani",
+		"url": "https://addyosmani.com/",
+		"tags": ["personal"],
+		"comment": "the author of *Learning JavaScript Design Patterns*, *Learning Patterns*, *Image Optimization*, etc."
+	},
+	{
+		"title": "colah's blog",
+		"url": "https://colah.github.io/",
+		"tags": ["personal", "deep learning"],
+		"comment": "His blog works on reverse engineering artificial neural networks into human understandable algorithms",
+		"posts": [
+			{
+				"title": "Understanding LSTM Networks",
+				"url": "https://colah.github.io/posts/2015-08-Understanding-LSTMs/"
+			}
+		]
+	},
+	{
+		"title": "Embedded in Academia",
+		"url": "https://blog.regehr.org/",
+		"tags": ["personal"],
+		"author": "John Regehr",
+		"posts": [
+			{
+				"title": "Why Take a Compiler Course?",
+				"url": "https://blog.regehr.org/archives/169"
+			},
+			{
+				"title": "Why Take an Operating Systems Course?",
+				"url": "https://blog.regehr.org/archives/164"
+			}
+		]
+	},
+	{
+		"title": "Eric Holk",
+		"url": "https://theincredibleholk.org/",
+		"tags": ["personal"]
+	},
+	{
+		"title": "Leslie Lamport",
+		"url": "http://lamport.azurewebsites.net/pubs/pubs.html",
+		"comment": "Leslie Lamport wrote his first publication at high school!",
+		"tags": ["personal"]
+	},
+	{
+		"title": "Mara's Blog",
+		"url": "https://blog.m-ou.se/",
+		"tags": ["personal", "Rust"],
+		"comment": "Mara Bos works on the Rust standard library and writes about it."
+	},
+	{
+		"title": "Metadata",
+		"url": "http://muratbuffalo.blogspot.com/",
+		"tags": ["personal"],
+		"author": "Murat Demirbas",
+		"comment": "I learned a lot about how to read a paper and write a review"
+	},
+	{
+		"title": "NEON",
+		"url": "https://neon.tech/blog",
+		"comment": "NEON is a serverless Postgres.",
+		"tags": ["database"]
+	},
+	{
+		"title": "OtterTune",
+		"url": "https://ottertune.com/blog/",
+		"tags": ["database"],
+		"comment": "OtterTune is AI-powered cloud database tuning."
+	},
+	{
+		"title": "Paul Graham",
+		"url": "http://www.paulgraham.com/index.html",
+		"tags": ["personal"],
+		"author": "Paul Graham",
+		"comment": "I love the essay 'Maker's Schedule, Manager's Schedule' (and hope all of my colleagues read it). Then I found out Paul is who wrote 'Hackers and Painters'.",
+		"posts": [
+			{
+				"title": "Maker's Schedule, Manager's Schedule",
+				"url": "http://www.paulgraham.com/makersschedule.html"
+			}
+		]
+	},
+	{
+		"title": "research!rsc",
+		"url": "https://research.swtch.com/",
+		"author": "Russ Cox",
+		"comment": "Thoughts and links about programming",
+		"tags": ["personal", "programming language", "golang"]
+	},
+	{
+		"title": "Without boats, dreams dry up",
+		"url": "https://without.boats/",
+		"tags": ["personal"]
+	}
+]

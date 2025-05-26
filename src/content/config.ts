@@ -60,4 +60,22 @@ const starredBlogs = defineCollection({
 	}),
 });
 
-export const collections = { bookmarks, notes, posts, songs, 'starred-blogs': starredBlogs };
+const stars = defineCollection({
+	type: 'data',
+	schema: z
+		.object({
+			title: z.string(),
+			url: z.string().url(),
+			posts: z.optional(
+				z.array(
+					z.object({
+						title: z.string(),
+						url: z.string().url(),
+					}),
+				),
+			),
+		})
+		.array(),
+});
+
+export const collections = { bookmarks, notes, posts, songs, 'starred-blogs': starredBlogs, stars };
