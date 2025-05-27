@@ -1,9 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
-import ExternalLink from '../components/ExternalLink.astro';
 import Footer from '../components/Footer.astro';
 import Head from '../components/Head.astro';
 import { getNotes, normalizeId } from '../components/note';
+
+type ListType = 'post' | 'note' | 'star';
+
+type Props = {
+	type: ListType;
+	tag?: string;
+};
 
 export const getStaticPaths = async () => {
 	const posts = await getCollection('posts');
@@ -18,6 +24,12 @@ export const getStaticPaths = async () => {
 
 const { type, tag } = Astro.props;
 
+const titleMap: Record<ListType, string> = {
+	post: tag ? '#' + tag + " at qsliu's blog" : "qsliu's blog",
+	note: "qsliu's notes",
+	star: "qsliu's stars",
+};
+
 const navItems = [
 	{ href: '/', text: 'Posts', active: type === 'post' && !tag },
 	{ href: '/note', text: 'Notes', active: type === 'note' },
@@ -25,19 +37,35 @@ const navItems = [
 	...(tag ? [{ href: `/tagged/${tag}`, text: `Posts#${tag}`, active: true }] : []),
 ];
 
+type Section = { section: string };
+
+type Link = {
+	title: string;
+	url: string;
+	isExternal?: boolean;
+	date?: Date;
+	draft?: boolean;
+};
+
+type Item = Section | Link;
+
 const getNoteItems = async () => {
 	const notes = await getNotes();
-	return Object.entries(notes).map(([title, notes]) => ({
+	const noteItems = Object.entries(notes).map(([title, notes]) => ({
 		url: `/note/${normalizeId(title)}/`,
 		title,
 		date: notes!.map(note => note.data.date).reduce((a, b) => (a > b ? a : b)),
 		draft: false,
 	}));
+	const itemsOfYear = Object.groupBy(noteItems, item => item.date.getFullYear());
+	return Object.entries(itemsOfYear)
+		.sort(([a], [b]) => Number(b) - Number(a))
+		.flatMap(([year, items]) => [{ section: year }, ...items!.sort((a, b) => b.date.valueOf() - a.date.valueOf())]);
 };
 
-const getPostItems = async (tag?: string) => {
+const getPostItems = async () => {
 	const posts = await getCollection('posts');
-	return posts
+	const postItems = posts
 		.filter(post => !tag || post.data.tags.includes(tag))
 		.map(({ slug, data: { title, date, draft } }) => ({
 			url: `/post/${slug}/`,
@@ -45,11 +73,33 @@ const getPostItems = async (tag?: string) => {
 			date,
 			draft,
 		}));
+	const itemsOfYear = Object.groupBy(postItems, item => item.date.getFullYear());
+	return Object.entries(itemsOfYear)
+		.sort(([a], [b]) => Number(b) - Number(a))
+		.flatMap(([year, items]) => [{ section: year }, ...items!.sort((a, b) => b.date.valueOf() - a.date.valueOf())]);
 };
 
-const itemsOfYear = Object.groupBy(await (type === 'note' ? getNoteItems() : getPostItems(tag)), item => item.date.getFullYear());
+const getStarItems = async () => {
+	const starItems = (await getCollection('stars'))
+		.flatMap(list => list.data)
+		.flatMap(({ title, url, posts }) => [
+			{ title, url, isExternal: true },
+			...(posts?.map(({ title, url }, idx) => ({
+				title: (idx < posts.length - 1 ? '├─ ' : '└─ ') + title,
+				url,
+				isExternal: true,
+			})) ?? []),
+		]);
+	return starItems;
+};
 
-const starItems = (await getCollection('stars')).flatMap(list => list.data);
+const itemsFnMap: Record<ListType, () => Promise<Item[]>> = {
+	note: getNoteItems,
+	post: getPostItems,
+	star: getStarItems,
+};
+
+const list = await itemsFnMap[type]();
 
 const zeroPadding = (n: number) => (n < 10 ? '0' : '') + n;
 const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zeroPadding(date.getDate());
@@ -57,7 +107,7 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 
 <!doctype html>
 <html lang='en' class='theme-ayu text-pretty'>
-	<Head title={type === 'note' ? `qsliu's notes` : tag ? `#${tag} at qsliu's blog` : undefined} />
+	<Head title={titleMap[type]} />
 	<body class='mx-auto flex min-h-screen w-main max-w-full flex-col justify-between border-x'>
 		<main class='border-y'>
 			<nav>
@@ -74,51 +124,42 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 				}
 			</nav>
 			{
-				type === 'star' ? (
-					<>
-						{starItems
-							.flatMap(({ title, url, posts }) => [
-								{ title, url },
-								...(posts?.map(({ title, url }, idx) => ({
-									title: (idx < posts.length - 1 ? '├─ ' : '└─ ') + title,
-									url,
-								})) ?? []),
-							])
-							.map(({ title, url }) => (
-								<>
-									<ExternalLink class='group flex items-baseline justify-between bg-main px-2 py-1 hover:bg-active' href={url}>
-										{title}
-									</ExternalLink>
-								</>
-							))}
-					</>
-				) : (
-					Object.entries(itemsOfYear)
-						.sort(([a], [b]) => Number(b) - Number(a))
-						.map(([year, items]) => (
-							<>
-								<h2 class='border-y'>
-									<span class='inline-block h-full border-r bg-main px-2 py-1 text-disabled overlay-border-b'>{year}</span>
-								</h2>
-								{items!
-									.sort((a, b) => b.date.valueOf() - a.date.valueOf())
-									.map(({ url, title, date, draft }) => (
-										<a class='group flex items-baseline justify-between bg-main px-2 py-1 hover:bg-active' href={url}>
-											<span>
-												{draft && (
-													<>
-														[<span class=' underline'>draft</span>]
-													</>
-												)}
-												{title}
-											</span>
-											<time class='text-nowrap text-inactive group-hover:text-active' datetime={date.toISOString()}>
-												{dateString(date)}
-											</time>
-										</a>
-									))}
-							</>
-						))
+				list.map(item =>
+					'section' in item ? (
+						<>
+							<h2 class='border-y'>
+								<span class='inline-block h-full border-r bg-main px-2 py-1 text-disabled overlay-border-b'>{item.section}</span>
+							</h2>
+						</>
+					) : (
+						<>
+							<a class='group flex items-baseline justify-between bg-main px-2 py-1 hover:bg-active' href={item.url}>
+								<span>
+									{item.draft && (
+										<>
+											[<span class=' underline'>draft</span>]
+										</>
+									)}
+									{item.title}
+									{item.isExternal && (
+										<svg class='inline-block' width='15' height='15' viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
+											<path
+												d='M3 2C2.44772 2 2 2.44772 2 3V12C2 12.5523 2.44772 13 3 13H12C12.5523 13 13 12.5523 13 12V8.5C13 8.22386 12.7761 8 12.5 8C12.2239 8 12 8.22386 12 8.5V12H3V3L6.5 3C6.77614 3 7 2.77614 7 2.5C7 2.22386 6.77614 2 6.5 2H3ZM12.8536 2.14645C12.9015 2.19439 12.9377 2.24964 12.9621 2.30861C12.9861 2.36669 12.9996 2.4303 13 2.497L13 2.5V2.50049V5.5C13 5.77614 12.7761 6 12.5 6C12.2239 6 12 5.77614 12 5.5V3.70711L6.85355 8.85355C6.65829 9.04882 6.34171 9.04882 6.14645 8.85355C5.95118 8.65829 5.95118 8.34171 6.14645 8.14645L11.2929 3H9.5C9.22386 3 9 2.77614 9 2.5C9 2.22386 9.22386 2 9.5 2H12.4999H12.5C12.5678 2 12.6324 2.01349 12.6914 2.03794C12.7504 2.06234 12.8056 2.09851 12.8536 2.14645Z'
+												fill='currentColor'
+												fill-rule='evenodd'
+												clip-rule='evenodd'
+											/>
+										</svg>
+									)}
+								</span>
+								{item.date && (
+									<time class='text-nowrap text-inactive group-hover:text-active' datetime={item.date.toISOString()}>
+										{dateString(item.date)}
+									</time>
+								)}
+							</a>
+						</>
+					),
 				)
 			}
 		</main>
