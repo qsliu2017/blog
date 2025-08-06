@@ -93,5 +93,10 @@
 		"title": "Without boats, dreams dry up",
 		"url": "https://without.boats/",
 		"tags": ["personal"]
+	},
+	{
+		"title": "Thomas Neumann's Publications",
+		"url": "https://dblp.org/pid/n/ThomasNeumann.html",
+		"author": "Thomas Neumann"
 	}
 ]

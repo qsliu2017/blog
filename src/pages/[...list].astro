@@ -82,6 +82,7 @@ const getPostItems = async () => {
 const getStarItems = async () => {
 	const starItems = (await getCollection('stars'))
 		.flatMap(list => list.data)
+		.sort((a, b) => a.title.localeCompare(b.title))
 		.flatMap(({ title, url, posts }) => [
 			{ title, url, isExternal: true },
 			...(posts?.map(({ title, url }, idx) => ({
