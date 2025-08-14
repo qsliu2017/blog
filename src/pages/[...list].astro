@@ -67,11 +67,12 @@ const getPostItems = async () => {
 	const posts = await getCollection('posts');
 	const postItems = posts
 		.filter(post => !tag || post.data.tags.includes(tag))
-		.map(({ slug, data: { title, date, draft } }) => ({
-			url: `/post/${slug}/`,
+		.map(({ slug, data: { title, date, draft, externalUrl } }) => ({
+			url: externalUrl || `/post/${slug}/`,
 			title,
 			date,
 			draft,
+			isExternal: !!externalUrl,
 		}));
 	const itemsOfYear = Object.groupBy(postItems, item => item.date.getFullYear());
 	return Object.entries(itemsOfYear)
@@ -134,7 +135,11 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 						</>
 					) : (
 						<>
-							<a class='group flex items-baseline justify-between bg-main px-2 py-1 hover:bg-active' href={item.url}>
+							<a
+								class='group flex items-baseline justify-between bg-main px-2 py-1 hover:bg-active'
+								href={item.url}
+								target={item.isExternal ? '_blank' : '_self'}
+							>
 								<span>
 									{item.draft && (
 										<>
