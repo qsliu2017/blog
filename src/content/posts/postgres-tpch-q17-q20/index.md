@@ -59,15 +59,24 @@ WHERE
 
 The problem is the **correlated subquery** referring `p_partkey` from the outer query. In Postgres, this subquery runs for every row of `part`, resulting in an $L \times P$ intermediate table. Extremely inefficient.
 
-```sql
--- postgres explain Q17 here
+```
+Aggregate  (cost=24.54..24.55 rows=1 width=32)
+  ->  Hash Join  (cost=12.26..24.54 rows=1 width=18)
+        Hash Cond: (lineitem.l_partkey = part.p_partkey)
+        Join Filter: (lineitem.l_quantity < (SubPlan 1))
+        ->  Seq Scan on lineitem  (cost=0.00..11.80 rows=180 width=40)
+        ->  Hash  (cost=12.25..12.25 rows=1 width=4)
+              ->  Seq Scan on part  (cost=0.00..12.25 rows=1 width=4)
+                    Filter: ((p_brand = 'Brand#23'::bpchar) AND (p_container = 'MED BOX'::bpchar))
+        SubPlan 1
+          ->  Aggregate  (cost=12.25..12.27 rows=1 width=32)
+                ->  Seq Scan on lineitem lineitem_1  (cost=0.00..12.25 rows=1 width=18)
+                      Filter: (l_partkey = part.p_partkey)
 ```
 
 DuckDB handles this differently by unnesting [correlated subqueries](https://duckdb.org/2023/05/26/correlated-subqueries-in-sql). It replaces the correlated subquery with a join, bringing complexity down to $L + P$.
 
-```sql
--- duckdb explain Q17 here
-```
+![DuckDB Q17 plan](./duckdb-q17-plan.svg)
 
 This optimization technique originates from the paper [Unnesting arbitrary queries](https://portal.fis.tum.de/en/publications/unnesting-arbitrary-queries/) (2015).
 As a follow-up, [A Formalization of Top-Down Unnesting](https://arxiv.org/abs/2412.04294) (2024) provides a formal proof of correctness for the unnesting approach presented in the 2015 paper and extends it to a top-down algorithm.

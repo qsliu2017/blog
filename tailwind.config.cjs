@@ -9,7 +9,7 @@ module.exports = {
 				heading: ['Zed-sans', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
 			},
 			width: {
-				main: '65ch',
+				main: '80ch',
 			},
 			backgroundColor: {
 				DEFAULT: 'var(--color-background)',

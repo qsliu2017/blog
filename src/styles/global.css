@@ -377,7 +377,7 @@
 	}
 	.rendered-content pre > code {
 		counter-reset: line-number;
-		text-wrap: wrap;
+		text-wrap: nowrap;
 		list-style: none;
 	}
 	.rendered-content pre > code > span.line {

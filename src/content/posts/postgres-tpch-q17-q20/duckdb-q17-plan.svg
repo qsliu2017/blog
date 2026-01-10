@@ -1,0 +1,401 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="749pt" height="2160pt" viewBox="0.00 0.00 749.00 2160.00">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 2156)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-2156 745.02,-2156 745.02,4 -4,4"/>
+<!-- node_0_0 -->
+<g id="node1" class="node">
+<title>node_0_0</title>
+<path fill="none" stroke="black" d="M509.02,-2152C509.02,-2152 385,-2152 385,-2152 379,-2152 373,-2146 373,-2140 373,-2140 373,-2072 373,-2072 373,-2066 379,-2060 385,-2060 385,-2060 509.02,-2060 509.02,-2060 515.02,-2060 521.02,-2066 521.02,-2072 521.02,-2072 521.02,-2140 521.02,-2140 521.02,-2146 515.02,-2152 509.02,-2152"/>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-2139" font-family="Courier New" font-size="10.00">PROJECTION</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-2127" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-2115" font-family="Courier New" font-size="10.00">Projections:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-2103" font-family="Courier New" font-size="10.00">avg_yearly</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-2091" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-2079" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-2067" font-family="Courier New" font-size="10.00">1</text>
+</g>
+<!-- node_0_1 -->
+<g id="node2" class="node">
+<title>node_0_1</title>
+<path fill="none" stroke="black" d="M500.02,-2024C500.02,-2024 394,-2024 394,-2024 388,-2024 382,-2018 382,-2012 382,-2012 382,-1980 382,-1980 382,-1974 388,-1968 394,-1968 394,-1968 500.02,-1968 500.02,-1968 506.02,-1968 512.02,-1974 512.02,-1980 512.02,-1980 512.02,-2012 512.02,-2012 512.02,-2018 506.02,-2024 500.02,-2024"/>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-2011" font-family="Courier New" font-size="10.00">UNGROUPED_AGGREGATE</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1999" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1987" font-family="Courier New" font-size="10.00">Aggregates:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1975" font-family="Courier New" font-size="10.00">sum(#0)</text>
+</g>
+<!-- node_0_0&#45;&gt;node_0_1 -->
+<g id="edge1" class="edge">
+<title>node_0_0-&gt;node_0_1</title>
+<path fill="none" stroke="black" d="M447.01,-2059.51C447.01,-2051.55 447.01,-2043.33 447.01,-2035.58"/>
+<polygon fill="black" stroke="black" points="450.51,-2035.78 447.01,-2025.78 443.51,-2035.78 450.51,-2035.78"/>
+</g>
+<!-- node_0_2 -->
+<g id="node3" class="node">
+<title>node_0_2</title>
+<path fill="none" stroke="black" d="M509.02,-1932C509.02,-1932 385,-1932 385,-1932 379,-1932 373,-1926 373,-1920 373,-1920 373,-1852 373,-1852 373,-1846 379,-1840 385,-1840 385,-1840 509.02,-1840 509.02,-1840 515.02,-1840 521.02,-1846 521.02,-1852 521.02,-1852 521.02,-1920 521.02,-1920 521.02,-1926 515.02,-1932 509.02,-1932"/>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1919" font-family="Courier New" font-size="10.00">PROJECTION</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1907" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1895" font-family="Courier New" font-size="10.00">Projections:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1883" font-family="Courier New" font-size="10.00">l_extendedprice</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1871" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1859" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1847" font-family="Courier New" font-size="10.00">16245</text>
+</g>
+<!-- node_0_1&#45;&gt;node_0_2 -->
+<g id="edge2" class="edge">
+<title>node_0_1-&gt;node_0_2</title>
+<path fill="none" stroke="black" d="M447.01,-1967.75C447.01,-1960.36 447.01,-1952.07 447.01,-1943.7"/>
+<polygon fill="black" stroke="black" points="450.51,-1943.83 447.01,-1933.83 443.51,-1943.83 450.51,-1943.83"/>
+</g>
+<!-- node_0_3 -->
+<g id="node4" class="node">
+<title>node_0_3</title>
+<path fill="none" stroke="black" d="M509.02,-1804C509.02,-1804 385,-1804 385,-1804 379,-1804 373,-1798 373,-1792 373,-1792 373,-1724 373,-1724 373,-1718 379,-1712 385,-1712 385,-1712 509.02,-1712 509.02,-1712 515.02,-1712 521.02,-1718 521.02,-1724 521.02,-1724 521.02,-1792 521.02,-1792 521.02,-1798 515.02,-1804 509.02,-1804"/>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1791" font-family="Courier New" font-size="10.00">PROJECTION</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1779" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1767" font-family="Courier New" font-size="10.00">Projections:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1755" font-family="Courier New" font-size="10.00">#2</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1743" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1731" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1719" font-family="Courier New" font-size="10.00">16245</text>
+</g>
+<!-- node_0_2&#45;&gt;node_0_3 -->
+<g id="edge3" class="edge">
+<title>node_0_2-&gt;node_0_3</title>
+<path fill="none" stroke="black" d="M447.01,-1839.51C447.01,-1831.84 447.01,-1823.79 447.01,-1815.87"/>
+<polygon fill="black" stroke="black" points="450.51,-1815.94 447.01,-1805.94 443.51,-1815.94 450.51,-1815.94"/>
+</g>
+<!-- node_0_4 -->
+<g id="node5" class="node">
+<title>node_0_4</title>
+<path fill="none" stroke="black" d="M560.03,-1676C560.03,-1676 333.99,-1676 333.99,-1676 327.99,-1676 321.99,-1670 321.99,-1664 321.99,-1664 321.99,-1596 321.99,-1596 321.99,-1590 327.99,-1584 333.99,-1584 333.99,-1584 560.03,-1584 560.03,-1584 566.03,-1584 572.03,-1590 572.03,-1596 572.03,-1596 572.03,-1664 572.03,-1664 572.03,-1670 566.03,-1676 560.03,-1676"/>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1663" font-family="Courier New" font-size="10.00">FILTER</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1651" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1639" font-family="Courier New" font-size="10.00">Expression:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1627" font-family="Courier New" font-size="10.00">(CAST(l_quantity AS DOUBLE) &lt; SUBQUERY)</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1615" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1603" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1591" font-family="Courier New" font-size="10.00">16245</text>
+</g>
+<!-- node_0_3&#45;&gt;node_0_4 -->
+<g id="edge4" class="edge">
+<title>node_0_3-&gt;node_0_4</title>
+<path fill="none" stroke="black" d="M447.01,-1711.51C447.01,-1703.84 447.01,-1695.79 447.01,-1687.87"/>
+<polygon fill="black" stroke="black" points="450.51,-1687.94 447.01,-1677.94 443.51,-1687.94 450.51,-1687.94"/>
+</g>
+<!-- node_0_5 -->
+<g id="node6" class="node">
+<title>node_0_5</title>
+<path fill="none" stroke="black" d="M563.03,-1548C563.03,-1548 330.99,-1548 330.99,-1548 324.99,-1548 318.99,-1542 318.99,-1536 318.99,-1536 318.99,-1396 318.99,-1396 318.99,-1390 324.99,-1384 330.99,-1384 330.99,-1384 563.03,-1384 563.03,-1384 569.03,-1384 575.03,-1390 575.03,-1396 575.03,-1396 575.03,-1536 575.03,-1536 575.03,-1542 569.03,-1548 563.03,-1548"/>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1535" font-family="Courier New" font-size="10.00">RIGHT_DELIM_JOIN</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1523" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1511" font-family="Courier New" font-size="10.00">Join Type:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1499" font-family="Courier New" font-size="10.00">RIGHT</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1487" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1475" font-family="Courier New" font-size="10.00">Conditions:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1463" font-family="Courier New" font-size="10.00">p_partkey IS NOT DISTINCT FROM p_partkey</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1451" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1439" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1427" font-family="Courier New" font-size="10.00">0</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1415" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1403" font-family="Courier New" font-size="10.00">Delim Index:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1391" font-family="Courier New" font-size="10.00">1</text>
+</g>
+<!-- node_0_4&#45;&gt;node_0_5 -->
+<g id="edge5" class="edge">
+<title>node_0_4-&gt;node_0_5</title>
+<path fill="none" stroke="black" d="M447.01,-1583.87C447.01,-1576.28 447.01,-1568.16 447.01,-1559.86"/>
+<polygon fill="black" stroke="black" points="450.51,-1560 447.01,-1550 443.51,-1560 450.51,-1560"/>
+</g>
+<!-- node_0_6 -->
+<g id="node7" class="node">
+<title>node_0_6</title>
+<path fill="none" stroke="black" d="M289.02,-1348C289.02,-1348 165,-1348 165,-1348 159,-1348 153,-1342 153,-1336 153,-1336 153,-1232 153,-1232 153,-1226 159,-1220 165,-1220 165,-1220 289.02,-1220 289.02,-1220 295.02,-1220 301.02,-1226 301.02,-1232 301.02,-1232 301.02,-1336 301.02,-1336 301.02,-1342 295.02,-1348 289.02,-1348"/>
+<text xml:space="preserve" text-anchor="middle" x="227.01" y="-1335" font-family="Courier New" font-size="10.00">HASH_JOIN</text>
+<text xml:space="preserve" text-anchor="middle" x="227.01" y="-1323" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="227.01" y="-1311" font-family="Courier New" font-size="10.00">Join Type:</text>
+<text xml:space="preserve" text-anchor="middle" x="227.01" y="-1299" font-family="Courier New" font-size="10.00">INNER</text>
+<text xml:space="preserve" text-anchor="middle" x="227.01" y="-1287" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="227.01" y="-1275" font-family="Courier New" font-size="10.00">Conditions:</text>
+<text xml:space="preserve" text-anchor="middle" x="227.01" y="-1263" font-family="Courier New" font-size="10.00">l_partkey = p_partkey</text>
+<text xml:space="preserve" text-anchor="middle" x="227.01" y="-1251" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="227.01" y="-1239" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="227.01" y="-1227" font-family="Courier New" font-size="10.00">16245</text>
+</g>
+<!-- node_0_5&#45;&gt;node_0_6 -->
+<g id="edge6" class="edge">
+<title>node_0_5-&gt;node_0_6</title>
+<path fill="none" stroke="black" d="M347.63,-1383.69C335.08,-1373.42 322.34,-1362.99 310.07,-1352.96"/>
+<polygon fill="black" stroke="black" points="312.37,-1350.31 302.41,-1346.69 307.93,-1355.73 312.37,-1350.31"/>
+</g>
+<!-- node_2_6 -->
+<g id="node8" class="node">
+<title>node_2_6</title>
+<path fill="none" stroke="black" d="M563.03,-1348C563.03,-1348 330.99,-1348 330.99,-1348 324.99,-1348 318.99,-1342 318.99,-1336 318.99,-1336 318.99,-1232 318.99,-1232 318.99,-1226 324.99,-1220 330.99,-1220 330.99,-1220 563.03,-1220 563.03,-1220 569.03,-1220 575.03,-1226 575.03,-1232 575.03,-1232 575.03,-1336 575.03,-1336 575.03,-1342 569.03,-1348 563.03,-1348"/>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1335" font-family="Courier New" font-size="10.00">HASH_JOIN</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1323" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1311" font-family="Courier New" font-size="10.00">Join Type:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1299" font-family="Courier New" font-size="10.00">RIGHT</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1287" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1275" font-family="Courier New" font-size="10.00">Conditions:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1263" font-family="Courier New" font-size="10.00">p_partkey IS NOT DISTINCT FROM p_partkey</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1251" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1239" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="447.01" y="-1227" font-family="Courier New" font-size="10.00">0</text>
+</g>
+<!-- node_0_5&#45;&gt;node_2_6 -->
+<g id="edge7" class="edge">
+<title>node_0_5-&gt;node_2_6</title>
+<path fill="none" stroke="black" d="M447.01,-1383.69C447.01,-1375.74 447.01,-1367.7 447.01,-1359.82"/>
+<polygon fill="black" stroke="black" points="450.51,-1359.93 447.01,-1349.93 443.51,-1359.93 450.51,-1359.93"/>
+</g>
+<!-- node_5_6 -->
+<g id="node9" class="node">
+<title>node_5_6</title>
+<path fill="none" stroke="black" d="M729.02,-1348C729.02,-1348 605,-1348 605,-1348 599,-1348 593,-1342 593,-1336 593,-1336 593,-1232 593,-1232 593,-1226 599,-1220 605,-1220 605,-1220 729.02,-1220 729.02,-1220 735.02,-1220 741.02,-1226 741.02,-1232 741.02,-1232 741.02,-1336 741.02,-1336 741.02,-1342 735.02,-1348 729.02,-1348"/>
+<text xml:space="preserve" text-anchor="middle" x="667.01" y="-1335" font-family="Courier New" font-size="10.00">HASH_GROUP_BY</text>
+<text xml:space="preserve" text-anchor="middle" x="667.01" y="-1323" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="667.01" y="-1311" font-family="Courier New" font-size="10.00">Groups:</text>
+<text xml:space="preserve" text-anchor="middle" x="667.01" y="-1299" font-family="Courier New" font-size="10.00">#0</text>
+<text xml:space="preserve" text-anchor="middle" x="667.01" y="-1287" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="667.01" y="-1275" font-family="Courier New" font-size="10.00">Aggregates:</text>
+<text xml:space="preserve" text-anchor="middle" x="667.01" y="-1251" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="667.01" y="-1239" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="667.01" y="-1227" font-family="Courier New" font-size="10.00">10846</text>
+</g>
+<!-- node_0_5&#45;&gt;node_5_6 -->
+<g id="edge8" class="edge">
+<title>node_0_5-&gt;node_5_6</title>
+<path fill="none" stroke="black" d="M546.39,-1383.69C558.94,-1373.42 571.68,-1362.99 583.95,-1352.96"/>
+<polygon fill="black" stroke="black" points="586.09,-1355.73 591.61,-1346.69 581.66,-1350.31 586.09,-1355.73"/>
+</g>
+<!-- node_0_7 -->
+<g id="node10" class="node">
+<title>node_0_7</title>
+<path fill="none" stroke="black" d="M136.02,-1172C136.02,-1172 12,-1172 12,-1172 6,-1172 0,-1166 0,-1160 0,-1160 0,-996 0,-996 0,-990 6,-984 12,-984 12,-984 136.02,-984 136.02,-984 142.02,-984 148.02,-990 148.02,-996 148.02,-996 148.02,-1160 148.02,-1160 148.02,-1166 142.02,-1172 136.02,-1172"/>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1159" font-family="Courier New" font-size="10.00">SEQ_SCAN </text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1147" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1135" font-family="Courier New" font-size="10.00">Table:</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1123" font-family="Courier New" font-size="10.00">lineitem</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1111" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1099" font-family="Courier New" font-size="10.00">Type:</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1087" font-family="Courier New" font-size="10.00">Sequential Scan</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1075" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1063" font-family="Courier New" font-size="10.00">Projections:</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1051" font-family="Courier New" font-size="10.00">l_partkey</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1039" font-family="Courier New" font-size="10.00">l_quantity</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1027" font-family="Courier New" font-size="10.00">l_extendedprice</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1015" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-1003" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="74.01" y="-991" font-family="Courier New" font-size="10.00">600572</text>
+</g>
+<!-- node_0_6&#45;&gt;node_0_7 -->
+<g id="edge9" class="edge">
+<title>node_0_6-&gt;node_0_7</title>
+<path fill="none" stroke="black" d="M179.44,-1219.57C170.32,-1207.41 160.55,-1194.38 150.78,-1181.35"/>
+<polygon fill="black" stroke="black" points="153.73,-1179.45 144.93,-1173.55 148.13,-1183.65 153.73,-1179.45"/>
+</g>
+<!-- node_1_7 -->
+<g id="node11" class="node">
+<title>node_1_7</title>
+<path fill="none" stroke="black" d="M302.02,-1184C302.02,-1184 178,-1184 178,-1184 172,-1184 166,-1178 166,-1172 166,-1172 166,-984 166,-984 166,-978 172,-972 178,-972 178,-972 302.02,-972 302.02,-972 308.02,-972 314.02,-978 314.02,-984 314.02,-984 314.02,-1172 314.02,-1172 314.02,-1178 308.02,-1184 302.02,-1184"/>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1171" font-family="Courier New" font-size="10.00">SEQ_SCAN </text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1159" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1147" font-family="Courier New" font-size="10.00">Table:</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1135" font-family="Courier New" font-size="10.00">part</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1123" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1111" font-family="Courier New" font-size="10.00">Type:</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1099" font-family="Courier New" font-size="10.00">Sequential Scan</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1087" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1075" font-family="Courier New" font-size="10.00">Projections:</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1063" font-family="Courier New" font-size="10.00">p_partkey</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1051" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1039" font-family="Courier New" font-size="10.00">Filters:</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1027" font-family="Courier New" font-size="10.00">p_brand='Brand#23'</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1015" font-family="Courier New" font-size="10.00">p_container='MED BOX'</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-1003" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-991" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="240.01" y="-979" font-family="Courier New" font-size="10.00">541</text>
+</g>
+<!-- node_0_6&#45;&gt;node_1_7 -->
+<g id="edge10" class="edge">
+<title>node_0_6-&gt;node_1_7</title>
+<path fill="none" stroke="black" d="M231.05,-1219.57C231.54,-1211.85 232.06,-1203.79 232.58,-1195.59"/>
+<polygon fill="black" stroke="black" points="236.06,-1196.07 233.2,-1185.87 229.07,-1195.63 236.06,-1196.07"/>
+</g>
+<!-- node_2_7 -->
+<g id="node12" class="node">
+<title>node_2_7</title>
+<path fill="none" stroke="black" d="M499.02,-1130C499.02,-1130 369,-1130 369,-1130 363,-1130 357,-1124 357,-1118 357,-1118 357,-1038 357,-1038 357,-1032 363,-1026 369,-1026 369,-1026 499.02,-1026 499.02,-1026 505.02,-1026 511.02,-1032 511.02,-1038 511.02,-1038 511.02,-1118 511.02,-1118 511.02,-1124 505.02,-1130 499.02,-1130"/>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-1117" font-family="Courier New" font-size="10.00">PROJECTION</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-1105" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-1093" font-family="Courier New" font-size="10.00">Projections:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-1081" font-family="Courier New" font-size="10.00">(0.2 * avg(l_quantity))</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-1069" font-family="Courier New" font-size="10.00">p_partkey</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-1057" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-1045" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-1033" font-family="Courier New" font-size="10.00">174548</text>
+</g>
+<!-- node_2_6&#45;&gt;node_2_7 -->
+<g id="edge11" class="edge">
+<title>node_2_6-&gt;node_2_7</title>
+<path fill="none" stroke="black" d="M442.97,-1219.57C441.39,-1194.83 439.59,-1166.55 438.02,-1141.86"/>
+<polygon fill="black" stroke="black" points="441.51,-1141.7 437.38,-1131.95 434.53,-1142.15 441.51,-1141.7"/>
+</g>
+<!-- node_4_7 -->
+<g id="node13" class="node">
+<title>node_4_7</title>
+<path fill="none" stroke="black" d="M593.02,-1096C593.02,-1096 541.01,-1096 541.01,-1096 535.01,-1096 529.01,-1090 529.01,-1084 529.01,-1084 529.01,-1072 529.01,-1072 529.01,-1066 535.01,-1060 541.01,-1060 541.01,-1060 593.02,-1060 593.02,-1060 599.02,-1060 605.02,-1066 605.02,-1072 605.02,-1072 605.02,-1084 605.02,-1084 605.02,-1090 599.02,-1096 593.02,-1096"/>
+<text xml:space="preserve" text-anchor="middle" x="567.01" y="-1075" font-family="Courier New" font-size="10.00">DUMMY_SCAN</text>
+</g>
+<!-- node_2_6&#45;&gt;node_4_7 -->
+<g id="edge12" class="edge">
+<title>node_2_6-&gt;node_4_7</title>
+<path fill="none" stroke="black" d="M496.79,-1219.66C504.99,-1208.08 513.07,-1195.9 520.01,-1184 534.67,-1158.88 547.86,-1128.36 556.51,-1106.72"/>
+<polygon fill="black" stroke="black" points="559.65,-1108.28 560.05,-1097.69 553.14,-1105.72 559.65,-1108.28"/>
+</g>
+<!-- node_2_8 -->
+<g id="node14" class="node">
+<title>node_2_8</title>
+<path fill="none" stroke="black" d="M562.03,-936C562.03,-936 305.99,-936 305.99,-936 299.99,-936 293.99,-930 293.99,-924 293.99,-924 293.99,-844 293.99,-844 293.99,-838 299.99,-832 305.99,-832 305.99,-832 562.03,-832 562.03,-832 568.03,-832 574.03,-838 574.03,-844 574.03,-844 574.03,-924 574.03,-924 574.03,-930 568.03,-936 562.03,-936"/>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-923" font-family="Courier New" font-size="10.00">PROJECTION</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-911" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-899" font-family="Courier New" font-size="10.00">Projections:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-887" font-family="Courier New" font-size="10.00">__internal_decompress_integral_bigint(#0, 1)</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-875" font-family="Courier New" font-size="10.00">#1</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-863" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-851" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-839" font-family="Courier New" font-size="10.00">174548</text>
+</g>
+<!-- node_2_7&#45;&gt;node_2_8 -->
+<g id="edge13" class="edge">
+<title>node_2_7-&gt;node_2_8</title>
+<path fill="none" stroke="black" d="M434.01,-1025.55C434.01,-1001.56 434.01,-972.81 434.01,-947.58"/>
+<polygon fill="black" stroke="black" points="437.51,-947.77 434.01,-937.77 430.51,-947.77 437.51,-947.77"/>
+</g>
+<!-- node_2_9 -->
+<g id="node15" class="node">
+<title>node_2_9</title>
+<path fill="none" stroke="black" d="M496.02,-796C496.02,-796 372,-796 372,-796 366,-796 360,-790 360,-784 360,-784 360,-680 360,-680 360,-674 366,-668 372,-668 372,-668 496.02,-668 496.02,-668 502.02,-668 508.02,-674 508.02,-680 508.02,-680 508.02,-784 508.02,-784 508.02,-790 502.02,-796 496.02,-796"/>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-783" font-family="Courier New" font-size="10.00">HASH_GROUP_BY</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-771" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-759" font-family="Courier New" font-size="10.00">Groups:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-747" font-family="Courier New" font-size="10.00">#0</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-735" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-723" font-family="Courier New" font-size="10.00">Aggregates:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-711" font-family="Courier New" font-size="10.00">avg(#1)</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-699" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-687" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-675" font-family="Courier New" font-size="10.00">174548</text>
+</g>
+<!-- node_2_8&#45;&gt;node_2_9 -->
+<g id="edge14" class="edge">
+<title>node_2_8-&gt;node_2_9</title>
+<path fill="none" stroke="black" d="M434.01,-831.8C434.01,-824.07 434.01,-815.96 434.01,-807.86"/>
+<polygon fill="black" stroke="black" points="437.51,-807.96 434.01,-797.96 430.51,-807.96 437.51,-807.96"/>
+</g>
+<!-- node_2_10 -->
+<g id="node16" class="node">
+<title>node_2_10</title>
+<path fill="none" stroke="black" d="M496.02,-632C496.02,-632 372,-632 372,-632 366,-632 360,-626 360,-620 360,-620 360,-540 360,-540 360,-534 366,-528 372,-528 372,-528 496.02,-528 496.02,-528 502.02,-528 508.02,-534 508.02,-540 508.02,-540 508.02,-620 508.02,-620 508.02,-626 502.02,-632 496.02,-632"/>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-619" font-family="Courier New" font-size="10.00">PROJECTION</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-607" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-595" font-family="Courier New" font-size="10.00">Projections:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-583" font-family="Courier New" font-size="10.00">p_partkey</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-571" font-family="Courier New" font-size="10.00">l_quantity</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-559" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-547" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-535" font-family="Courier New" font-size="10.00">349097</text>
+</g>
+<!-- node_2_9&#45;&gt;node_2_10 -->
+<g id="edge15" class="edge">
+<title>node_2_9-&gt;node_2_10</title>
+<path fill="none" stroke="black" d="M434.01,-667.82C434.01,-659.86 434.01,-651.72 434.01,-643.76"/>
+<polygon fill="black" stroke="black" points="437.51,-643.8 434.01,-633.8 430.51,-643.8 437.51,-643.8"/>
+</g>
+<!-- node_2_11 -->
+<g id="node17" class="node">
+<title>node_2_11</title>
+<path fill="none" stroke="black" d="M565.03,-492C565.03,-492 302.99,-492 302.99,-492 296.99,-492 290.99,-486 290.99,-480 290.99,-480 290.99,-388 290.99,-388 290.99,-382 296.99,-376 302.99,-376 302.99,-376 565.03,-376 565.03,-376 571.03,-376 577.03,-382 577.03,-388 577.03,-388 577.03,-480 577.03,-480 577.03,-486 571.03,-492 565.03,-492"/>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-479" font-family="Courier New" font-size="10.00">PROJECTION</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-467" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-455" font-family="Courier New" font-size="10.00">Projections:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-443" font-family="Courier New" font-size="10.00">__internal_compress_integral_usmallint(#0, 1)</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-431" font-family="Courier New" font-size="10.00">#1</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-419" font-family="Courier New" font-size="10.00">#2</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-407" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-395" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-383" font-family="Courier New" font-size="10.00">349097</text>
+</g>
+<!-- node_2_10&#45;&gt;node_2_11 -->
+<g id="edge16" class="edge">
+<title>node_2_10-&gt;node_2_11</title>
+<path fill="none" stroke="black" d="M434.01,-527.83C434.01,-520.02 434.01,-511.86 434.01,-503.76"/>
+<polygon fill="black" stroke="black" points="437.51,-503.89 434.01,-493.89 430.51,-503.89 437.51,-503.89"/>
+</g>
+<!-- node_2_12 -->
+<g id="node18" class="node">
+<title>node_2_12</title>
+<path fill="none" stroke="black" d="M496.02,-340C496.02,-340 372,-340 372,-340 366,-340 360,-334 360,-328 360,-328 360,-224 360,-224 360,-218 366,-212 372,-212 372,-212 496.02,-212 496.02,-212 502.02,-212 508.02,-218 508.02,-224 508.02,-224 508.02,-328 508.02,-328 508.02,-334 502.02,-340 496.02,-340"/>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-327" font-family="Courier New" font-size="10.00">HASH_JOIN</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-315" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-303" font-family="Courier New" font-size="10.00">Join Type:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-291" font-family="Courier New" font-size="10.00">INNER</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-279" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-267" font-family="Courier New" font-size="10.00">Conditions:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-255" font-family="Courier New" font-size="10.00">l_partkey = p_partkey</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-243" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-231" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="434.01" y="-219" font-family="Courier New" font-size="10.00">349097</text>
+</g>
+<!-- node_2_11&#45;&gt;node_2_12 -->
+<g id="edge17" class="edge">
+<title>node_2_11-&gt;node_2_12</title>
+<path fill="none" stroke="black" d="M434.01,-375.8C434.01,-367.94 434.01,-359.77 434.01,-351.66"/>
+<polygon fill="black" stroke="black" points="437.51,-351.76 434.01,-341.76 430.51,-351.76 437.51,-351.76"/>
+</g>
+<!-- node_2_13 -->
+<g id="node19" class="node">
+<title>node_2_13</title>
+<path fill="none" stroke="black" d="M413.02,-176C413.02,-176 289,-176 289,-176 283,-176 277,-170 277,-164 277,-164 277,-12 277,-12 277,-6 283,0 289,0 289,0 413.02,0 413.02,0 419.02,0 425.02,-6 425.02,-12 425.02,-12 425.02,-164 425.02,-164 425.02,-170 419.02,-176 413.02,-176"/>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-163" font-family="Courier New" font-size="10.00">SEQ_SCAN </text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-151" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-139" font-family="Courier New" font-size="10.00">Table:</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-127" font-family="Courier New" font-size="10.00">lineitem</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-115" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-103" font-family="Courier New" font-size="10.00">Type:</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-91" font-family="Courier New" font-size="10.00">Sequential Scan</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-79" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-67" font-family="Courier New" font-size="10.00">Projections:</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-55" font-family="Courier New" font-size="10.00">l_partkey</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-43" font-family="Courier New" font-size="10.00">l_quantity</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-31" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-19" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="351.01" y="-7" font-family="Courier New" font-size="10.00">600572</text>
+</g>
+<!-- node_2_12&#45;&gt;node_2_13 -->
+<g id="edge18" class="edge">
+<title>node_2_12-&gt;node_2_13</title>
+<path fill="none" stroke="black" d="M405.68,-211.51C402.07,-203.43 398.32,-195.02 394.54,-186.55"/>
+<polygon fill="black" stroke="black" points="397.82,-185.31 390.55,-177.61 391.43,-188.17 397.82,-185.31"/>
+</g>
+<!-- node_3_13 -->
+<g id="node20" class="node">
+<title>node_3_13</title>
+<path fill="none" stroke="black" d="M579.02,-134C579.02,-134 455,-134 455,-134 449,-134 443,-128 443,-122 443,-122 443,-54 443,-54 443,-48 449,-42 455,-42 455,-42 579.02,-42 579.02,-42 585.02,-42 591.02,-48 591.02,-54 591.02,-54 591.02,-122 591.02,-122 591.02,-128 585.02,-134 579.02,-134"/>
+<text xml:space="preserve" text-anchor="middle" x="517.01" y="-121" font-family="Courier New" font-size="10.00">DELIM_SCAN</text>
+<text xml:space="preserve" text-anchor="middle" x="517.01" y="-109" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="517.01" y="-97" font-family="Courier New" font-size="10.00">Delim Index:</text>
+<text xml:space="preserve" text-anchor="middle" x="517.01" y="-85" font-family="Courier New" font-size="10.00">1</text>
+<text xml:space="preserve" text-anchor="middle" x="517.01" y="-73" font-family="Courier New" font-size="10.00">───</text>
+<text xml:space="preserve" text-anchor="middle" x="517.01" y="-61" font-family="Courier New" font-size="10.00">Estimated Cardinality:</text>
+<text xml:space="preserve" text-anchor="middle" x="517.01" y="-49" font-family="Courier New" font-size="10.00">10846</text>
+</g>
+<!-- node_2_12&#45;&gt;node_3_13 -->
+<g id="edge19" class="edge">
+<title>node_2_12-&gt;node_3_13</title>
+<path fill="none" stroke="black" d="M462.34,-211.51C472.02,-189.81 482.77,-165.72 492.16,-144.69"/>
+<polygon fill="black" stroke="black" points="495.29,-146.26 496.17,-135.7 488.9,-143.4 495.29,-146.26"/>
+</g>
+</g>
+</svg>
