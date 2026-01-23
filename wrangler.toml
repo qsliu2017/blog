@@ -1,0 +1,6 @@
+name = "blog-test"
+compatibility_date = "2026-01-22"
+preview_urls = true
+
+[assets]
+directory = "./dist"
