@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Footer from '../components/Footer.astro';
-import RandomOneOf from '../components/RandomOneOf.astro';
 import Nav from '../components/Nav.astro';
 import Head from '../components/Head.astro';
 import { render } from 'astro:content';
@@ -41,7 +40,7 @@ const { post } = Astro.props;
 				</ul>
 				<hr class='mb-4 mt-2' />
 				<article class='rendered-content prose'>
-					{post && <post.rendered.Content components={{ RandomOneOf }} />}
+					{post && <post.rendered.Content />}
 				</article>
 				<Footer />
 			</main>

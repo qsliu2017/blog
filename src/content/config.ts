@@ -1,14 +1,6 @@
 import { glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
 
-const bookmarks = defineCollection({
-	type: 'data',
-	schema: z.object({
-		title: z.string(),
-		url: z.string().url(),
-	}),
-});
-
 const posts = defineCollection({
 	loader: glob({ pattern: '{*,*/index}.{md,mdx}', base: './src/content/posts' }),
 	// type: 'content',
@@ -24,31 +16,6 @@ const posts = defineCollection({
 		draft: z.boolean().default(false),
 		theme: z.enum(['default', 'tufte']).default('default'),
 		externalUrl: z.string().url().optional() /* if present, display as an external link */,
-	}),
-});
-
-const songs = defineCollection({
-	type: 'data',
-	schema: z.object({
-		src: z.string(),
-	}),
-});
-
-const starredBlogs = defineCollection({
-	type: 'data',
-	schema: z.object({
-		title: z.string(),
-		url: z.string().url(),
-		author: z.ostring(),
-		comment: z.ostring(),
-		tags: z.string().array().optional(),
-		posts: z
-			.object({
-				title: z.string(),
-				url: z.string().url(),
-			})
-			.array()
-			.optional(),
 	}),
 });
 
@@ -70,4 +37,4 @@ const stars = defineCollection({
 		.array(),
 });
 
-export const collections = { bookmarks, posts, songs, 'starred-blogs': starredBlogs, stars };
+export const collections = { posts, stars };

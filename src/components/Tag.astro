@@ -1,9 +1,0 @@
----
-import type { HTMLAttributes } from 'astro/types';
-type Props = HTMLAttributes<'a'>;
-const { target = '_blank', ...props } = Astro.props;
----
-
-<a target={target} {...props}>
-	<span class='ml-1 h-fit rounded-2xl border border-gray-300 bg-slate-100 px-1 py-[1px] text-sm font-extralight text-gray-600'><slot /></span>
-</a>

@@ -63,17 +63,19 @@ const getPostItems = async () => {
 };
 
 const getStarItems = async () => {
-	const starItems = (await getCollection('stars'))
-		.flatMap(list => list.data)
-		.sort((a, b) => a.title.localeCompare(b.title))
-		.flatMap(({ title, url, posts }) => [
-			{ title, url, isExternal: true },
-			...(posts?.map(({ title, url }, idx) => ({
-				title: (idx < posts.length - 1 ? '├─ ' : '└─ ') + title,
-				url,
-				isExternal: true,
-			})) ?? []),
-		]);
+	const starItems = (await getCollection('stars')).flatMap(list => {
+		const items = list.data
+			.sort((a, b) => a.title.localeCompare(b.title))
+			.flatMap(({ title, url, posts }) => [
+				{ title, url, isExternal: true },
+				...(posts?.map(({ title, url }, idx) => ({
+					title: (idx < posts.length - 1 ? '├─ ' : '└─ ') + title,
+					url,
+					isExternal: true,
+				})) ?? []),
+			]);
+		return [{ section: list.id }, ...items];
+	});
 	return starItems;
 };
 

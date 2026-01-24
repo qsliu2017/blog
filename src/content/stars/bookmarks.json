@@ -1,0 +1,50 @@
+[
+	{
+		"title": "Amazon Builders' Library",
+		"url": "https://aws.amazon.com/cn/builders-library/"
+	},
+	{
+		"title": "Architecture of a Database System",
+		"url": "https://mperdikeas.github.io/architecture-of-a-database-system.pdf"
+	},
+	{
+		"title": "中文文案排版",
+		"url": "https://github.com/sparanoid/chinese-copywriting-guidelines"
+	},
+	{
+		"title": "A Good GDB Cheatsheet",
+		"url": "https://www.cse.unsw.edu.au/~learn/debugging/modules/all_gdb/"
+	},
+	{
+		"title": "GitLab Migration Style Guide",
+		"url": "https://docs.gitlab.com/ee/development/migration_style_guide.html"
+	},
+	{
+		"title": "Google API design guide",
+		"url": "https://cloud.google.com/apis/design"
+	},
+	{
+		"title": "Learnings from 5 years of tech startup code audits",
+		"url": "https://kenkantzer.com/learnings-from-5-years-of-tech-startup-code-audits/"
+	},
+	{
+		"title": "Modern SQL",
+		"url": "https://modern-sql.com/"
+	},
+	{
+		"title": "The Internals of PostgreSQL",
+		"url": "https://www.interdb.jp/pg/"
+	},
+	{
+		"title": "The documentation system",
+		"url": "https://documentation.divio.com/"
+	},
+	{
+		"title": "The Pragmatic Engineer",
+		"url": "https://blog.pragmaticengineer.com/"
+	},
+	{
+		"title": "tutorials / guides / reference / explanation",
+		"url": "https://diataxis.fr/"
+	}
+]
