@@ -1,3 +1,4 @@
+import { glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
 
 const bookmarks = defineCollection({
@@ -8,19 +9,9 @@ const bookmarks = defineCollection({
 	}),
 });
 
-const notes = defineCollection({
-	type: 'content',
-	schema: z.object({
-		page: z.string(),
-		date: z
-			.string()
-			.or(z.date())
-			.transform(val => new Date(val)),
-	}),
-});
-
 const posts = defineCollection({
-	type: 'content',
+	loader: glob({ pattern: '{*,*/index}.{md,mdx}', base: './src/content/posts' }),
+	// type: 'content',
 	schema: z.object({
 		title: z.string(),
 		description: z.ostring(),
@@ -79,4 +70,4 @@ const stars = defineCollection({
 		.array(),
 });
 
-export const collections = { bookmarks, notes, posts, songs, 'starred-blogs': starredBlogs, stars };
+export const collections = { bookmarks, posts, songs, 'starred-blogs': starredBlogs, stars };
