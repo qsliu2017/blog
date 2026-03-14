@@ -1,30 +1,56 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Footer from '../components/Footer.astro';
-import Nav from '../components/Nav.astro';
 import Head from '../components/Head.astro';
-import { render } from 'astro:content';
+
 
 export async function getStaticPaths() {
-	const posts = (await getCollection('posts'))
-		.filter(({ data: { theme } }) => theme === 'default')
-		.map(async ({ ...post }) => ({
-			props: { post: { ...post, rendered: await render(post) } },
-			params: { page: `/post/${post.id}` },
-		}));
+	const posts = (await getCollection('posts')).map(async (post) => ({
+		props: { post: { ...post, rendered: await render(post) } },
+		params: { page: `/post/${post.id}` },
+	}));
 	return await Promise.all(posts);
 }
 
 const { post } = Astro.props;
+const isTufte = post.data.theme === 'tufte';
 ---
 
-<!doctype html>
+{isTufte ? (
+<html lang='en'>
+	<head>
+		<meta charset='utf-8' />
+		<meta name='viewport' content='width=device-width,initial-scale=1' />
+		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+		<meta name='generator' content={Astro.generator} />
+		<title>{post.rendered.headings.find(h => h.depth === 1)?.text}</title>
+		<meta name='title' content={post.rendered.headings.find(h => h.depth === 1)?.text} />
+		<meta name='description' content={post.data.description} />
+		<link rel='stylesheet' href='/tufte.css' />
+		<script>
+			const { matches, addEventListener } = window.matchMedia('(prefers-color-scheme: dark)');
+			if (matches) document.documentElement.dataset['mode'] = 'dark';
+			addEventListener('change', ({ matches }) => (document.documentElement.dataset['mode'] = matches ? 'dark' : 'light'));
+		</script>
+	</head>
+	<body>
+		<article>
+			<p class='subtitle'>
+				<time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
+			</p>
+			<post.rendered.Content />
+		</article>
+	</body>
+</html>
+) : (
 <html lang='en' class='theme-ayu text-pretty bg-gray-50'>
 	<Head title={post.data.title} description={post?.data.description} />
 	<body>
 		<div class='relative grid min-h-full w-full md:grid-cols-[1fr_auto_1fr]'>
 			<main class='w-main md:col-start-2'>
-				<Nav class='font-serif text-2xl' nav={post ? [{ href: '/', text: 'Post' }] : [{ href: '/note', text: 'Note' }]} />
+				<nav class='font-serif text-2xl text-inactive font-heading text-3xl'>
+					<a href='/' class='hover:text-active'>Post</a>
+				</nav>
 				<time class='text-lg' datetime={post.data.date.toISOString()}>
 					{post.data.date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
 				</time>
@@ -40,12 +66,12 @@ const { post } = Astro.props;
 				</ul>
 				<hr class='mb-4 mt-2' />
 				<article class='rendered-content prose'>
-					{post && <post.rendered.Content />}
+					<post.rendered.Content />
 				</article>
 				<Footer />
 			</main>
 			{
-				post && post.rendered.headings.length > 1 && (
+				post.rendered.headings.length > 1 && (
 					<aside class='md:col-start-3'>
 						<nav class='sticky top-8 mx-2 hidden md:block'>
 							<ul class='space-y-1'>
@@ -92,3 +118,4 @@ const { post } = Astro.props;
 		</script>
 	</body>
 </html>
+)}

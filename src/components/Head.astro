@@ -1,6 +1,5 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { SITE_DESCRIPTION, SITE_IMAGE, SITE_TITLE } from '../consts';
 import '../styles/global.css';
 
 type Props = HTMLAttributes<'head'> & {
@@ -11,7 +10,7 @@ type Props = HTMLAttributes<'head'> & {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title = SITE_TITLE, description = SITE_DESCRIPTION, image = SITE_IMAGE, ...props } = Astro.props;
+const { title = "qsliu's blog", description = 'Welcome to my website!', image = 'https://avatars.githubusercontent.com/qsliu2017', ...props } = Astro.props;
 ---
 
 <head {...props}>
