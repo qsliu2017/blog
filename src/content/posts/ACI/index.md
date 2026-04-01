@@ -8,6 +8,14 @@ theme: tufte
 
 <section>
 
+**2026-04-01 Updated**
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Mistakes happen. As a team, the important thing is to recognize it’s never an individuals’s fault — it’s the process, the culture, or the infra.<br><br>In this case, there was a manual deploy step that should have been better automated. Our team has made a few improvements to the…</p>&mdash; Boris Cherny (@bcherny) <a href="https://twitter.com/bcherny/status/2039210700657307889?ref_src=twsrc%5Etfw">April 1, 2026</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</section>
+
+<section>
+
 Recently, I’ve been watching [Air Crash Investigation](https://www.imdb.com/title/tt0386950/), a documentary about real air crashes in history. My favorite part is how investigators research every perspective that contributes to a crash and how the aviation industry learns from it, either by implementing new rules or improving airplane design.
 
 In most of the episodes, the air crashes are caused by human error. Yes, the investigators and regulators could simply blame the crash on the specific individual, perhaps for not being smart enough or for lacking patience. However, the aviation industry doesn't stop there. Instead, they simplify rules or add automated systems to increase tolerance for human error.
