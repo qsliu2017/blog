@@ -6,6 +6,21 @@
 		"comment": "the author of *Learning JavaScript Design Patterns*, *Learning Patterns*, *Image Optimization*, etc."
 	},
 	{
+		"title": "Brendan Gregg",
+		"url": "https://www.brendangregg.com/",
+		"tags": ["personal", "performance"],
+		"posts": [
+			{
+				"title": "perf Examples",
+				"url": "https://www.brendangregg.com/perf.html"
+			},
+			{
+				"title": "The USE Method",
+				"url": "https://www.brendangregg.com/usemethod.html"
+			}
+		]
+	},
+	{
 		"title": "colah's blog",
 		"url": "https://colah.github.io/",
 		"tags": ["personal", "deep learning"],
