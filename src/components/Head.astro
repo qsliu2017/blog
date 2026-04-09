@@ -1,67 +1,52 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-
-type Props = HTMLAttributes<'head'> & {
-	title?: string | undefined;
-	description?: string | undefined;
-	image?: string | undefined;
+type Props = {
+	title?: string;
+	description?: string;
 	ogType?: 'website' | 'article';
-	publishDate?: Date | undefined;
-	tags?: string[] | undefined;
+	publishDate?: Date;
+	tags?: string[];
 };
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title = "qsliu's blog", description = 'Welcome to my website!', image = 'https://avatars.githubusercontent.com/qsliu2017', ogType = 'website', publishDate, tags, ...props } = Astro.props;
+const { title = "qsliu's blog", description = "A blog about software engineering, systems programming, databases, and distributed systems.", ogType = 'website', publishDate, tags } = Astro.props;
 ---
 
-<head {...props}>
-	<!-- Global Metadata -->
+<head>
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width,initial-scale=1' />
 	<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-	<meta name='generator' content={Astro.generator} />
 
-	<!-- Font preload -->
 	<link rel='preload' href='/fonts/zed-mono-extended.ttf' as='font' type='font/ttf' crossorigin />
 	<link rel='preload' href='/fonts/zed-sans-extended.ttf' as='font' type='font/ttf' crossorigin />
 	<link rel='preload' href='/fonts/zed-sans-extendedbold.ttf' as='font' type='font/ttf' crossorigin />
 	<link rel='preload' href='/fonts/zed-sans-extendedbolditalic.ttf' as='font' type='font/ttf' crossorigin />
 	<link rel='preload' href='/fonts/zed-sans-extendeditalic.ttf' as='font' type='font/ttf' crossorigin />
 
-	<!-- Canonical URL -->
 	<link rel='canonical' href={canonicalURL} />
-
-	<!-- RSS Feed -->
 	<link rel='alternate' type='application/rss+xml' title="qsliu's blog" href='/rss.xml' />
 
-	<!-- Primary Meta Tags -->
 	<title>{title}</title>
-	<meta name='title' content={title} />
 	<meta name='description' content={description} />
 
-	<!-- Open Graph / Facebook -->
+	<!-- Open Graph -->
 	<meta property='og:type' content={ogType} />
 	<meta property='og:url' content={Astro.url} />
 	<meta property='og:title' content={title} />
 	<meta property='og:description' content={description} />
-	<!-- <meta property='og:image' content={new URL(image, Astro.url)} /> -->
 
 	<!-- Twitter -->
 	<meta property='twitter:card' content='summary_large_image' />
 	<meta property='twitter:url' content={Astro.url} />
 	<meta property='twitter:title' content={title} />
 	<meta property='twitter:description' content={description} />
-	<!-- <meta property='twitter:image' content={new URL(image, Astro.url)} /> -->
 
-	<!-- Dark mode -->
 	<script>
 		const { matches, addEventListener } = window.matchMedia('(prefers-color-scheme: dark)');
 		if (matches) document.documentElement.dataset['mode'] = 'dark';
 		addEventListener('change', ({ matches }) => (document.documentElement.dataset['mode'] = matches ? 'dark' : 'light'));
 	</script>
 
-	<!-- Structured Data -->
 	{ogType === 'article' && publishDate ? (
 		<script type="application/ld+json" set:html={JSON.stringify({
 			"@context": "https://schema.org",
