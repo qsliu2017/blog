@@ -1,12 +1,13 @@
 import { file, glob } from 'astro/loaders';
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 
 const posts = defineCollection({
 	loader: glob({ pattern: '{[!_]*,*/index}.{md,mdx}', base: './src/content/posts' }),
 	// type: 'content',
 	schema: z.object({
 		title: z.string(),
-		description: z.ostring(),
+		description: z.string().optional(),
 		// Transform string to Date object
 		date: z
 			.string()
@@ -15,7 +16,7 @@ const posts = defineCollection({
 		tags: z.string().array().default([]),
 		draft: z.boolean().default(false),
 		theme: z.enum(['default', 'tufte']).default('default'),
-		externalUrl: z.string().url().optional() /* if present, display as an external link */,
+		externalUrl: z.url().optional() /* if present, display as an external link */,
 	}),
 });
 
@@ -27,12 +28,12 @@ const stars = defineCollection({
 		entry: z
 			.object({
 				title: z.string(),
-				url: z.string().url(),
+				url: z.url(),
 				posts: z.optional(
 					z.array(
 						z.object({
 							title: z.string(),
-							url: z.string().url(),
+							url: z.url(),
 						}),
 					),
 				),
