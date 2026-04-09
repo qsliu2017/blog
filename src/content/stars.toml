@@ -1,0 +1,158 @@
+[bookmarks]
+
+[[bookmarks.entry]]
+title = "Amazon Builders' Library"
+url = "https://aws.amazon.com/cn/builders-library/"
+
+[[bookmarks.entry]]
+title = "Architecture of a Database System"
+url = "https://mperdikeas.github.io/architecture-of-a-database-system.pdf"
+
+[[bookmarks.entry]]
+title = "中文文案排版"
+url = "https://github.com/sparanoid/chinese-copywriting-guidelines"
+
+[[bookmarks.entry]]
+title = "A Good GDB Cheatsheet"
+url = "https://www.cse.unsw.edu.au/~learn/debugging/modules/all_gdb/"
+
+[[bookmarks.entry]]
+title = "GitLab Migration Style Guide"
+url = "https://docs.gitlab.com/ee/development/migration_style_guide.html"
+
+[[bookmarks.entry]]
+title = "Google API design guide"
+url = "https://cloud.google.com/apis/design"
+
+[[bookmarks.entry]]
+title = "Learnings from 5 years of tech startup code audits"
+url = "https://kenkantzer.com/learnings-from-5-years-of-tech-startup-code-audits/"
+
+[[bookmarks.entry]]
+title = "Modern SQL"
+url = "https://modern-sql.com/"
+
+[[bookmarks.entry]]
+title = "The Internals of PostgreSQL"
+url = "https://www.interdb.jp/pg/"
+
+[[bookmarks.entry]]
+title = "The documentation system"
+url = "https://documentation.divio.com/"
+
+[[bookmarks.entry]]
+title = "The Pragmatic Engineer"
+url = "https://blog.pragmaticengineer.com/"
+
+[[bookmarks.entry]]
+title = "tutorials / guides / reference / explanation"
+url = "https://diataxis.fr/"
+
+[blogs]
+
+[[blogs.entry]]
+title = "Addy Osmani"
+url = "https://addyosmani.com/"
+tags = ["personal"]
+comment = "the author of *Learning JavaScript Design Patterns*, *Learning Patterns*, *Image Optimization*, etc."
+
+[[blogs.entry]]
+title = "Brendan Gregg"
+url = "https://www.brendangregg.com/"
+tags = ["personal", "performance"]
+
+[[blogs.entry.posts]]
+title = "perf Examples"
+url = "https://www.brendangregg.com/perf.html"
+
+[[blogs.entry.posts]]
+title = "The USE Method"
+url = "https://www.brendangregg.com/usemethod.html"
+
+[[blogs.entry]]
+title = "colah's blog"
+url = "https://colah.github.io/"
+tags = ["personal", "deep learning"]
+comment = "His blog works on reverse engineering artificial neural networks into human understandable algorithms"
+
+[[blogs.entry.posts]]
+title = "Understanding LSTM Networks"
+url = "https://colah.github.io/posts/2015-08-Understanding-LSTMs/"
+
+[[blogs.entry]]
+title = "Embedded in Academia"
+url = "https://blog.regehr.org/"
+tags = ["personal"]
+author = "John Regehr"
+
+[[blogs.entry.posts]]
+title = "Why Take a Compiler Course?"
+url = "https://blog.regehr.org/archives/169"
+
+[[blogs.entry.posts]]
+title = "Why Take an Operating Systems Course?"
+url = "https://blog.regehr.org/archives/164"
+
+[[blogs.entry]]
+title = "Eric Holk"
+url = "https://theincredibleholk.org/"
+tags = ["personal"]
+
+[[blogs.entry]]
+title = "Leslie Lamport"
+url = "http://lamport.azurewebsites.net/pubs/pubs.html"
+comment = "Leslie Lamport wrote his first publication at high school!"
+tags = ["personal"]
+
+[[blogs.entry]]
+title = "Mara's Blog"
+url = "https://blog.m-ou.se/"
+tags = ["personal", "Rust"]
+comment = "Mara Bos works on the Rust standard library and writes about it."
+
+[[blogs.entry]]
+title = "Metadata"
+url = "http://muratbuffalo.blogspot.com/"
+tags = ["personal"]
+author = "Murat Demirbas"
+comment = "I learned a lot about how to read a paper and write a review"
+
+[[blogs.entry]]
+title = "NEON"
+url = "https://neon.tech/blog"
+comment = "NEON is a serverless Postgres."
+tags = ["database"]
+
+[[blogs.entry]]
+title = "OtterTune"
+url = "https://ottertune.com/blog/"
+tags = ["database"]
+comment = "OtterTune is AI-powered cloud database tuning."
+
+[[blogs.entry]]
+title = "Paul Graham"
+url = "http://www.paulgraham.com/index.html"
+tags = ["personal"]
+author = "Paul Graham"
+comment = "I love the essay 'Maker's Schedule, Manager's Schedule' (and hope all of my colleagues read it). Then I found out Paul is who wrote 'Hackers and Painters'."
+
+[[blogs.entry.posts]]
+title = "Maker's Schedule, Manager's Schedule"
+url = "http://www.paulgraham.com/makersschedule.html"
+
+[[blogs.entry]]
+title = "research!rsc"
+url = "https://research.swtch.com/"
+author = "Russ Cox"
+comment = "Thoughts and links about programming"
+tags = ["personal", "programming language", "golang"]
+
+[[blogs.entry]]
+title = "Without boats, dreams dry up"
+url = "https://without.boats/"
+tags = ["personal"]
+
+[[blogs.entry]]
+title = "Thomas Neumann's Publications"
+url = "https://dblp.org/pid/n/ThomasNeumann.html"
+author = "Thomas Neumann"

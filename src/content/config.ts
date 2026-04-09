@@ -1,4 +1,4 @@
-import { glob } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 import { defineCollection, z } from 'astro:content';
 
 const posts = defineCollection({
@@ -19,22 +19,26 @@ const posts = defineCollection({
 	}),
 });
 
+// stars.toml is a TOML object: each top-level key becomes a collection entry (id=key, data=value)
+// Structure: { bookmarks: { entry: [...] }, blogs: { entry: [...] } }
 const stars = defineCollection({
-	type: 'data',
-	schema: z
-		.object({
-			title: z.string(),
-			url: z.string().url(),
-			posts: z.optional(
-				z.array(
-					z.object({
-						title: z.string(),
-						url: z.string().url(),
-					}),
+	loader: file('src/content/stars.toml'),
+	schema: z.object({
+		entry: z
+			.object({
+				title: z.string(),
+				url: z.string().url(),
+				posts: z.optional(
+					z.array(
+						z.object({
+							title: z.string(),
+							url: z.string().url(),
+						}),
+					),
 				),
-			),
-		})
-		.array(),
+			})
+			.array(),
+	}),
 });
 
 export const collections = { posts, stars };
