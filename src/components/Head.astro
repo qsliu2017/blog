@@ -6,11 +6,14 @@ type Props = HTMLAttributes<'head'> & {
 	title?: string | undefined;
 	description?: string | undefined;
 	image?: string | undefined;
+	ogType?: 'website' | 'article';
+	publishDate?: Date | undefined;
+	tags?: string[] | undefined;
 };
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title = "qsliu's blog", description = 'Welcome to my website!', image = 'https://avatars.githubusercontent.com/qsliu2017', ...props } = Astro.props;
+const { title = "qsliu's blog", description = 'Welcome to my website!', image = 'https://avatars.githubusercontent.com/qsliu2017', ogType = 'website', publishDate, tags, ...props } = Astro.props;
 ---
 
 <head {...props}>
@@ -30,13 +33,16 @@ const { title = "qsliu's blog", description = 'Welcome to my website!', image = 
 	<!-- Canonical URL -->
 	<link rel='canonical' href={canonicalURL} />
 
+	<!-- RSS Feed -->
+	<link rel='alternate' type='application/rss+xml' title="qsliu's blog" href='/rss.xml' />
+
 	<!-- Primary Meta Tags -->
 	<title>{title}</title>
 	<meta name='title' content={title} />
 	<meta name='description' content={description} />
 
 	<!-- Open Graph / Facebook -->
-	<meta property='og:type' content='website' />
+	<meta property='og:type' content={ogType} />
 	<meta property='og:url' content={Astro.url} />
 	<meta property='og:title' content={title} />
 	<meta property='og:description' content={description} />
@@ -55,6 +61,28 @@ const { title = "qsliu's blog", description = 'Welcome to my website!', image = 
 		if (matches) document.documentElement.dataset['mode'] = 'dark';
 		addEventListener('change', ({ matches }) => (document.documentElement.dataset['mode'] = matches ? 'dark' : 'light'));
 	</script>
+
+	<!-- Structured Data -->
+	{ogType === 'article' && publishDate ? (
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "BlogPosting",
+			"headline": title,
+			"description": description,
+			"datePublished": publishDate.toISOString(),
+			"author": { "@type": "Person", "name": "qsliu", "url": Astro.site?.origin },
+			"url": canonicalURL.href,
+			"keywords": tags?.join(', '),
+		})} />
+	) : (
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "WebSite",
+			"name": "qsliu's blog",
+			"url": Astro.site?.href,
+			"author": { "@type": "Person", "name": "qsliu" },
+		})} />
+	)}
 
 	<slot />
 </head>
