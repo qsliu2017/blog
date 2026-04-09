@@ -2,81 +2,21 @@
 import { getCollection, render } from 'astro:content';
 import Footer from '../components/Footer.astro';
 import Head from '../components/Head.astro';
-
+import '../styles/global.css';
 
 export async function getStaticPaths() {
-	const posts = (await getCollection('posts')).map(async (post) => ({
-		props: { post: { ...post, rendered: await render(post) } },
-		params: { page: `/post/${post.id}` },
-	}));
+	const posts = (await getCollection('posts'))
+		.filter(post => post.data.theme !== 'tufte')
+		.map(async (post) => ({
+			props: { post: { ...post, rendered: await render(post) } },
+			params: { page: `/post/${post.id}` },
+		}));
 	return await Promise.all(posts);
 }
 
 const { post } = Astro.props;
-const isTufte = post.data.theme === 'tufte';
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
-{isTufte ? (
-<html lang='en'>
-	<head>
-		<meta charset='utf-8' />
-		<meta name='viewport' content='width=device-width,initial-scale=1' />
-		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-		<meta name='generator' content={Astro.generator} />
-
-		<!-- Canonical URL -->
-		<link rel='canonical' href={canonicalURL} />
-
-		<!-- RSS Feed -->
-		<link rel='alternate' type='application/rss+xml' title="qsliu's blog" href='/rss.xml' />
-
-		<!-- Primary Meta Tags -->
-		<title>{post.data.title}</title>
-		<meta name='title' content={post.data.title} />
-		<meta name='description' content={post.data.description} />
-
-		<!-- Open Graph -->
-		<meta property='og:type' content='article' />
-		<meta property='og:url' content={Astro.url} />
-		<meta property='og:title' content={post.data.title} />
-		<meta property='og:description' content={post.data.description} />
-
-		<!-- Twitter -->
-		<meta property='twitter:card' content='summary_large_image' />
-		<meta property='twitter:url' content={Astro.url} />
-		<meta property='twitter:title' content={post.data.title} />
-		<meta property='twitter:description' content={post.data.description} />
-
-		<!-- Structured Data -->
-		<script type="application/ld+json" set:html={JSON.stringify({
-			"@context": "https://schema.org",
-			"@type": "BlogPosting",
-			"headline": post.data.title,
-			"description": post.data.description,
-			"datePublished": post.data.date.toISOString(),
-			"author": { "@type": "Person", "name": "qsliu", "url": Astro.site?.origin },
-			"url": canonicalURL.href,
-			"keywords": post.data.tags?.join(', '),
-		})} />
-
-		<link rel='stylesheet' href='/tufte.css' />
-		<script>
-			const { matches, addEventListener } = window.matchMedia('(prefers-color-scheme: dark)');
-			if (matches) document.documentElement.dataset['mode'] = 'dark';
-			addEventListener('change', ({ matches }) => (document.documentElement.dataset['mode'] = matches ? 'dark' : 'light'));
-		</script>
-	</head>
-	<body>
-		<article>
-			<p class='subtitle'>
-				<time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</time>
-			</p>
-			<post.rendered.Content />
-		</article>
-	</body>
-</html>
-) : (
 <html lang='en' class='theme-ayu text-pretty bg-gray-50'>
 	<Head title={post.data.title} description={post?.data.description} ogType="article" publishDate={post.data.date} tags={post.data.tags} />
 	<body>
@@ -152,4 +92,3 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		</script>
 	</body>
 </html>
-)}
