@@ -80,6 +80,11 @@ title = "Understanding LSTM Networks"
 url = "https://colah.github.io/posts/2015-08-Understanding-LSTMs/"
 
 [[blogs.entry]]
+title = "crunchy data"
+url = "https://www.crunchydata.com/blog"
+tags = ["database"]
+
+[[blogs.entry]]
 title = "Embedded in Academia"
 url = "https://blog.regehr.org/"
 tags = ["personal"]
@@ -141,11 +146,24 @@ title = "Maker's Schedule, Manager's Schedule"
 url = "http://www.paulgraham.com/makersschedule.html"
 
 [[blogs.entry]]
+title = "PlanetScale"
+url = "https://planetscale.com/blog"
+tags = ["database"]
+
+[[blogs.entry]]
 title = "research!rsc"
 url = "https://research.swtch.com/"
 author = "Russ Cox"
 comment = "Thoughts and links about programming"
 tags = ["personal", "programming language", "golang"]
+
+[[blogs.entry]]
+title = "Uber"
+url = "https://www.uber.com/us/en/blog/engineering/"
+
+[[blogs.entry.posts]]
+title = "Why Uber Engineering Switched from Postgres to MySQL"
+url = "https://www.uber.com/us/en/blog/postgres-to-mysql-migration/"
 
 [[blogs.entry]]
 title = "Without boats, dreams dry up"
