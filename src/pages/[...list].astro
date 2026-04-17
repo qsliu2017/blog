@@ -103,11 +103,7 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 			<nav class='mb-8 flex gap-5 border-b pb-3 text-sm'>
 				{
 					navItems.map(({ href, text, active }) => (
-						<a
-							data-active={active + ''}
-							class='data-[active=false]:text-muted data-[active=true]:font-semibold data-[active=true]:text-active data-[active=false]:hover:text-active'
-							{href}
-						>
+						<a {href} class={active ? 'font-semibold text-active' : 'text-muted hover:text-active'}>
 							{text}
 						</a>
 					))
@@ -119,7 +115,7 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 						<h2 class='mb-1 mt-8 text-xs uppercase tracking-widest text-muted first:mt-0'>{item.section}</h2>
 					) : (
 						<a
-							class='group flex items-baseline justify-between gap-4 border-b py-2 last:border-b-0 hover:text-active'
+							class='flex items-baseline justify-between gap-4 border-b py-2 last:border-b-0 hover:text-active'
 							href={item.url}
 							target={item.isExternal ? '_blank' : '_self'}
 						>

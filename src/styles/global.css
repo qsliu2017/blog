@@ -10,38 +10,6 @@
 	font-display: swap;
 }
 
-@font-face {
-	font-family: 'Zed-sans';
-	src: url('/fonts/zed-sans-extended.ttf');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'Zed-sans';
-	src: url('/fonts/zed-sans-extendeditalic.ttf');
-	font-weight: normal;
-	font-style: italic;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'Zed-sans';
-	src: url('/fonts/zed-sans-extendedbold.ttf');
-	font-weight: bold;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: 'Zed-sans';
-	src: url('/fonts/zed-sans-extendedbolditalic.ttf');
-	font-weight: bold;
-	font-style: italic;
-	font-display: swap;
-}
-
 @layer base {
 	html {
 		border-color: var(--color-border);
@@ -320,16 +288,12 @@
 	.rendered-content {
 		line-height: 1.7;
 		font-size: 1.0625rem;
+	}
+	.rendered-content :where(p, li, blockquote, strong, em, a, table, thead, th, td, h1, h2, h3, h4, h5, h6) {
 		color: var(--color-text);
 	}
-	.rendered-content :where(p, li, blockquote) {
-		color: var(--color-text);
-	}
-	.rendered-content :where(strong, em) {
-		color: var(--color-text);
-	}
-	.rendered-content :where(a) {
-		color: var(--color-text);
+	.rendered-content :where(thead, th, td, tbody tr) {
+		border-color: var(--color-border);
 	}
 
 	.rendered-content :is(h1, h2, h3, h4, h5, h6) {
@@ -337,22 +301,6 @@
 		margin-bottom: 0.5rem;
 		font-weight: 700;
 		letter-spacing: -0.01em;
-		color: var(--color-text);
-	}
-
-	.rendered-content :where(table) {
-		color: var(--color-text);
-	}
-	.rendered-content :where(thead) {
-		color: var(--color-text);
-		border-bottom-color: var(--color-border);
-	}
-	.rendered-content :where(th, td) {
-		color: var(--color-text);
-		border-color: var(--color-border);
-	}
-	.rendered-content :where(tbody tr) {
-		border-bottom-color: var(--color-border);
 	}
 	.rendered-content h2 {
 		font-size: 1.5rem;
