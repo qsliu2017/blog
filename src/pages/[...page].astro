@@ -21,14 +21,14 @@ const { post } = Astro.props;
 	<Head title={post.data.title} description={post?.data.description} ogType="article" publishDate={post.data.date} tags={post.data.tags} />
 	<body>
 		<div class='relative grid min-h-full w-full md:grid-cols-[1fr_auto_1fr]'>
-			<main class='w-main md:col-start-2'>
+			<main class='w-full max-w-main px-4 md:col-start-2 md:px-0'>
 				<nav class='font-serif text-2xl text-inactive font-heading text-3xl'>
 					<a href='/' class='hover:text-active'>Post</a>
 				</nav>
 				<time class='text-lg' datetime={post.data.date.toISOString()}>
 					{post.data.date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
 				</time>
-				<h1 class='font-serif text-4xl font-bold'>{post.data.title}</h1>
+				<h1 class='break-words font-serif text-4xl font-bold'>{post.data.title}</h1>
 				<ul class='flex flex-wrap gap-1'>
 					{
 						post.data.tags.map(tag => (

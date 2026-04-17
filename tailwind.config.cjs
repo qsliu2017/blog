@@ -11,6 +11,9 @@ module.exports = {
 			width: {
 				main: '80ch',
 			},
+			maxWidth: {
+				main: '80ch',
+			},
 			backgroundColor: {
 				DEFAULT: 'var(--color-background)',
 				inactive: 'var(--color-background)',
