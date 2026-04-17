@@ -23,6 +23,7 @@ module.exports = {
 			textColor: {
 				DEFAULT: 'var(--color-text)',
 				disabled: 'var(--color-text-disabled)',
+				muted: 'var(--color-text-muted)',
 				inactive: 'var(--color-editor-line-number)',
 				active: 'var(--color-editor-active-line-number)',
 			},

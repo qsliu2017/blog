@@ -45,9 +45,12 @@
 @layer base {
 	html {
 		border-color: var(--color-border);
-		background-color: var(--color-background);
+		background-color: var(--color-editor-background);
 		color: var(--color-text);
-		font-family: 'Zed-sans', sans-serif;
+		font-family: 'Iowan Old Style', 'Charter', 'Georgia', 'Times New Roman', serif;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeLegibility;
 	}
 	.theme-ayu {
 		--color-border: #cfd1d2ff;
@@ -315,50 +318,58 @@
 
 @layer components {
 	.rendered-content {
-		letter-spacing: -0.1ch;
-		word-spacing: 0.1ch;
-		line-height: 2;
-		font-size: large;
+		line-height: 1.7;
+		font-size: 1.0625rem;
+		color: var(--color-text);
+	}
+	.rendered-content :where(p, li, blockquote) {
+		color: var(--color-text);
+	}
+	.rendered-content :where(strong, em) {
+		color: var(--color-text);
+	}
+	.rendered-content :where(a) {
+		color: var(--color-text);
 	}
 
 	.rendered-content :is(h1, h2, h3, h4, h5, h6) {
-		margin-top: 0;
-		font-size: larger;
+		margin-top: 2rem;
+		margin-bottom: 0.5rem;
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text);
 	}
-	.rendered-content :is(h1, h2, h3, h4, h5, h6)::before {
-		color: var(--color-text-muted);
-		letter-spacing: normal;
+
+	.rendered-content :where(table) {
+		color: var(--color-text);
 	}
-	.rendered-content h1::before {
-		content: '# ';
+	.rendered-content :where(thead) {
+		color: var(--color-text);
+		border-bottom-color: var(--color-border);
 	}
-	.rendered-content h2::before {
-		content: '## ';
+	.rendered-content :where(th, td) {
+		color: var(--color-text);
+		border-color: var(--color-border);
 	}
-	.rendered-content h3::before {
-		content: '### ';
+	.rendered-content :where(tbody tr) {
+		border-bottom-color: var(--color-border);
 	}
-	.rendered-content h4::before {
-		content: '#### ';
+	.rendered-content h2 {
+		font-size: 1.5rem;
 	}
-	.rendered-content h5::before {
-		content: '##### ';
-	}
-	.rendered-content h6::before {
-		content: '###### ';
+	.rendered-content h3 {
+		font-size: 1.25rem;
 	}
 
 	.rendered-content code {
-		font-family: 'Zed-mono', monospace;
-		letter-spacing: normal;
-		word-spacing: normal;
+		font-family: 'Zed-mono', ui-monospace, Menlo, Consolas, monospace;
 	}
 	.rendered-content :not(pre) > code {
-		text-wrap: nowrap;
 		color: var(--color-text);
 		background-color: var(--color-element-background);
 		border-radius: 3px;
 		padding: 0.1em 0.3em;
+		font-size: 0.92em;
 	}
 	.rendered-content :not(pre) > code::before,
 	.rendered-content :not(pre) > code::after {

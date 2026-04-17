@@ -8,6 +8,7 @@ type Props = {
 };
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const commit = import.meta.env.PUBLIC_GIT_COMMIT_HASH || 'main';
 
 const { title = "qsliu's blog", description = "A blog about software engineering, systems programming, databases, and distributed systems.", ogType = 'website', publishDate, tags } = Astro.props;
 ---
@@ -25,6 +26,7 @@ const { title = "qsliu's blog", description = "A blog about software engineering
 
 	<link rel='canonical' href={canonicalURL} />
 	<link rel='alternate' type='application/rss+xml' title="qsliu's blog" href='/rss.xml' />
+	<meta name='build-commit' content={commit} />
 
 	<title>{title}</title>
 	<meta name='description' content={description} />
