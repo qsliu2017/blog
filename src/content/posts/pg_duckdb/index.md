@@ -1,6 +1,6 @@
 ---
-title: 'pg_duckdb: Bad idea, right?'
-description: ''
+title: 'pg_duckdb: Bad idea right?'
+description: 'Tradeoffs of embedding DuckDB inside Postgres -- resource isolation, mixed transactions, thread safety, and extensibility.'
 date: 2026-04-17
 tags: [Postgres, DuckDB]
 ---
