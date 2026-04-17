@@ -44,7 +44,7 @@ const { headings } = post.rendered;
 			<Footer />
 		</main>
 		{headings.length > 1 && (
-			<nav class='sticky top-8 col-start-3 mx-2 hidden space-y-1 self-start text-sm md:block'>
+			<nav class='sticky top-8 col-start-3 mx-2 mt-48 hidden space-y-1 self-start text-sm md:block'>
 				{headings.map(({ text, depth, slug }) => (
 					<a href={`#${slug}`} data-heading={slug} class:list={['block hover:text-blue-600', depth > 2 && 'ml-4']}>
 						{text}
