@@ -1,7 +1,6 @@
 ---
 title: "CI System: The Users' Perspective"
 date: 2023-11-13
-draft: true
 tags: [CI, GitHub Actions, GitLab CI/CD, Dagger]
 description: This post introduces the UI design of CI systems.
 ---
