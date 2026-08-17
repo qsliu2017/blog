@@ -16,7 +16,7 @@ const posts = defineCollection({
 		tags: z.string().array().default([]),
 		draft: z.boolean().default(false),
 		theme: z.enum(['default', 'tufte']).default('default'),
-		externalUrl: z.url().optional() /* if present, display as an external link */,
+		externalUrl: z.union([z.url(), z.string().regex(/^\/(?!\/)/)]).optional() /* if present, display as a link item */,
 	}),
 });
 

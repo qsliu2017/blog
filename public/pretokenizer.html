@@ -1,0 +1,267 @@
+<!--
+# Pretokenization rules
+
+`L`, `M`, `N`, `P`, and `S` mean the Unicode properties Letter, Mark,
+Number, Punctuation, and Symbol. `\s` means Unicode whitespace, while a
+literal space means only ASCII space U+0020. Regex alternatives are tried from
+left to right.
+
+HTML is used so genuinely identical family and group cells can be merged.
+Each numbered alternative in “Full origin regex” is referenced by the same
+number in the later columns.
+-->
+
+<style>
+  .pretoken-rules { border-collapse: collapse; }
+  .pretoken-rules th,
+  .pretoken-rules td {
+    border: 1px solid #888;
+    padding: 0.5rem;
+    vertical-align: top;
+  }
+  .pretoken-rules code {
+    background: rgba(127, 127, 127, 0.18);
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.25rem;
+    white-space: pre-wrap;
+  }
+  .regex-groups {
+    background: rgba(127, 127, 127, 0.18);
+    border-radius: 0.25rem;
+    display: block;
+    font-family: monospace;
+    font-size: 0;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+    padding: 0.25rem;
+  }
+  .regex-group {
+    cursor: help;
+    display: inline;
+    font-size: 0.875rem;
+    overflow-wrap: anywhere;
+    position: relative;
+  }
+  .regex-group:hover {
+    background: rgba(127, 127, 127, 0.2);
+  }
+  .regex-number {
+    background: #222;
+    border-radius: 0.25rem;
+    bottom: calc(100% + 0.35rem);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    left: 50%;
+    opacity: 0;
+    padding: 0.2rem 0.4rem;
+    pointer-events: none;
+    position: absolute;
+    transform: translateX(-50%);
+    transition: opacity 100ms ease-in-out;
+    white-space: nowrap;
+    z-index: 1;
+  }
+  .regex-number::before {
+    content: "Group ";
+  }
+  .regex-group:hover .regex-number {
+    opacity: 1;
+  }
+  .group-ref {
+    color: #666;
+    font-size: 0.8em;
+    font-weight: 700;
+  }
+  .regex-separator {
+    display: inline;
+    font-size: 0.875rem;
+  }
+  .split-label {
+    font-size: 0.8em;
+    font-weight: 700;
+    margin: 0.2rem 0;
+  }
+</style>
+
+<table class="pretoken-rules">
+<thead>
+<tr>
+  <th>Family</th>
+  <th>Rule</th>
+  <th>Full origin regex</th>
+  <th>Contraction group</th>
+  <th>Letter group</th>
+  <th>Number group</th>
+  <th>Punctuation / symbol group</th>
+  <th>Whitespace group</th>
+</tr>
+</thead>
+<tbody>
+
+<tr>
+  <td><code>r50k</code></td>
+  <td>GPT-2 / r50k</td>
+  <td><code class="regex-groups">
+    <span class="regex-group">'(?:[sdmt]&#124;ll&#124;ve&#124;re)<span class="regex-number">1</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group"> ?\p{L}+<span class="regex-number">2</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group"> ?\p{N}+<span class="regex-number">3</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group"> ?[^\s\p{L}\p{N}]+<span class="regex-number">4</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+(?!\S)<span class="regex-number">5</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+<span class="regex-number">6</span></span>
+  </code></td>
+  <td rowspan="2"><span class="group-ref">(1)</span> <code>'(?:[sdmt]&#124;ll&#124;ve&#124;re)</code><br>Do not separate <code>'s</code>, <code>'d</code>, <code>'m</code>, <code>'t</code>, <code>'ll</code>, <code>'ve</code>, or <code>'re</code>.</td>
+  <td><span class="group-ref">(2)</span> <code> ?\p{L}+</code><br>Letters with optional preceding space.</td>
+  <td><span class="group-ref">(3)</span> <code> ?\p{N}+</code><br>Numbers with optional preceding space.</td>
+  <td><span class="group-ref">(4)</span> <code> ?[^\s\p{L}\p{N}]+</code><br>Other characters with optional preceding space.</td>
+  <td><span class="group-ref">(5), (6)</span> <code>\s+(?!\S)&#124;\s+</code><br>Whitespace; no special CR/LF handling.</td>
+</tr>
+
+<tr>
+  <td rowspan="4"><code>cl100k</code></td>
+  <td>GPT-4 / cl100k</td>
+  <td><code class="regex-groups">
+    <span class="regex-group">'(?i:[sdmt]&#124;ll&#124;ve&#124;re)<span class="regex-number">1</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">[^\r\n\p{L}\p{N}]?+\p{L}++<span class="regex-number">2</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\p{N}{1,3}+<span class="regex-number">3</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group"> ?[^\s\p{L}\p{N}]++[\r\n]*+<span class="regex-number">4</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s++$<span class="regex-number">5</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s*[\r\n]<span class="regex-number">6</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+(?!\S)<span class="regex-number">7</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+<span class="regex-number">8</span></span>
+  </code></td>
+  <td><span class="group-ref">(2)</span> <code>[^\r\n\p{L}\p{N}]?+\p{L}++</code><br>Letters with one optional preceding non-letter/number, except CR/LF.</td>
+  <td><span class="group-ref">(3)</span> <code>\p{N}{1,3}+</code><br>At most 3 numbers.</td>
+  <td><span class="group-ref">(4)</span> <code> ?[^\s\p{L}\p{N}]++[\r\n]*+</code><br>Other characters with optional preceding space; absorbs CR/LF.</td>
+  <td><span class="group-ref">(5), (6), (7), (8)</span> <code>\s++$&#124;\s*[\r\n]&#124;\s+(?!\S)&#124;\s+</code><br>Trailing whitespace stays together.</td>
+</tr>
+
+<tr>
+  <td>Qwen2 / Qwen3</td>
+  <td><code class="regex-groups">
+    <span class="regex-group">(?i:'s&#124;'t&#124;'re&#124;'ve&#124;'m&#124;'ll&#124;'d)<span class="regex-number">1</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">[^\r\n\p{L}\p{N}]?\p{L}+<span class="regex-number">2</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\p{N}<span class="regex-number">3</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group"> ?[^\s\p{L}\p{N}]+[\r\n]*<span class="regex-number">4</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s*[\r\n]+<span class="regex-number">5</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+(?!\S)<span class="regex-number">6</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+<span class="regex-number">7</span></span>
+  </code></td>
+  <td rowspan="3"><span class="group-ref">(1)</span> <code>(?i:'s&#124;'t&#124;'re&#124;'ve&#124;'m&#124;'ll&#124;'d)</code><br>Do not separate <code>'s</code>, <code>'t</code>, <code>'re</code>, <code>'ve</code>, <code>'m</code>, <code>'ll</code>, or <code>'d</code>.</td>
+  <td rowspan="2"><span class="group-ref">(2)</span> <code>[^\r\n\p{L}\p{N}]?\p{L}+</code><br>Letters with one optional preceding character.</td>
+  <td><span class="group-ref">(3)</span> <code>\p{N}</code><br>Exactly one number.</td>
+  <td rowspan="2"><span class="group-ref">(4)</span> <code> ?[^\s\p{L}\p{N}]+[\r\n]*</code><br>Other characters with optional preceding space; absorbs CR/LF.</td>
+  <td rowspan="3"><span class="group-ref">(5), (6), (7)</span> <code>\s*[\r\n]+&#124;\s+(?!\S)&#124;\s+</code><br>Splits after the last CR/LF.</td>
+</tr>
+
+<tr>
+  <td>OLMo 2/3 / dolma2</td>
+  <td><code class="regex-groups">
+    <span class="regex-group">(?i:'s&#124;'t&#124;'re&#124;'ve&#124;'m&#124;'ll&#124;'d)<span class="regex-number">1</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">[^\r\n\p{L}\p{N}]?\p{L}+<span class="regex-number">2</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\p{N}{1,3}<span class="regex-number">3</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group"> ?[^\s\p{L}\p{N}]+[\r\n]*<span class="regex-number">4</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s*[\r\n]+<span class="regex-number">5</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+(?!\S)<span class="regex-number">6</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+<span class="regex-number">7</span></span>
+  </code></td>
+  <td><span class="group-ref">(3)</span> <code>\p{N}{1,3}</code><br>At most 3 numbers.</td>
+</tr>
+
+<tr>
+  <td>Qwen3.5</td>
+  <td><code class="regex-groups">
+    <span class="regex-group">(?i:'s&#124;'t&#124;'re&#124;'ve&#124;'m&#124;'ll&#124;'d)<span class="regex-number">1</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">[^\r\n\p{L}\p{N}]?[\p{L}\p{M}]+<span class="regex-number">2</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\p{N}<span class="regex-number">3</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group"> ?[^\s\p{L}\p{M}\p{N}]+[\r\n]*<span class="regex-number">4</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s*[\r\n]+<span class="regex-number">5</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+(?!\S)<span class="regex-number">6</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+<span class="regex-number">7</span></span>
+  </code></td>
+  <td><span class="group-ref">(2)</span> <code>[^\r\n\p{L}\p{N}]?[\p{L}\p{M}]+</code><br>Marks join letter runs.</td>
+  <td><span class="group-ref">(3)</span> <code>\p{N}</code><br>Exactly one number.</td>
+  <td><span class="group-ref">(4)</span> <code> ?[^\s\p{L}\p{M}\p{N}]+[\r\n]*</code><br>Other characters excluding marks; absorbs CR/LF.</td>
+</tr>
+
+<tr>
+  <td><code>deepseek_v3</code></td>
+  <td>DeepSeek V3 / V3.1 / V4</td>
+  <td>
+    <p><strong>Three isolated splits run in sequence.</strong> Each stage may subdivide pieces from an earlier stage, but it can never join across an earlier boundary. Regex matches and unmatched gaps both remain as pieces.</p>
+    <div class="split-label">Split 1 — isolate number groups</div>
+    <code class="regex-groups"><span class="regex-group">\p{N}{1,3}<span class="regex-number">1</span></span></code>
+    <div class="split-label">Split 2 — isolate CJK-range runs</div>
+    <code class="regex-groups"><span class="regex-group">[\u{4E00}-\u{9FA5}\u{3040}-\u{309F}\u{30A0}-\u{30FF}]+<span class="regex-number">2</span></span></code>
+    <div class="split-label">Split 3 — apply the main rule inside every existing piece</div>
+    <code class="regex-groups">
+      <span class="regex-group">[!&quot;#$%&amp;'()*+,\-./:;&lt;=&gt;?@\[\\\]^_`{&#124;}~][A-Za-z]+<span class="regex-number">3</span></span><span class="regex-separator">&#124;</span>
+      <span class="regex-group">[^\r\n\p{L}\p{P}\p{S}]?[\p{L}\p{M}]+<span class="regex-number">4</span></span><span class="regex-separator">&#124;</span>
+      <span class="regex-group"> ?[\p{P}\p{S}]+[\r\n]*<span class="regex-number">5</span></span><span class="regex-separator">&#124;</span>
+      <span class="regex-group">\s*[\r\n]+<span class="regex-number">6</span></span><span class="regex-separator">&#124;</span>
+      <span class="regex-group">\s+(?!\S)<span class="regex-number">7</span></span><span class="regex-separator">&#124;</span>
+      <span class="regex-group">\s+<span class="regex-number">8</span></span>
+    </code>
+  </td>
+  <td><span class="group-ref">(3)</span> <code>[!&quot;#$%&amp;'()*+,\-./:;&lt;=&gt;?@\[\\\]^_`{&#124;}~][A-Za-z]+</code><br>No contraction rule; matches punctuation + ASCII letters.</td>
+  <td><span class="group-ref">(2), (3), (4)</span> <code>[CJK range]+&#124;[ASCII punctuation][A-Za-z]+&#124;[^\r\n\p{L}\p{P}\p{S}]?[\p{L}\p{M}]+</code><br>CJK runs, punctuation + ASCII letters, or letter/mark runs.</td>
+  <td><span class="group-ref">(1)</span> <code>\p{N}{1,3}</code><br>At most 3 numbers; creates hard boundaries.</td>
+  <td><span class="group-ref">(5)</span> <code> ?[\p{P}\p{S}]+[\r\n]*</code><br>Unicode punctuation/symbols; preserves unmatched gaps.</td>
+  <td><span class="group-ref">(6), (7), (8)</span> <code>\s*[\r\n]+&#124;\s+(?!\S)&#124;\s+</code><br>Cannot cross Split 1/2 boundaries.</td>
+</tr>
+
+<tr>
+  <td rowspan="3"><code>o200k</code></td>
+  <td>GPT-4o / gpt-oss</td>
+  <td><code class="regex-groups">
+    <span class="regex-group">[^\r\n\p{L}\p{N}]?[\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{M}]*[\p{Ll}\p{Lm}\p{Lo}\p{M}]+(?i:'s&#124;'t&#124;'re&#124;'ve&#124;'m&#124;'ll&#124;'d)?<span class="regex-number">1</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">[^\r\n\p{L}\p{N}]?[\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{M}]+[\p{Ll}\p{Lm}\p{Lo}\p{M}]*(?i:'s&#124;'t&#124;'re&#124;'ve&#124;'m&#124;'ll&#124;'d)?<span class="regex-number">2</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\p{N}{1,3}<span class="regex-number">3</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group"> ?[^\s\p{L}\p{N}]+[\r\n/]*<span class="regex-number">4</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s*[\r\n]+<span class="regex-number">5</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+(?!\S)<span class="regex-number">6</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+<span class="regex-number">7</span></span>
+  </code></td>
+  <td><span class="group-ref">(1), (2)</span> <code>(?i:'s&#124;'t&#124;'re&#124;'ve&#124;'m&#124;'ll&#124;'d)?</code><br>Optional contraction suffix.</td>
+  <td rowspan="2"><span class="group-ref">(1), (2)</span> <code>[case-structured letter alternative 1]&#124;[case-structured letter alternative 2]</code><br>Case-aware letters; splits <code>camelCase</code>.</td>
+  <td><span class="group-ref">(3)</span> <code>\p{N}{1,3}</code><br>At most 3 numbers.</td>
+  <td rowspan="2"><span class="group-ref">(4)</span> <code> ?[^\s\p{L}\p{N}]+[\r\n/]*</code><br>Other characters with optional preceding space; absorbs CR/LF and <code>/</code>.</td>
+  <td rowspan="2"><span class="group-ref">(5), (6), (7)</span> <code>\s*[\r\n]+&#124;\s+(?!\S)&#124;\s+</code><br>Shared whitespace rules.</td>
+</tr>
+
+<tr>
+  <td>Nemotron-3</td>
+  <td><code class="regex-groups">
+    <span class="regex-group">[^\r\n\p{L}\p{N}]?[\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{M}]*[\p{Ll}\p{Lm}\p{Lo}\p{M}]+<span class="regex-number">1</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">[^\r\n\p{L}\p{N}]?[\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{M}]+[\p{Ll}\p{Lm}\p{Lo}\p{M}]*<span class="regex-number">2</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\p{N}<span class="regex-number">3</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group"> ?[^\s\p{L}\p{N}]+[\r\n/]*<span class="regex-number">4</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s*[\r\n]+<span class="regex-number">5</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+(?!\S)<span class="regex-number">6</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+<span class="regex-number">7</span></span>
+  </code></td>
+  <td>N/A</td>
+  <td><span class="group-ref">(3)</span> <code>\p{N}</code><br>Exactly one number.</td>
+</tr>
+
+<tr>
+  <td>Kimi K2</td>
+  <td><code class="regex-groups">
+    <span class="regex-group">[\p{Han}]+<span class="regex-number">1</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">[^\r\n\p{L}\p{N}]?[\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{M}&amp;&amp;[^\p{Han}]]*[\p{Ll}\p{Lm}\p{Lo}\p{M}&amp;&amp;[^\p{Han}]]+(?i:'s&#124;'t&#124;'re&#124;'ve&#124;'m&#124;'ll&#124;'d)?<span class="regex-number">2</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">[^\r\n\p{L}\p{N}]?[\p{Lu}\p{Lt}\p{Lm}\p{Lo}\p{M}&amp;&amp;[^\p{Han}]]+[\p{Ll}\p{Lm}\p{Lo}\p{M}&amp;&amp;[^\p{Han}]]*(?i:'s&#124;'t&#124;'re&#124;'ve&#124;'m&#124;'ll&#124;'d)?<span class="regex-number">3</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\p{N}{1,3}<span class="regex-number">4</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group"> ?[^\s\p{L}\p{N}]+[\r\n]*<span class="regex-number">5</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s*[\r\n]+<span class="regex-number">6</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+(?!\S)<span class="regex-number">7</span></span><span class="regex-separator">&#124;</span>
+    <span class="regex-group">\s+<span class="regex-number">8</span></span>
+  </code></td>
+  <td><span class="group-ref">(2), (3)</span> <code>(?i:'s&#124;'t&#124;'re&#124;'ve&#124;'m&#124;'ll&#124;'d)?</code><br>Optional suffix for non-Han letters.</td>
+  <td><span class="group-ref">(1), (2), (3)</span> <code>[\p{Han}]+&#124;[non-Han case alternatives]</code><br>Han runs, or case-aware non-Han letters.</td>
+  <td><span class="group-ref">(4)</span> <code>\p{N}{1,3}</code><br>At most 3 numbers; Han-started runs use (1).</td>
+  <td><span class="group-ref">(5)</span> <code> ?[^\s\p{L}\p{N}]+[\r\n]*</code><br>Other characters; absorbs CR/LF but not <code>/</code>.</td>
+  <td><span class="group-ref">(6), (7), (8)</span> <code>\s*[\r\n]+&#124;\s+(?!\S)&#124;\s+</code><br>Shared whitespace rules.</td>
+</tr>
+
+</tbody>
+</table>
