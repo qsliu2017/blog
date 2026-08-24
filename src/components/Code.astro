@@ -1,0 +1,116 @@
+---
+interface Props {
+	'line-number'?: boolean;
+	'show-whitespace'?: boolean;
+	wraparound?: boolean;
+	class?: string;
+}
+
+const {
+	'line-number': showLineNumbers = false,
+	'show-whitespace': showWhitespace = false,
+	wraparound: shouldWrap = true,
+	class: className,
+} = Astro.props;
+
+const content = await Astro.slots.render('default');
+const codeBlockClasses = ['code-block', showLineNumbers && 'code-block--line-number', shouldWrap && 'code-block--wraparound', className]
+	.filter(Boolean)
+	.join(' ')
+	.replaceAll('&', '&amp;')
+	.replaceAll('"', '&quot;')
+	.replaceAll("'", '&#39;')
+	.replaceAll('<', '&lt;')
+	.replaceAll('>', '&gt;');
+
+const codeBlock = content.replace(/<pre\b([^>]*)>/, (_, attributes: string) => {
+	const classAttribute = /\sclass=(['"])(.*?)\1/;
+	if (classAttribute.test(attributes)) {
+		return `<pre${attributes.replace(classAttribute, (_match, quote, classes) => ` class=${quote}${classes} ${codeBlockClasses}${quote}`)}>`;
+	}
+	return `<pre class="${codeBlockClasses}"${attributes}>`;
+});
+
+const renderedContent = showWhitespace
+	? codeBlock.replace(/(<code(?:\s[^>]*)?>)([\s\S]*?)(<\/code>)/g, (_, openingTag, code, closingTag) => {
+			const visibleCode = code.replace(/<[^>]*>|[ \t]+/g, token => {
+				if (token.startsWith('<')) return token;
+				return [...token]
+					.map(character =>
+						character === '\t'
+							? '<span class="code-whitespace code-whitespace--tab">\t</span>'
+							: '<span class="code-whitespace code-whitespace--space"> </span>',
+					)
+					.join('');
+			});
+			return openingTag + visibleCode + closingTag;
+		})
+	: codeBlock;
+---
+
+<Fragment set:html={renderedContent} />
+
+<style>
+	:global(pre.code-block) {
+		border-radius: 0;
+		line-height: normal;
+		overflow-x: auto;
+	}
+
+	:global(pre.code-block > code) {
+		display: block;
+		counter-reset: line-number;
+		font-family: 'Zed-mono', ui-monospace, Menlo, Consolas, monospace;
+		line-height: 1.4;
+		list-style: none;
+		tab-size: 4;
+	}
+
+	:global(pre.code-block > code > span.line) {
+		display: inline flow-root;
+	}
+
+	:global(pre.code-block--line-number > code > span.line) {
+		display: inline flow-root list-item;
+		margin-left: 3ch;
+		padding-left: 1ch;
+		counter-increment: line-number;
+	}
+
+	:global(pre.code-block--line-number > code > span.line::marker) {
+		color: var(--color-editor-line-number, currentColor);
+		content: counter(line-number);
+	}
+
+	:global(pre.code-block:not(.code-block--wraparound) > code),
+	:global(pre.code-block:not(.code-block--wraparound) > code > span.line) {
+		white-space: pre;
+		text-wrap: nowrap;
+	}
+
+	:global(pre.code-block--wraparound > code),
+	:global(pre.code-block--wraparound > code > span.line) {
+		white-space: pre-wrap;
+		text-wrap: wrap;
+		overflow-wrap: anywhere;
+	}
+
+	:global(pre.code-block .code-whitespace) {
+		position: relative;
+	}
+
+	:global(pre.code-block .code-whitespace::before) {
+		position: absolute;
+		color: var(--color-editor-line-number, currentColor);
+		pointer-events: none;
+		user-select: none;
+	}
+
+	:global(pre.code-block .code-whitespace--space::before) {
+		content: '·';
+	}
+
+	:global(pre.code-block .code-whitespace--tab::before) {
+		content: '→';
+	}
+</style>

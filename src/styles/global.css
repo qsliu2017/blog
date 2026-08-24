@@ -313,6 +313,28 @@
 	.rendered-content h3 {
 		font-size: 1.25rem;
 	}
+	.rendered-content :is(h1, h2, h3, h4, h5, h6)::before {
+		color: var(--color-text-muted);
+		letter-spacing: normal;
+	}
+	.rendered-content h1::before {
+		content: '# ';
+	}
+	.rendered-content h2::before {
+		content: '## ';
+	}
+	.rendered-content h3::before {
+		content: '### ';
+	}
+	.rendered-content h4::before {
+		content: '#### ';
+	}
+	.rendered-content h5::before {
+		content: '##### ';
+	}
+	.rendered-content h6::before {
+		content: '###### ';
+	}
 
 	.rendered-content code {
 		font-family: 'Zed-mono', ui-monospace, Menlo, Consolas, monospace;
@@ -335,24 +357,24 @@
 	.rendered-content a > code:hover {
 		background-color: var(--color-element-hover);
 	}
-	.rendered-content pre:has(> code) {
+	.rendered-content pre:not(.code-block):has(> code) {
 		border-radius: 0;
 		line-height: normal;
 	}
-	.rendered-content pre > code {
+	.rendered-content pre:not(.code-block) > code {
 		counter-reset: line-number;
 		text-wrap: nowrap;
 		list-style: none;
 	}
-	.rendered-content pre > code > span.line {
+	.rendered-content pre:not(.code-block) > code > span.line {
 		counter-increment: line-number;
 		display: inline flow-root list-item;
 	}
-	.rendered-content pre > code:has(> :nth-child(2)) > span.line {
+	.rendered-content pre:not(.code-block) > code:has(> :nth-child(2)) > span.line {
 		padding-left: 1ch;
 		margin-left: 1ch;
 	}
-	.rendered-content pre > code:has(> :nth-child(2)) > span.line::marker {
+	.rendered-content pre:not(.code-block) > code:has(> :nth-child(2)) > span.line::marker {
 		content: counter(line-number);
 	}
 
