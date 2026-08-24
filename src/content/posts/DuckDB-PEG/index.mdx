@@ -1,0 +1,285 @@
+---
+title: PEG Parser in DuckDB 2.0
+date: 2026-08-21
+tags: ['duckdb', 'database']
+---
+
+import Collapse from '../../../components/Collapse.astro';
+
+[DuckDB 2.0] is coming soon. I'm most interested in the new PEG parser, which allows extensions to add new grammar rules at runtime. Here is my chat with AI.
+
+[DuckDB 2.0]: https://duckdb.org/2026/08/17/duckdb-20-highlights
+
+## PEG
+
+DuckDB 1.5 uses a modified PostgreSQL-derived LALR(1) parser generated with Flex/Bison from Bison grammar files (`.y`). Given my limited PL knowledge, I focus on these questions:
+
+1. How are the grammar rules written?
+2. How is the parser generated from the grammar rules?
+3. How does the parsing process work?
+4. Is PEG as expressive as LALR(1) or LL(1)?
+
+### PEG Grammar
+
+DuckDB implements its own PEG parser, allowing it to express grammar more flexibly. Consider the `DELETE` statement:
+
+- Bison style:
+
+    ```text
+    DeleteStmt:
+        opt_with_clause DELETE_P FROM relation_expr_opt_alias
+        using_clause where_or_current_clause returning_clause
+        ;
+
+    using_clause:
+        USING from_list_opt_comma
+        | /* EMPTY */
+        ;
+    ```
+
+- (DuckDB's) PEG style:
+
+    ```text
+    DeleteStatement <- WithClause? 'DELETE' 'FROM' TargetOptAlias
+                       DeleteUsingClause? WhereClause? ReturningClause?
+    DeleteUsingClause <- 'USING' List(TableRef)
+    ```
+
+DuckDB's PEG syntax supports `?` for inline optional expressions and parameterized rules such as `List(...)`. Most grammar rules look the same except DuckDB-chosen operators `<-`, `/`, `?`, `*`, `+`. [Python's PEG grammar](https://peps.python.org/pep-0617/), for example, looks closer to Bison.
+
+### PEG Parser
+
+A PEG parser processes tokens with recursive, DFS-like matching. Conceptually, every matcher returns either `success(end, result)` or `failure`.
+
+A sequence `A B` tries to match `A` at the given `pos`, then tries to match `B` where `A` ends. If either match fails, the complete sequence fails without consuming input:
+
+```text
+Match(A B, pos):
+    a = Match(A, pos)
+    if a failed:
+        return failure
+
+    b = Match(B, a.end)
+    if b failed:
+        return failure
+
+    return success(b.end, [a.result, b.result])
+```
+
+<Collapse>
+
+<Fragment slot='summary'>
+An alternative `A / B` tries to match `A` first and, if it fails, tries to match `B`.
+</Fragment>
+
+```text
+Match(A / B, pos):
+    a = Match(A, pos)
+    if a succeeded:
+        return a
+    return Match(B, pos)
+```
+
+</Collapse>
+
+<Collapse>
+
+<Fragment slot='summary'>
+`A?` tries to match `A`; if it fails, the expression succeeds without consuming input.
+</Fragment>
+
+```text
+Match(A?, pos):
+    a = Match(A, pos)
+    if a succeeded:
+        return a
+    return success(pos, empty)
+```
+
+</Collapse>
+
+<Collapse>
+
+<Fragment slot='summary'>
+`A+` matches `A` once, then continues matching `A` until the next attempt fails.
+</Fragment>
+
+```text
+Match(A+, pos):
+    first = Match(A, pos)
+    if first failed:
+        return failure
+
+    results = [first.result]
+    pos = first.end
+    while Match(A, pos) succeeds as a:
+        results.append(a.result)
+        pos = a.end
+
+    return success(pos, results)
+```
+
+</Collapse>
+
+Given the parsing process, I have questions:
+
+1. Backtracking might take $O(2^N)$ time. Does that mean PEG is theoretically slower than LALR(1)? What is the time complexity of DuckDB's PEG parser?
+
+    <Collapse>
+    
+    <Fragment slot='summary'>
+    LALR(1) is $O(N)$; full packrat PEG is $O(RN)=O(N)$ for a fixed grammar; DuckDB's selective packrat has no general linear-time guarantee.
+    </Fragment>
+    
+    A PEG without memoization can take exponential time. After a branch fails, backtracking may evaluate the same rule again at the same token position, and nested choices can multiply that repeated work.
+    
+    Full packrat parsing caches every `(matcher, token position)` result. Given $R$ matchers and $N$ tokens, each pair is evaluated at most once, giving $O(RN)$ time. Because the grammar is fixed, $R$ is constant and this becomes $O(N)$.
+    
+    DuckDB memoizes only certain expression and identifier rules. Those cached rules avoid repeated evaluation, but uncached rules can still backtrack. The standard full-packrat proof therefore does not establish an $O(N)$ bound for the complete DuckDB parser. Its exact worst-case complexity depends on the current grammar; proving an exponential input family would require a separate analysis.
+    
+    | Parser | Worst-case time |
+    |:--|:--|
+    | LALR(1) | $O(N)$ |
+    | PEG without memoization | potentially exponential |
+    | Full packrat PEG | $O(RN)$, or $O(N)$ for a fixed grammar |
+    | DuckDB PEG | grammar-dependent; no documented general $O(N)$ guarantee |
+    
+    </Collapse>
+
+1. Since it might backtrack later, must PEG retain all tokens instead of just the next token? Does that rule out streaming parsing?
+
+    <Collapse>
+
+    <Fragment slot='summary'>
+    Not necessarily, but a general PEG cannot guarantee a fixed-size token buffer. DuckDB currently tokenizes the full query once.
+    </Fragment>
+    
+    If an alternative consumes a long prefix and then fails, the parser must rewind to the beginning of that alternative. It must retain those tokens or be able to read them again. Packrat parsing also stores results indexed by token position, normally requiring memory proportional to the input.
+    
+    DuckDB's `ParseIterator::EnsureTokenized()` explicitly tokenizes the complete query into a token vector once. It parses multi-statement input one statement at a time, but it does not provide bounded-memory token streaming.
+    
+    PEG can support bounded buffering when a grammar has bounded backtracking, provides commit points, or divides input into independent units. LALR is more naturally streaming because it generally needs only one lookahead token, although its parse stack and resulting AST can still grow with the input.
+
+    </Collapse>
+
+1. In Bison, we can run an action upon reduction. Is that impossible in PEG because of backtracking?
+
+    <Collapse>
+    
+    <Fragment slot='summary'>
+    Yes. PEG has no LR reduce step. DuckDB builds the AST after matching succeeds.
+    </Fragment>
+    
+    Bison actions run when the LR parser reduces a production. PEG has no equivalent reduction event. Running externally visible actions during speculative matching is unsafe because the current branch may later fail and backtrack.
+    
+    DuckDB instead lets matchers produce a `ParseResult` tree. After the statement matches, `PEGTransformer` walks that result and constructs the DuckDB AST.
+    
+    </Collapse>
+
+1. Does PEG have shift-reduce or reduce-reduce conflicts? Is left recursion allowed?
+
+    <Collapse>
+    
+    <Fragment slot='summary'>
+    PEG has no LR conflicts. DuckDB's PEG parser does not support left recursion, although some PEG implementations do.
+    </Fragment>
+    
+    PEG has no shift-reduce or reduce-reduce conflicts because it has no LR parse table. Choice is ordered:
+    
+    ```text
+    Value <- FunctionCall / Identifier
+    ```
+    
+    The first successful alternative wins. This removes table conflicts, but ordering mistakes can silently shadow later alternatives; specific alternatives generally need to come before their prefixes.
+    
+    DuckDB's recursive matcher cannot process direct left recursion:
+    
+    ```text
+    Expression <- Expression '+' Term / Term
+    ```
+    
+    It would recurse at the same token position forever. It is normally rewritten as:
+    
+    ```text
+    Expression <- Term ('+' Term)*
+    ```
+    
+    The AST transformer then folds the sequence from the left to preserve associativity.
+    
+    </Collapse>
+
+1. Is PEG language “greater than” LALR(1) or LL(1)?
+
+    <Collapse>
+    
+    <Fragment slot='summary'>
+    $$
+    \mathcal{L}(\mathrm{LL}(1))
+    \subsetneq
+    \mathcal{L}(\mathrm{LALR}(1))
+    \subsetneq
+    \mathcal{L}(\mathrm{PEG})
+    $$
+    </Fragment>
+    
+    Here $\mathcal{L}(C)$ means the set of languages for which some grammar in class $C$ exists.
+    
+    LL(1) must select a production using one lookahead token, so it recognizes a proper subset of the deterministic context-free languages recognized by LALR(1). LALR's bottom-up state and parse stack retain more context than an LL(1) parser's single predictive choice.
+    
+    Standard PEGs contain the deterministic context-free languages and can also recognize some non-context-free languages through syntactic predicates. This makes the second inclusion strict as well.
+    
+    This comparison concerns language families, not whether the same grammar text works with each parser. Converting an EBNF or LALR grammar to PEG may require ordering overlapping alternatives, removing left recursion, and rewriting greedy repetition.
+    
+    It also concerns the theoretical PEG formalism with syntactic predicates and full-input matching, not necessarily DuckDB's currently restricted PEG implementation.
+    
+    </Collapse>
+
+## Extensible Grammar
+
+Although a PEG parser might not appear to perform as well as Bison's LALR(1) parser, Hannes and Mark's [paper][Origin Paper] proposes a runtime-extensible parser design.
+
+[Origin Paper]: https://vldb.org/cidrdb/papers/2025/p18-muhleisen.pdf
+
+In DuckDB 2.0, grammar rules are stored as a recursive ADT rather than as a compiled finite-state machine
+ (FSM), allowing extensions to modify these rules at runtime. A simplified representation:
+
+```cpp
+enum class MatcherType {
+    KEYWORD,
+    LIST,       // sequence: A B
+    CHOICE,     // ordered choice: A / B
+    OPTIONAL,   // A?
+    REPEAT      // A+; A* is Optional(Repeat(A))
+};
+
+class Matcher {
+    MatcherType type;
+};
+
+class ListMatcher : public Matcher {
+    vector<reference<Matcher>> children;
+};
+
+class ChoiceMatcher : public Matcher {
+    vector<reference<Matcher>> alternatives;
+};
+
+class OptionalMatcher : public Matcher {
+    reference<Matcher> child;
+};
+
+class RepeatMatcher : public Matcher {
+    reference<Matcher> child;
+};
+```
+
+The matchers can be rebuilt after grammar changes. In the following example, the statement iterator deliberately executes `LOAD` before parsing the next statement, so an extension can register its syntax and use it later in the same query string.
+
+```sql
+LOAD 'loadable_extension_demo'; -- load parser extension
+quack quack quack;
+```
+
+This is a significant step for database extensibility. In [pg_ducklake], for example, we expose DuckLake tables in the Postgres catalog and would like to support syntax such as `CREATE TABLE t (...) USING ducklake WITH (path='...')`. In PostgreSQL (and most DBMSs), we must either replace the built-in parser or modify the database source to add such syntax.
+
+[pg_ducklake]: https://github.com/relytcloud/pg_ducklake

@@ -1,0 +1,76 @@
+<details class='content-collapse'>
+	<summary class='collapse-summary'>
+		<slot name='summary'>Details</slot>
+	</summary>
+	<div class='collapse-body'>
+		<slot />
+	</div>
+</details>
+
+<style>
+	.content-collapse {
+		margin-block: 1.25em;
+		overflow: hidden;
+		border: 1px solid var(--color-border);
+		border-radius: 0.25rem;
+		background: var(--color-element-background);
+	}
+
+	.collapse-summary {
+		position: relative;
+		cursor: pointer;
+		list-style: none;
+		padding: 0.25rem 2rem 0.25rem 0.5rem;
+		font-weight: 700;
+		color: var(--color-text);
+		background: var(--color-element-background);
+	}
+
+	.collapse-summary:hover {
+		background: var(--color-element-hover);
+	}
+
+	.collapse-summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.collapse-summary::after {
+		position: absolute;
+		top: 50%;
+		right: 0.75rem;
+		width: 0.45rem;
+		height: 0.45rem;
+		content: '';
+		border-right: 1.5px solid var(--color-icon-muted);
+		border-bottom: 1.5px solid var(--color-icon-muted);
+		transform: translateY(-50%) rotate(135deg);
+		transition: transform 150ms ease;
+	}
+
+	.collapse-summary :global(:is(h1, h2, h3, h4, h5, h6, p)) {
+		display: inline;
+		margin: 0;
+		font: inherit;
+		color: inherit;
+	}
+
+	.content-collapse[open] > .collapse-summary {
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.content-collapse[open] > .collapse-summary::after {
+		transform: translateY(-50%) rotate(45deg);
+	}
+
+	.collapse-body {
+		padding: 0 0.5rem 0.5rem;
+	}
+
+	.collapse-body > :global(:first-child) {
+		margin-top: 0.5rem;
+	}
+
+	.collapse-body > :global(:last-child) {
+		margin-bottom: 0;
+	}
+</style>
