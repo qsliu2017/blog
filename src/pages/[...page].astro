@@ -20,8 +20,8 @@ const { headings } = post.rendered;
 
 <html lang='en' class='theme-ayu text-pretty'>
 	<Head title={post.data.title} description={post?.data.description} ogType="article" publishDate={post.data.date} tags={post.data.tags} />
-	<body class='grid md:grid-cols-[1fr_auto_1fr]'>
-		<main class='w-full max-w-main px-4 md:col-start-2 md:px-0'>
+	<body class='md:grid md:grid-cols-[1fr_auto_1fr]'>
+		<main class='mx-auto min-w-0 w-full max-w-main px-5 md:col-start-2 md:px-0'>
 			<nav class='pt-8 text-sm text-muted'>
 				<a href='/' class='hover:text-active'>&larr; qsliu's blog</a>
 			</nav>
@@ -29,7 +29,7 @@ const { headings } = post.rendered;
 				<time class='text-sm text-muted' datetime={post.data.date.toISOString()}>
 					{post.data.date.toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}
 				</time>
-				<h1 class='mt-2 break-words text-4xl font-bold leading-tight tracking-tight'>{post.data.title}</h1>
+				<h1 class='mt-2 break-words text-3xl font-bold leading-tight tracking-tight sm:text-4xl'>{post.data.title}</h1>
 				{post.data.tags.length > 0 && (
 					<div class='mt-3 flex flex-wrap gap-2 text-sm text-muted'>
 						{post.data.tags.map(tag => (

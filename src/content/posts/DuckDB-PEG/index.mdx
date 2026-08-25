@@ -26,7 +26,7 @@ DuckDB implements its own PEG parser, allowing it to express grammar more flexib
 
 - Bison style:
 
-    <Code line-number={false} show-whitespace={true}>
+    <Code line-number={true} show-whitespace={true}>
     ```text
     DeleteStmt:
         opt_with_clause DELETE_P FROM relation_expr_opt_alias
@@ -42,7 +42,7 @@ DuckDB implements its own PEG parser, allowing it to express grammar more flexib
 
 - (DuckDB's) PEG style:
 
-    <Code line-number={false} show-whitespace={true}>
+    <Code line-number={true} show-whitespace={true}>
     ```text
     DeleteStatement <- WithClause? 'DELETE' 'FROM' TargetOptAlias
                        DeleteUsingClause? WhereClause? ReturningClause?
@@ -58,7 +58,7 @@ A PEG parser processes tokens with recursive, DFS-like matching. Conceptually, e
 
 A sequence `A B` tries to match `A` at the given `pos`, then tries to match `B` where `A` ends. If either match fails, the complete sequence fails without consuming input:
 
-<Code line-number={false} show-whitespace={true}>
+<Code line-number={true} show-whitespace={true}>
 ```text
 Match(A B, pos):
     a = Match(A, pos)
@@ -79,7 +79,7 @@ Match(A B, pos):
 An alternative `A / B` tries to match `A` first and, if it fails, tries to match `B`.
 </Fragment>
 
-<Code line-number={false} show-whitespace={true}>
+<Code line-number={true} show-whitespace={true}>
 ```text
 Match(A / B, pos):
     a = Match(A, pos)
@@ -97,7 +97,7 @@ Match(A / B, pos):
 `A?` tries to match `A`; if it fails, the expression succeeds without consuming input.
 </Fragment>
 
-<Code line-number={false} show-whitespace={true}>
+<Code line-number={true} show-whitespace={true}>
 ```text
 Match(A?, pos):
     a = Match(A, pos)
@@ -115,7 +115,7 @@ Match(A?, pos):
 `A+` matches `A` once, then continues matching `A` until the next attempt fails.
 </Fragment>
 
-<Code line-number={false} show-whitespace={true}>
+<Code line-number={true} show-whitespace={true}>
 ```text
 Match(A+, pos):
     first = Match(A, pos)

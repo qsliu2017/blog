@@ -233,12 +233,13 @@ a:visited {
     color: inherit;
 }
 
-.no-tufte-underline:link {
+.no-tufte-underline:link,
+.no-tufte-underline:visited {
     background: unset;
     text-shadow: unset;
 }
 
-a:link, .tufte-underline, .hover-tufte-underline:hover {
+a:link, a:visited, .tufte-underline, .hover-tufte-underline:hover {
     text-decoration: none;
     background: -webkit-linear-gradient(#fffff8, #fffff8), -webkit-linear-gradient(#fffff8, #fffff8), -webkit-linear-gradient(currentColor, currentColor);
     background: linear-gradient(#fffff8, #fffff8), linear-gradient(#fffff8, #fffff8), linear-gradient(currentColor, currentColor);
@@ -251,20 +252,22 @@ a:link, .tufte-underline, .hover-tufte-underline:hover {
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
-    a:link, .tufte-underline, .hover-tufte-underline:hover {
+    a:link, a:visited, .tufte-underline, .hover-tufte-underline:hover {
         background-position-y: 87%, 87%, 87%;
     }
 }
 
 /* Adds dark mode */
 @media (prefers-color-scheme: dark) {
-    a:link, .tufte-underline, .hover-tufte-underline:hover {
+    a:link, a:visited, .tufte-underline, .hover-tufte-underline:hover {
         text-shadow: 0.03em 0 #151515, -0.03em 0 #151515, 0 0.03em #151515, 0 -0.03em #151515, 0.06em 0 #151515, -0.06em 0 #151515, 0.09em 0 #151515, -0.09em 0 #151515, 0.12em 0 #151515, -0.12em 0 #151515, 0.15em 0 #151515, -0.15em 0 #151515;
     }
 }
 
 a:link::selection,
-a:link::-moz-selection {
+a:visited::selection,
+a:link::-moz-selection,
+a:visited::-moz-selection {
     text-shadow: 0.03em 0 #b4d5fe, -0.03em 0 #b4d5fe, 0 0.03em #b4d5fe, 0 -0.03em #b4d5fe, 0.06em 0 #b4d5fe, -0.06em 0 #b4d5fe, 0.09em 0 #b4d5fe, -0.09em 0 #b4d5fe, 0.12em 0 #b4d5fe, -0.12em 0 #b4d5fe, 0.15em 0 #b4d5fe, -0.15em 0 #b4d5fe;
     background: #b4d5fe;
 }
@@ -379,7 +382,20 @@ span.newthought {
 }
 
 input.margin-toggle {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+label.margin-toggle:has(+ input.margin-toggle:focus-visible) {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
 }
 
 label.sidenote-number {
@@ -407,10 +423,47 @@ label.margin-toggle:not(.sidenote-number) {
 }
 
 @media (max-width: 760px) {
+    html {
+        font-size: 15px;
+    }
+
     body {
-        width: 84%;
-        padding-left: 8%;
-        padding-right: 8%;
+        box-sizing: border-box;
+        width: 100%;
+        margin: 0;
+        padding: 0 1.25rem;
+        overflow-wrap: anywhere;
+    }
+
+    article {
+        padding: 2.5rem 0;
+    }
+
+    h1 {
+        margin-top: 2.5rem;
+        font-size: 2.6rem;
+        line-height: 1.05;
+    }
+
+    h2 {
+        font-size: 1.9rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    p.subtitle {
+        font-size: 1.4rem;
+    }
+
+    p,
+    dl,
+    ol,
+    ul,
+    blockquote {
+        font-size: 1.25rem;
+        line-height: 1.8rem;
     }
 
     hr,
@@ -421,22 +474,28 @@ label.margin-toggle:not(.sidenote-number) {
     }
 
     pre > code {
-        width: 97%;
+        box-sizing: border-box;
+        width: 100%;
+        margin-left: 0;
     }
 
     section > dl,
     section > ol,
     section > ul {
-        width: 90%;
+        box-sizing: border-box;
+        width: 100%;
     }
 
     figure {
-        max-width: 90%;
+        max-width: 100%;
     }
 
     figcaption,
     figure.fullwidth figcaption {
-        margin-right: 0%;
+        float: none;
+        clear: both;
+        width: 100%;
+        margin-right: 0;
         max-width: none;
     }
 
@@ -462,11 +521,13 @@ label.margin-toggle:not(.sidenote-number) {
     .margin-toggle:checked + .sidenote,
     .margin-toggle:checked + .marginnote {
         display: block;
-        float: left;
-        left: 1rem;
+        box-sizing: border-box;
+        float: none;
+        left: auto;
         clear: both;
-        width: 95%;
-        margin: 1rem 2.5%;
+        width: 100%;
+        margin: 1rem 0;
+        padding-left: 1rem;
         vertical-align: baseline;
         position: relative;
     }
@@ -477,7 +538,12 @@ label.margin-toggle:not(.sidenote-number) {
 
     div.table-wrapper,
     table {
-        width: 85%;
+        width: 100%;
+    }
+
+    table:not(.fullwidth) {
+        display: block;
+        overflow-x: auto;
     }
 
     img {

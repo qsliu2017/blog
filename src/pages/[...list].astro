@@ -94,7 +94,7 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 <!doctype html>
 <html lang='en' class='theme-ayu text-pretty'>
 	<Head title={titleMap[type]} />
-	<body class='mx-auto w-main max-w-full px-6'>
+	<body class='mx-auto w-main max-w-full px-5 sm:px-6'>
 		<main>
 			<header class='pb-6 pt-10'>
 				<a href='/' class='text-2xl font-bold tracking-tight hover:text-active'>qsliu's blog</a>
@@ -115,11 +115,11 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 						<h2 class='mb-1 mt-8 text-xs uppercase tracking-widest text-muted first:mt-0'>{item.section}</h2>
 					) : (
 						<a
-							class='flex items-baseline justify-between gap-4 border-b py-2 last:border-b-0 hover:text-active'
+							class='flex min-w-0 items-baseline justify-between gap-3 border-b py-2 last:border-b-0 hover:text-active'
 							href={item.url}
 							target={item.isExternal ? '_blank' : '_self'}
 						>
-							<span>
+							<span class='min-w-0 break-words'>
 								{item.draft && (
 									<>
 										[<span class='underline'>draft</span>]
@@ -138,7 +138,7 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 								)}
 							</span>
 							{item.date && (
-								<time class='text-nowrap text-sm text-muted' datetime={item.date.toISOString()}>
+								<time class='shrink-0 text-nowrap text-sm text-muted' datetime={item.date.toISOString()}>
 									{dateString(item.date)}
 								</time>
 							)}

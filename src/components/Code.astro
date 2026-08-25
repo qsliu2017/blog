@@ -72,13 +72,13 @@ const renderedContent = showWhitespace
 
 	:global(pre.code-block--line-number > code > span.line) {
 		display: inline flow-root list-item;
-		margin-left: 3ch;
+		margin-left: 1ch;
 		padding-left: 1ch;
 		counter-increment: line-number;
 	}
 
 	:global(pre.code-block--line-number > code > span.line::marker) {
-		color: var(--color-editor-line-number, currentColor);
+		color: currentColor;
 		content: counter(line-number);
 	}
 
