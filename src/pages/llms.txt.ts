@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
+import { postDescription } from '../utils/seo';
 
 export async function GET(context: APIContext) {
 	const posts = await getCollection('posts');
@@ -21,8 +22,7 @@ export async function GET(context: APIContext) {
 		'',
 		...publishedPosts.map(post => {
 			const url = post.data.externalUrl ?? `${site}/post/${post.id}/`;
-			const desc = post.data.description ? `: ${post.data.description}` : '';
-			return `- [${post.data.title}](${url})${desc}`;
+			return `- [${post.data.title}](${url}): ${postDescription(post)}`;
 		}),
 		'',
 	];

@@ -1,6 +1,5 @@
 ---
 title: 'Linux IOs'
-description: ''
 date: 2025-05-17
 tags: [io_uring, Linux]
 ---

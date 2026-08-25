@@ -1,6 +1,7 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
+import { postDescription } from '../utils/seo';
 
 export async function GET(context: APIContext) {
 	const posts = await getCollection('posts');
@@ -15,7 +16,7 @@ export async function GET(context: APIContext) {
 		items: publishedPosts.map(post => ({
 			title: post.data.title,
 			pubDate: post.data.date,
-			description: post.data.description ?? '',
+			description: postDescription(post),
 			link: post.data.externalUrl ?? `/post/${post.id}/`,
 			categories: post.data.tags,
 		})),

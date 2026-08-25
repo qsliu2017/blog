@@ -1,6 +1,5 @@
 ---
 title: 'External Algorithms'
-description: ''
 date: 2025-05-18
 tags: [database]
 ---

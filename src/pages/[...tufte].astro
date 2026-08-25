@@ -1,10 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Head from '../components/Head.astro';
+import { postDescription } from '../utils/seo';
 
 export async function getStaticPaths() {
 	const posts = (await getCollection('posts'))
-		.filter(post => post.data.theme === 'tufte')
+		.filter(post => post.data.theme === 'tufte' && !post.data.externalUrl)
 		.map(async (post) => ({
 			props: { post: { ...post, rendered: await render(post) } },
 			params: { tufte: `/post/${post.id}` },
@@ -13,10 +14,11 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const description = postDescription(post);
 ---
 
 <html lang='en'>
-	<Head title={post.data.title} description={post.data.description} ogType="article" publishDate={post.data.date} tags={post.data.tags}>
+	<Head title={post.data.title} description={description} ogType="article" publishDate={post.data.date} tags={post.data.tags}>
 		<link rel='stylesheet' href='/tufte.css' />
 	</Head>
 	<body>

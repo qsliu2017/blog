@@ -1,7 +1,7 @@
 ---
 title: A Processes Synchronize Problem and Barrier Pattern
 date: 2022-11-14
-tags: [OS, Concurreny, Data Structure]
+tags: [OS, Concurrency, Data Structure]
 math: true
 ---
 
@@ -9,9 +9,9 @@ math: true
 
 (Using `Semaphore` primitive to write pseudo code, make it right and concurrency.) There are processes and their execution order must satisfy the following DAG. For example, `P3` must be executed after `P1` and `P2`, while `P6` must wait for `P3`.
 
-![](././proc_sync_dag.png)
+![Process synchronization dependency graph from P1 and P2 through P8](./proc_sync_dag.png)
 
-# My Simple Solution
+## My Simple Solution
 
 For each process,
 
@@ -125,7 +125,7 @@ P8() {
 }
 ```
 
-# Barrier Pattern
+## Barrier Pattern
 
 In [_The Little Book of Semaphores_](https://greenteapress.com/wp/semaphores/), there is a data struct called _Barrier_, works for the pattern that each process cannot pass through the critical point until all processes have reached that point.
 

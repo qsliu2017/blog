@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Footer from '../components/Footer.astro';
 import Head from '../components/Head.astro';
+import { tagLabel, tagSlug } from '../utils/seo';
 import '../styles/global.css';
 
 type ListType = 'post' | 'star';
@@ -9,29 +10,38 @@ type ListType = 'post' | 'star';
 type Props = {
 	type: ListType;
 	tag?: string;
+	tagName?: string;
 };
 
 export const getStaticPaths = async () => {
 	const posts = await getCollection('posts');
-	const tags = new Set(posts.flatMap(post => post.data.tags));
+	const tags = new Map<string, string>();
+	posts.flatMap(post => post.data.tags).forEach(tag => tags.set(tagSlug(tag), tagLabel(tag)));
 	return [
 		/* post list */ { params: { list: undefined }, props: { type: 'post' } },
-		/* tagged post list */ ...Array.from(tags).map(tag => ({ params: { list: `/tagged/${tag}` }, props: { type: 'post', tag } })),
+		/* tagged post list */ ...Array.from(tags).map(([tag, tagName]) => ({ params: { list: `/tagged/${tag}` }, props: { type: 'post', tag, tagName } })),
 		/* stars list */ { params: { list: '/star' }, props: { type: 'star' } },
 	];
 };
 
-const { type, tag } = Astro.props;
+const { type, tag, tagName } = Astro.props;
 
 const titleMap: Record<ListType, string> = {
-	post: tag ? '#' + tag + " at qsliu's blog" : "qsliu's blog",
+	post: tagName ? '#' + tagName + " at qsliu's blog" : "qsliu's blog",
 	star: "qsliu's stars",
 };
+
+const pageHeading = type === 'star' ? 'Stars' : tagName ? `Posts tagged “${tagName}”` : 'Posts';
+const pageDescription = tagName
+	? `Articles about ${tagName} from qsliu's blog.`
+	: type === 'star'
+		? 'Bookmarks curated by qsliu.'
+		: 'Notes on databases, systems, and software engineering.';
 
 const navItems = [
 	{ href: '/', text: 'Posts', active: type === 'post' && !tag },
 	{ href: '/star', text: 'Stars', active: type === 'star' },
-	...(tag ? [{ href: `/tagged/${tag}`, text: `Posts#${tag}`, active: true }] : []),
+	...(tag ? [{ href: `/tagged/${tag}`, text: `Posts#${tagName}`, active: true }] : []),
 ];
 
 type Section = { section: string };
@@ -49,7 +59,7 @@ type Item = Section | Link;
 const getPostItems = async () => {
 	const posts = await getCollection('posts');
 	const postItems = posts
-		.filter(post => !tag || post.data.tags.includes(tag))
+		.filter(post => !tag || post.data.tags.some(postTag => tagSlug(postTag) === tag))
 		.map(({ id, data: { title, date, draft, externalUrl } }) => ({
 			url: externalUrl || `/post/${id}/`,
 			title,
@@ -93,11 +103,18 @@ const dateString = (date: Date) => zeroPadding(date.getMonth() + 1) + '/' + zero
 
 <!doctype html>
 <html lang='en' class='theme-ayu text-pretty'>
-	<Head title={titleMap[type]} />
+	<Head title={titleMap[type]} description={pageDescription} />
 	<body class='mx-auto w-main max-w-full px-5 sm:px-6'>
 		<main>
 			<header class='pb-6 pt-10'>
-				<a href='/' class='text-2xl font-bold tracking-tight hover:text-active'>qsliu's blog</a>
+				{type === 'post' && !tag ? (
+					<h1><a href='/' class='text-2xl font-bold tracking-tight hover:text-active'>qsliu's blog</a></h1>
+				) : (
+					<>
+						<a href='/' class='text-2xl font-bold tracking-tight hover:text-active'>qsliu's blog</a>
+						<h1 class='sr-only'>{pageHeading}</h1>
+					</>
+				)}
 				<p class='mt-1 text-sm text-muted'>Notes on databases, systems, and software engineering.</p>
 			</header>
 			<nav class='mb-8 flex gap-5 border-b pb-3 text-sm'>

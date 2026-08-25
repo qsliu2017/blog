@@ -48,7 +48,7 @@ _Is Kubernetes an OS? Yes!_
 
 Kubernetes has most characteristics of an OS.
 
-![](./os-vs-k8s.excalidraw.png)
+![Evolution from operator-managed hardware to an OS and a Kubernetes-managed cluster](./os-vs-k8s.excalidraw.png)
 
 |  Linux  | Kubernetes |
 | :-----: | :--------: |

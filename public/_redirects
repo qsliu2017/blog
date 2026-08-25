@@ -1,0 +1,42 @@
+# Hugo-era post URLs. Keep special Astro ID transformations first.
+/posts/6.824lab2 /post/6824lab2/ 301
+/posts/6.824lab2/ /post/6824lab2/ 301
+/posts/c_c++11_memory_model /post/c_c11_memory_model/ 301
+/posts/c_c++11_memory_model/ /post/c_c11_memory_model/ 301
+/posts/ebpf_and_application.zh /post/ebpf_and_applicationzh/ 301
+/posts/ebpf_and_application.zh/ /post/ebpf_and_applicationzh/ 301
+/posts/:slug /post/:slug/ 301
+/posts/:slug/ /post/:slug/ 301
+
+# Previous tag URLs now use normalized, lowercase slugs.
+/tagged/How-to/* /tagged/how-to/ 301
+/tagged/GitLab/* /tagged/gitlab/ 301
+/tagged/Docker/* /tagged/docker/ 301
+/tagged/OpenAI/* /tagged/openai/ 301
+/tagged/ChatGPT/* /tagged/chatgpt/ 301
+/tagged/GPT/* /tagged/gpt/ 301
+/tagged/DeepLearning/* /tagged/deeplearning/ 301
+/tagged/CI/* /tagged/ci/ 301
+/tagged/GitHub%20Actions/* /tagged/github-actions/ 301
+/tagged/GitLab%20CI%2FCD/* /tagged/gitlab-ci-cd/ 301
+/tagged/Dagger/* /tagged/dagger/ 301
+/tagged/Bash/* /tagged/bash/ 301
+/tagged/Today%20I%20Learned/* /tagged/today-i-learned/ 301
+/tagged/Golang/* /tagged/golang/ 301
+/tagged/Code%20Snippet/* /tagged/code-snippet/ 301
+/tagged/OS/* /tagged/os/ 301
+/tagged/Linux/* /tagged/linux/ 301
+/tagged/Sched/* /tagged/sched/ 301
+/tagged/SQL/* /tagged/sql/ 301
+/tagged/Apache%20Arrow/* /tagged/apache-arrow/ 301
+/tagged/Data%20Layout/* /tagged/data-layout/ 301
+/tagged/eBPF/* /tagged/ebpf/ 301
+/tagged/Git/* /tagged/git/ 301
+/tagged/Distributed%20System/* /tagged/distributed-system/ 301
+/tagged/Raft/* /tagged/raft/ 301
+/tagged/Postgres/* /tagged/postgres/ 301
+/tagged/Database/* /tagged/database/ 301
+/tagged/C%2B%2B/* /tagged/c-plus-plus/ 301
+/tagged/DuckDB/* /tagged/duckdb/ 301
+/tagged/Concurreny/* /tagged/concurrency/ 301
+/tagged/Data%20Structure/* /tagged/data-structure/ 301

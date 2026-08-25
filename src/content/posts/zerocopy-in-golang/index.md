@@ -1,6 +1,5 @@
 ---
 title: 'Zero-copy in Golang'
-description: ''
 date: 2025-05-10
 tags: [Golang]
 ---

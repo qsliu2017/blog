@@ -1,6 +1,5 @@
 ---
 title: 'Safely Use Unsafe'
-description: ''
 date: 2024-01-15
 tags: [Golang]
 ---

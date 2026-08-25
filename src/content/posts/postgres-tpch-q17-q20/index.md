@@ -1,6 +1,5 @@
 ---
 title: 'Why Postgres times out on TPC-H Q17 and Q20?'
-description: ''
 date: 2025-12-08
 tags: []
 ---

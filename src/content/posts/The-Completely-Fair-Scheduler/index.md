@@ -9,9 +9,9 @@ math: true
 
 CFS picks the task with the smallest runtime to balance tasks' runtime. Implemented by red-black tree with the leftmost node cached, picking the next task is $O(1)$!
 
-# Linux Implementation
+## Linux Implementation
 
-## Time Accounting
+### Time Accounting
 
 Task's schedule info is defined in [`struct sched_entity`](https://github.com/torvalds/linux/blob/fef7fd48922d11b22620e19f9c9101647bfe943d/include/linux/sched.h#L547).
 There is a [`vruntime`](https://github.com/torvalds/linux/blob/fef7fd48922d11b22620e19f9c9101647bfe943d/include/linux/sched.h#L556) field recording the _virtual runtime_ of the task, which is the _actual runtime_ normalized by the number of runnable tasks.
@@ -38,13 +38,13 @@ const int sched_prio_to_weight[40] = {
 };
 ```
 
-## Task Selection
+### Task Selection
 
 Runnable tasks are placed in a red-black tree, with the `vruntime` as the key. Adding a runnable task is the same as inserting a node into that red-black tree, while removing a runnable task is the same as deleting. And these two operations are $O(\log{n})$, where $n$ is the number of nodes.
 
 Picking the next task to run is the same as picking the leftmost node in the tree, which has the smallest `vruntime`. This operation is so frequent that Linux makes an optimization which is caching the leftmost node and updating the cache while inserting and removing. By this optimization, picking the next task is $O(1)$!
 
-## Timeslice
+### Timeslice
 
 Timeslice is how long a task runs. CFS calculates how long a task should run as a function of the total number of runnable tasks. Each task runs for a _timeslice_ proportional to its weight divided by the total weight of all runnable threads.
 
@@ -58,13 +58,13 @@ $$
 \max(\text{targeted latency} \times \frac{w}{\sum w}, \text{minimum granularity})
 $$
 
-## Scheduler Classes
+### Scheduler Classes
 
 In fact, CFS is not the only scheduler in Linux. There are other algorithms for scheduling different types of tasks (e.g. real-time tasks). To enable different, pluggable algorithms to coexist, Linux uses the modularity called _scheduler classes_.
 
 The base schedule iterates over each scheduler class in order of priority. The highest priority scheduler class that has a runnable process wins, selecting who runs next. The CFS is registered as [`SCHED_NORMAL`](https://github.com/torvalds/linux/blob/fef7fd48922d11b22620e19f9c9101647bfe943d/include/uapi/linux/sched.h#L114), which has the lowest priority.
 
-# Comparing with Traditional Scheduler
+## Comparing with Traditional Scheduler
 
 Modern process schedulers have two common concepts: _priority_ and _timeslice_. Timeslice is how long a process runs. Processes with a higher priority run more frequently and/or (on many systems) receive a higher timeslice.
 
@@ -86,7 +86,7 @@ Priority in Unix is in the form of _nice_ values, but in practice it leads to se
 
 The approach taken by CFS is a radical (for process schedulers) rethinking of timeslice allotment: Do away with timeslices completely and assign each process a proportion of the processor. CFS thus yields constant fairness but a variable switching rate.
 
-# References
+## References
 
 1. [Linux Kernel Development 3rd Edition](https://www.amazon.com/Linux-Kernel-Development-Robert-Love/dp/0672329468)
 1. [Inside the Linux 2.6 Completely Fair Scheduler](https://developer.ibm.com/tutorials/l-completely-fair-scheduler)

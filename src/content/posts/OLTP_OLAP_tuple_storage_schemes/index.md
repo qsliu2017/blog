@@ -5,7 +5,7 @@ description: Brief about OLTP/OLAP and column/row oriented storage.
 tags: [database]
 ---
 
-# Database Workloads
+## Database Workloads
 
 _On-Line Transaction Processing_ (OLTP) is a type of workloads that DBMS tends to (1)focus on writing more than reading and/or (2)deal with small amount of data each time.
 
@@ -13,7 +13,7 @@ While _On-Line Analytical Processing_ (OLAP) is another type that DBMS tends to 
 
 > There is another type named _Hybrid Transactional/Analytical Processing_ (HTAP) that hybrids these two types of workloads togetger.
 
-# Tuple Storage Schemes
+## Tuple Storage Schemes
 
 There are two common schemes of tuple storage: _column-oriented storage_ and _row-oriented storage_.
 
