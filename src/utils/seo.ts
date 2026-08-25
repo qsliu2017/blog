@@ -38,9 +38,11 @@ const truncate = (text: string, maxLength: number) => {
 
 export const postDescription = (post: { data: { title?: string; description?: string }; body?: string }, maxLength = 160) => {
 	const explicit = post.data.description?.trim();
-	if (explicit) return explicit;
+	if (explicit) return truncate(explicit, maxLength);
 
-	const text = plainTextFromMarkdown(post.body ?? '');
+	const bodyText = plainTextFromMarkdown(post.body ?? '');
+	const title = post.data.title?.replace(/[`*_~]/g, '').trim();
+	const text = title && bodyText.startsWith(title) ? bodyText.slice(title.length).trim() : bodyText;
 	const sentences = text.match(/[^.!?。！？]+[.!?。！？]+(?:["'’”)]*)/g);
 	const summary = sentences?.slice(0, 2).join(' ').trim() || text || post.data.title || '';
 	return truncate(summary, maxLength);

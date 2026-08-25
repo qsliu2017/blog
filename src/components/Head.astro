@@ -7,17 +7,19 @@ type Props = {
 	tags?: string[];
 };
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const commit = import.meta.env.PUBLIC_GIT_COMMIT_HASH || 'main';
-
 const { title = "qsliu's blog", description = "A blog about software engineering, systems programming, databases, and distributed systems.", ogType = 'website', publishDate, tags } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const socialImagePath = ogType === 'article' ? `/og${Astro.url.pathname.replace(/\/$/, '')}.png` : '/og/index.png';
+const socialImageURL = new URL(socialImagePath, Astro.site);
+const socialImageAlt = `${title} displayed as terminal output`;
+const commit = import.meta.env.PUBLIC_GIT_COMMIT_HASH || 'main';
 ---
 
 <head>
 	<meta charset='utf-8' />
 	<meta name='viewport' content='width=device-width,initial-scale=1' />
 	<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
-
 
 	<link rel='canonical' href={canonicalURL} />
 	<link rel='alternate' type='application/rss+xml' title="qsliu's blog" href='/rss.xml' />
@@ -31,12 +33,18 @@ const { title = "qsliu's blog", description = "A blog about software engineering
 	<meta property='og:url' content={Astro.url} />
 	<meta property='og:title' content={title} />
 	<meta property='og:description' content={description} />
+	<meta property='og:image' content={socialImageURL} />
+	<meta property='og:image:width' content='1200' />
+	<meta property='og:image:height' content='630' />
+	<meta property='og:image:alt' content={socialImageAlt} />
 
 	<!-- Twitter -->
-	<meta property='twitter:card' content='summary_large_image' />
-	<meta property='twitter:url' content={Astro.url} />
-	<meta property='twitter:title' content={title} />
-	<meta property='twitter:description' content={description} />
+	<meta name='twitter:card' content='summary_large_image' />
+	<meta name='twitter:url' content={Astro.url} />
+	<meta name='twitter:title' content={title} />
+	<meta name='twitter:description' content={description} />
+	<meta name='twitter:image' content={socialImageURL} />
+	<meta name='twitter:image:alt' content={socialImageAlt} />
 
 	<script>
 		const { matches, addEventListener } = window.matchMedia('(prefers-color-scheme: dark)');
@@ -53,6 +61,7 @@ const { title = "qsliu's blog", description = "A blog about software engineering
 			"datePublished": publishDate.toISOString(),
 			"author": { "@type": "Person", "name": "qsliu", "url": Astro.site?.origin },
 			"url": canonicalURL.href,
+			"image": socialImageURL.href,
 			"keywords": tags?.join(', '),
 		})} />
 	) : (
