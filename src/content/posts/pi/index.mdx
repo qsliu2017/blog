@@ -1,0 +1,76 @@
+---
+title: "I use Pi"
+date: 2026-08-26
+tags: [ai]
+---
+
+import Code from '../../../components/Code.astro';
+import Collapse from '../../../components/Collapse.astro';
+
+I switch to [Pi](https://pi.dev) months ago. Yeap it's that Databrick's blog convince me try it on. It's AWESOME! For me, I love it in:
+
+## I get control of context.
+
+Sounds old-school, I still see transformer LM as a pure function, or at least a fuzzy function, $F(\text{Context})$. Yet I know some properties of $F$: translate languages, 98%; write python function given a specific task, 90%; summurize a repository, 85%; etc.
+
+When output goes bad, I check context first. Mainly if essential files are read into context. Once in a C codebase, coding agent read wrong file with the same name (C/C++ has no static cross-file reference, only at linkage time you get to know which external funtion you refer to).
+
+GUI agents are bad for me in this perspect. Claude Code also hides many messages, and recently I just knew its messy [system prompt](https://platform.claude.com/docs/en/release-notes/system-prompts/overview). That explains why specific models act so over-engineering, over-design, sh\*t messy comments everywhere. With Pi's minimum system prompt, frontier models act as well or better (I use gpt-5.6-sol now since OpenAI allow its subscription used in Pi).
+
+<Collapse>
+<Fragment slot='summary'>
+    [Pi default system prompt](https://github.com/earendil-works/pi/blob/8fa7eebd235355522c8104166b4f1f959b4e2f10/packages/coding-agent/src/core/system-prompt.ts#L128-L145)
+</Fragment>
+<Code>
+```text
+You are an expert coding assistant operating inside pi, a coding agent harness. You help users by reading files, executing commands, editing code, and writing new files.
+
+Available tools:
+${toolsList}
+
+In addition to the tools above, you may have access to other custom tools depending on the project.
+
+Guidelines:
+${guidelines}
+
+Pi documentation (read only when the user asks about pi itself, its SDK, extensions, themes, skills, or TUI):
+- Main documentation: ${readmePath}
+- Additional docs: ${docsPath}
+- Examples: ${examplesPath} (extensions, custom tools, SDK)
+- When reading pi docs or examples, resolve docs/... under Additional docs and examples/... under Examples, not the current working directory
+- When asked about: extensions (docs/extensions.md, examples/extensions/), themes (docs/themes.md), skills (docs/skills.md), prompt templates (docs/prompt-templates.md), TUI components (docs/tui.md), keybindings (docs/keybindings.md), SDK integrations (docs/sdk.md), custom providers (docs/custom-provider.md), adding models (docs/models.md), pi packages (docs/packages.md), environment variables (docs/environment-variables.md)
+- When working on pi topics, read the docs and examples, and follow .md cross-references before implementing
+- Always read pi .md files completely and follow links to related docs (e.g., tui.md for TUI API details)
+```
+</Code>
+</Collapse>
+
+## No never-used tools.
+
+Claude Code has too many features. For a long time, my morning routine was to check [CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md). But as the model become smarter, these tools are less neccessary, say plan mode, but still occupy the context.
+
+Among all fashion popular harness, I hate __memory__ the most.
+When using chatbot, some terms from the previous conversation jump out, I'm like "sh*t, forget to turn off memory".
+Claude Code automatically write down some .md in `~/.claude` and retrieve it later, _silently_ corrupt the context!
+
+Pi only has 4 tools out of box, good enough to get thing done. Once want some features, I (ask Pi to) build it and evolve it in my daily work. So far I only have one tool, [subagent](https://github.com/qsliu2017/.pi-agent/tree/main/extensions/subagent), a feature that everyone talks about but means slightly different.
+
+- > Start a new context on a specific task, keep main context focus. Recursive subagents.
+
+  Agree. Helpful in huge task.
+
+- > Let subagent in cheaper model asks main agent if uncertained.
+
+  Agree on the idea. But most implementation would add more tools to achieve this. Mine hints subagent to exit with question, and later main agent resume it with an addition message.
+
+- > Subagent talks to each other.
+
+  Bad idea. No enough context for each.
+
+Building Pi extension is so joyful. You get to consider what kind of messages to inject into context, be it skill or tool, to function just well but not confuse model.
+
+## Zero-cost abstraction
+
+We're living in a gold rush. Everyday new terms come out. AI slop flooding everywhere. I respect and try to be the one who make thing simple.
+
+Pi's design seems a zero-cost abstraction above transformer LM.
