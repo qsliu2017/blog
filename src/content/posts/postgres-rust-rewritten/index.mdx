@@ -1,0 +1,21 @@
+---
+title: "Rewrite Postgres in Rust (Failed)"
+date: 2026-07-10
+tags: [postgres, rust]
+---
+
+Seeing bun rewrite months ago, I started to think about what if Postgres rewritten in Rust.
+
+I started on [pepperdb](https://github.com/qsliu2017/pepperdb). my goal is to be 100% compatible with Postgres in network wire and in-disk format. after attempts I found it hard to converge.
+
+attempt 1 (main): increment implement. I asked a fully re-implement from PG and pick up its test. turns out the code agent always escape the core system and test, and only some shallow tests pass.
+
+attempt 2 (rewrite): fully translate and then compile and regress tests. but code agent not fully translate. fixing regress tests went really slow (each step just to find out another `unimplemented!`). also, some foundation choices are mistaken made at translation (e.g. lifetime, process model, raw pointers), which be very hard to get it back after a fully translated.
+
+attempt 3 (r3): I asked code agent to translate header files first, and map structs and function signatures in pattern. then rewrite the foundation system first. but later, code agents still escape to fully translate all files before starting to fix regress tests.
+
+After reading the blog [Rewriting Bun in Rust](https://bun.com/blog/bun-in-rust) yesterday (wait for a month), I think I take some lessons from it. Now I start my 4th attempt.
+
+## Updated 2026-08-10
+
+I saw [pgrust](https://github.com/malisper/pgrust) in hackernews, and they almost get there. Although their basic decisions (thread-based, error unwind, etc.) might be a little different from mine, I consider to start from their codebase instead of fully fresh start.
