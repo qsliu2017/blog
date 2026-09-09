@@ -60,10 +60,10 @@ const getPostItems = async () => {
 	const posts = await getCollection('posts');
 	const postItems = posts
 		.filter(post => !tag || post.data.tags.some(postTag => tagSlug(postTag) === tag))
-		.map(({ id, data: { title, date, draft, externalUrl } }) => ({
+		.map(({ id, data: { title, date, updated_at, draft, externalUrl } }) => ({
 			url: externalUrl || `/post/${id}/`,
 			title,
-			date,
+			date: updated_at ?? date,
 			draft,
 			isExternal: !!externalUrl,
 		}));

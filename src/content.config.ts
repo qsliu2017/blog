@@ -13,6 +13,11 @@ const posts = defineCollection({
 			.string()
 			.or(z.date())
 			.transform(val => new Date(val)),
+		updated_at: z
+			.string()
+			.or(z.date())
+			.transform(val => new Date(val))
+			.optional(),
 		tags: z.string().array().default([]),
 		draft: z.boolean().default(false),
 		theme: z.enum(['default', 'tufte']).default('default'),

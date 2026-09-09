@@ -1,28 +1,39 @@
 ---
 title: 'Linux IOs'
 date: 2025-05-17
+updated_at: 2026-09-09
 tags: [io_uring, Linux]
 ---
 
-Days ago, PostgreSQL [18beta1][pg18beta1] introduced Linux’s `io_uring` to increase I/O throughput. In this post, I want to briefly compare different types of Linux I/O syscalls and explore how `io_uring` can enhance data-sensitive applications.
+**2026-09-09 Updated**: Add `mmap` and page cache.
+
+PostgreSQL [18 Beta 1][pg18beta1] introduced asynchronous I/O, with `io_uring` as one implementation on Linux. In this post, I want to briefly compare different types of Linux I/O syscalls and explore how `io_uring` can enhance data-sensitive applications.
 
 ## `read`/`write`
 
-[`read`][read] and [`write`][write] are the basic syscalls for performing I/O. For example, `read` asks the kernel to read `count` bytes from a file or socket associated with a given `fd`, and copy the data to `buf` in user space.
+[`read`][read] and [`write`][write] are the basic syscalls for performing I/O. For example, `read` asks the kernel to read up to `count` bytes from a file or socket associated with a given `fd`, and copy the data to `buf` in user space.
 
 ```c
 ssize_t read(int fd, void buf[.count], size_t count);
 ssize_t write(int fd, const void buf[.count], size_t count);
 ```
 
+### Page Cache and `O_DIRECT`
+
+Given an ordinary file opened without `O_DIRECT`, `read` first looks for the requested data in the kernel page cache. On a miss, the storage device fills the page cache, normally using DMA, and the kernel then copies the data to the user buffer.
+
+`write` copies data from the user buffer into the page cache and marks the pages dirty. It can return before the data reaches storage. An application must use `fsync`/`fdatasync` when durability is required.
+
+Opening a file with `O_DIRECT` requests I/O that bypasses the page cache. The user buffer, file offset, and length must meet filesystem-specific alignment requirements; invalid requests usually fail with `EINVAL`, though some filesystems fall back to buffered I/O. `O_DIRECT` neither guarantees zero-copy I/O nor provides durability.
+
 These syscalls have two major shortcomings:
 
-1. `read` operations on each individual file or socket cause a large number of context switches between kernel mode and user mode;
-1. Data is copied twice (disk/network → kernel space → user space).
+1. Each operation requires a transition between user and kernel mode, and blocking may also cause a scheduler context switch.
+2. Buffered I/O copies data between a kernel buffer and the user buffer. Files use the page cache, while sockets use socket buffers.
 
 ## IO multiplexing
 
-The main idea behind I/O multiplexing is to group a set of file descriptors (fds) and use a single syscall to monitor I/O events. This approach addresses the first issue mentioned above.
+The main idea behind I/O multiplexing is to group a set of file descriptors (fds) and use a single syscall to monitor I/O events. The application still calls `read`/`write` after an fd becomes ready.
 
 `epoll` is the Linux-specific implementation of I/O multiplexing. Relevant syscalls are listed and described below:
 
@@ -39,11 +50,11 @@ int epoll_wait(int epfd, struct epoll_event events[.maxevents],
                 int maxevents, int timeout);
 ```
 
-`epoll` is widely used in high-performance applications, frameworks, and runtimes. For example, the Go runtime internally uses a single epoll instance to perform all I/O operations.
+`epoll` only reports readiness, so it does not change the page-cache behavior of later I/O. Ordinary disk files are always ready thus cannot be added to epoll. So it is mainly used for sockets and pipes. For example, the Go runtime uses a single epoll instance for its network poller on Linux.
 
 ### `select` vs. `epoll`
 
-In earlier versions of Linux, [`select`][select] was used for I/O multiplexing. `select` uses `fd_set` to maintain a group of fds. Internally, each `select` call polls all fds, resulting in O(n) time complexity.
+[`select`][select] uses `fd_set` to maintain a group of fds. Each call scans the whole descriptor sets, resulting in O(n) work.
 
 ```c
 int select(int nfds, fd_set *_Nullable restrict readfds,
@@ -52,19 +63,39 @@ int select(int nfds, fd_set *_Nullable restrict readfds,
             struct timeval *_Nullable restrict timeout);
 ```
 
-`epoll` instead maintains a ready list. When a fd is added to an epoll instance, a callback is registered with the device driver for that fd, which is responsible for updating the ready list upon I/O events. As a result, retrieving events takes O(1) time.
+`epoll` instead maintains an interest set and a ready list. It registers callbacks with wait queues exposed by each fd. As a result, `epoll_wait` takes time proportional to the number of returned events instead of scanning the entire set.
 
-Since `select` has more limitations and worse performance compared to `epoll`, all applications should use `epoll` instead of `select` today.
+`epoll` generally performs better for large descriptor sets on Linux, while `select` remains useful for portability or small sets.
 
-## `io_uring`: one syscall and zero-copy
+## `io_uring`: batched asynchronous I/O
 
-The main idea behind [`io_uring`][io_uring] is to communicate I/O requests and responses between kernel space and user space through **shared memory**, instead of using syscalls. This avoids data copying and reduces context switches.
+The main idea behind [`io_uring`][io_uring] is to communicate I/O requests and completions through shared memory. This allows batching and reduces syscall overhead, but does not by itself avoid copying file data.
 
-Specifically, two ring buffers are shared: one for submitting I/O requests (the submission queue, SQ) and the other for receiving completion events (the completion queue, CQ). [`io_uring_setup`][io_uring_setup] is called to set up these two ring buffers.
+[`io_uring_setup`][io_uring_setup] creates an io_uring context. User space then maps a submission queue (SQ), a completion queue (CQ), and a separate array of submission queue entries (SQEs). The queues use a lockless protocol, although io_uring as a whole is not necessarily lock-free.
 
-An I/O operation is handled as follows: (1) The user pushes submission queue entries (SQEs) to the tail of the SQ; (2) The kernel polls the SQ, processes the requests, and appends completion queue entries (CQEs) to the tail of the CQ; (3) Finally, the user polls the CQ to retrieve and handle the completed results.
+Normally, the user adds SQEs and calls `io_uring_enter` to submit them. The kernel processes the requests and adds completion queue entries (CQEs), which the user can read from the CQ. The same syscall can wait for completions, so busy polling is optional.
 
-Theoretically, only one syscall, [io_uring_setup][io_uring_setup], is needed in this I/O model. However, this programming model follows a polling style, which can lead to busy waiting if I/O events are infrequent. So far, I have mainly seen use cases and proposals involving disk I/O.
+With `IORING_SETUP_SQPOLL`, a kernel thread polls the SQ and many submissions need no syscall. Otherwise, io_uring reduces syscalls mainly by batching them. It supports both file and network I/O.
+
+Its data path follows the operation and fd: buffered file I/O uses the page cache, while a file opened with `O_DIRECT` requests direct I/O. PostgreSQL 18 uses io_uring for asynchronous buffered relation reads, so data still moves from storage to the page cache and then to a PostgreSQL buffer.
+
+## `mmap`
+
+[`mmap`][mmap] maps file content into a process's virtual address space. Accessing a page that is not resident causes a page fault. A page-cache hit causes a minor fault; a miss loads the page from storage and causes a major fault.
+
+```c
+void *mmap(void *addr, size_t length, int prot, int flags,
+           int fd, off_t offset);
+```
+
+File-backed `mmap` normally uses the page cache, but maps its pages into the process instead of copying them to a separate user buffer. `O_DIRECT` does not change this behavior.
+
+Writes depend on the mapping flag:
+
+- With a writable `MAP_SHARED` mapping, a store modifies the page-cache page and marks it dirty. `msync(..., MS_SYNC)` waits for dirty pages in the specified range to be written.
+- With `MAP_PRIVATE`, writes use copy-on-write and do not update the file.
+
+PostgreSQL used `mmap` for shared-memory allocation before version 18, but it did not normally map table or index files. It read relation pages through the page cache into `shared_buffers`.
 
 ---
 
@@ -84,3 +115,4 @@ Theoretically, only one syscall, [io_uring_setup][io_uring_setup], is needed in 
 [select]: https://man7.org/linux/man-pages/man2/select.2.html
 [io_uring]: https://man7.org/linux/man-pages/man7/io_uring.7.html
 [io_uring_setup]: https://man7.org/linux/man-pages/man2/io_uring_setup.2.html
+[mmap]: https://man7.org/linux/man-pages/man2/mmap.2.html
