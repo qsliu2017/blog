@@ -1,4 +1,12 @@
-<details class='content-collapse'>
+---
+interface Props {
+	open?: boolean;
+}
+
+const { open = false } = Astro.props;
+---
+
+<details class='content-collapse' open={open}>
 	<summary class='collapse-summary'>
 		<slot name='summary'>Details</slot>
 	</summary>
