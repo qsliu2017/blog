@@ -183,3 +183,9 @@ tags = ["personal"]
 title = "Thomas Neumann's Publications"
 url = "https://dblp.org/pid/n/ThomasNeumann.html"
 author = "Thomas Neumann"
+
+[[blogs.entry]]
+title = "Database/storage systems – Xiangpeng’s blog"
+url = "https://blog.xiangpeng.systems/"
+author = "Xiangpeng Hao"
+tags = ["personal", "database"]
