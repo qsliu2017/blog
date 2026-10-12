@@ -158,6 +158,15 @@ comment = "Thoughts and links about programming"
 tags = ["personal", "programming language", "golang"]
 
 [[blogs.entry]]
+title = "spiral"
+url = "https://spiraldb.com/blog"
+tags = ["database"]
+
+[[blogs.entry.posts]]
+title = "Vortex: One Format for Any Shape"
+url = "https://spiraldb.com/blog/vortex-one-format-for-any-shape"
+
+[[blogs.entry]]
 title = "Uber"
 url = "https://www.uber.com/us/en/blog/engineering/"
 
